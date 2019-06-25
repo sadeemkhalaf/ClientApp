@@ -1,0 +1,9 @@
+<kendo-grid
+[data]="gridData"
+[height]="600">
+    <kendo-grid-column *ngFor="let col of columns" [field]="col.field" [width]="60"
+      [headerStyle]="{'background-color': '#666','color': '#fff','line-height': '1em'}"
+      [style]="{'background-color': '#888','color': '#fff'}"
+      [footerStyle]="{'background-color': '#888','color': '#fff'}">
+  </kendo-grid-column>
+</kendo-grid>
