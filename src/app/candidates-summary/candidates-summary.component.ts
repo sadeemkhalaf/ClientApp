@@ -29,7 +29,7 @@ export class CandidatesSummaryComponent implements OnInit {
       this.gridDataResult.data = res;
       this.gridDataResult.total = res.length;
       res.forEach((r) => {
-        console.log(r.id , ', ', r.name);
+        console.log(r);
       });
     });
   }

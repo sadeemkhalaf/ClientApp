@@ -8,23 +8,25 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppService } from './../Services/app-service.service';
 import { HttpClientModule } from '@angular/common/http';
-import { MatGridListModule, MatButtonModule } from '@angular/material';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { InboxDashboardComponent } from './inbox-dashboard/inbox-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CandidatesSummaryComponent
+    CandidatesSummaryComponent,
+    InboxDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GridModule,
+    DragDropModule,
     BrowserAnimationsModule,
     HttpClientModule
-    // MatGridListModule,
-    // MatButtonModule
   ],
+  exports: [],
   providers: [ AppService ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
