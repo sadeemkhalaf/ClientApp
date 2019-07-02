@@ -21,4 +21,5 @@ export interface InboxCandidates {
     englishSkills: string;
     cvAttachment: string;
     ApplicantTechnologies: string;
+    ApplicantionTitle: string;
 }
