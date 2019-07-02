@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  private userName = 'User';
+  private menuIcon = '';
+  private date = new Date();
+  private weekday: string = this.date.toLocaleString('en-us', { weekday: 'long'});
+  private month: string = this.date.toLocaleString('en-us', { month: 'short'});
+  private day: string = this.date.getDate().toString();
 
+  constructor() {}
   ngOnInit() {
+    this.menuIcon = 'menu';
+    console.log(this.month, this.weekday, this.day);
+    console.log(this.date.getDate());
+  }
+
+  private changeIcon(event: any) {
+    if (!!event) {
+      !this.menuIcon.match('menu') ? this.menuIcon = 'menu' : this.menuIcon = 'arrow_back_ios';
+    }
   }
 
 }

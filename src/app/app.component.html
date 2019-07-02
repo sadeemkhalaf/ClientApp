@@ -1,2 +1,24 @@
-<div class="nav">{{title}}</div>
-<router-outlet></router-outlet>
+<mat-drawer-container class='container' autosize>
+        <mat-drawer #drawer class='sidenav' mode='side'>
+          <p class='app-greeting'>{{greeting}}</p>
+          <p><i class='material-icons'>person</i> <span class='user-name'>{{userName}}</span></p>    
+          <div class='app-date'>
+            <span class='app-weekday'>{{weekday}}</span>
+            <span class='app-day'> {{day}}</span>
+            <span class='app-month'> {{month}}</span>
+          </div>
+          <mat-list>
+            <mat-divider></mat-divider>
+            <mat-list-item><button class='list-items' mat-button><i class='material-icons'>all_inbox</i><span> Inbox</span> </button></mat-list-item> 
+            <mat-list-item><button class='list-items' mat-button><i class='material-icons'>people</i><span> Applicants</span></button></mat-list-item>
+            <mat-list-item><button class='list-items' mat-button><i class='material-icons'>settings</i><span> Settings</span></button></mat-list-item>
+            </mat-list>
+        </mat-drawer>
+     
+        <div class='sidenav-content'>
+          <button type='button' mat-button (click)='drawer.toggle()'>
+              <i class='material-icons' (click)='changeIcon($event)'>{{menuIcon}}</i>
+          </button>
+          <router-outlet></router-outlet>
+        </div>
+      </mat-drawer-container>

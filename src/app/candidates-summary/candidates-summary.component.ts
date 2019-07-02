@@ -16,7 +16,7 @@ export class CandidatesSummaryComponent implements OnInit {
   public gridData: any ;
   public candidates: Subject<Candidates[]> = new Subject<Candidates[]>();
   public gridDataResult: GridDataResult = {data: [], total: 0};
-  public columns: any[] = [{field: "degree"}, {field: "name"}, {field: "major"}];
+  public columns: any[] = [{field: 'degree'}, {field: 'name'}, {field: 'major'}];
 
   constructor(private appService: AppService, private candService: CandidatesServiceService) {
 

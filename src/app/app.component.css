@@ -1,0 +1,83 @@
+.container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+  }
+  
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+    padding: 10px;
+    left: 0;
+  }
+  
+.sidenav {
+    display: flex;
+    padding: 10px;
+    width: 240px;
+    background: #4F0A3A;
+    color: #ffffff;
+    -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
+    -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
+    box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
+  }
+
+.sidenav mat-list mat-list-item{
+    color: #ffffff;
+  }
+.sidenav mat-list mat-divider{
+    padding-bottom: 20px;
+    border-top-color: #ffffff;
+  }
+
+.material-icons {
+    margin-right: 5px;
+  }
+
+.app-greeting {
+    margin-left: 31px;
+    font-weight: bolder;
+    font-size: 20px; 
+  }
+
+.user-name {
+    font-weight: bold;
+  }
+
+p {
+    display: flex;
+  }
+
+ .app-date {
+    text-align: center;
+  }
+ .app-day {
+    margin: 5px;
+    font-weight: bolder;
+    font-size: 25px; 
+  }
+
+ .app-weekday {
+    font-weight: normal;
+    font-size: 13px; 
+  }
+
+ .app-month {
+    font-weight: bold;
+    font-size: 16px; 
+  }
+
+.list-items {
+  display: contents;
+  
+}
+
+.list-items button:focus {
+  background: rgb(255, 0, 204);
+}

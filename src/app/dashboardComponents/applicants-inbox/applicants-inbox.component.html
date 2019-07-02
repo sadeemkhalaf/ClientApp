@@ -1,3 +1,36 @@
-<p>
-  applicants-inbox works!
-</p>
+<div class="searchContainer">
+  search box
+</div>
+
+<div class="container">
+    <h2 class="title">Inbox</h2>
+  
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="candidatesData"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="box" *ngFor="let item of candidatesData" cdkDrag><span><span class="sub-title">{{item.name}}</span> submitted to <span class="sub-title">{{item.currentposition}}</span></span></div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2 class="title">Updated Applicants</h2>
+  
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="updatedCandidates"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="box" *ngFor="let item of updatedCandidates" cdkDrag>
+        <span><span class="sub-title">{{item.name}}</span> changed to to-call status</span>
+      </div>
+    </div>
+  </div>
+
+  
+  
