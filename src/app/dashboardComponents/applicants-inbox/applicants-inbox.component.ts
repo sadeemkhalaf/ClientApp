@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { CandidatesServiceService } from 'src/Services/candidates-service.service';
+import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from 'src/app/Models/candidates';
 import { Subject } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class ApplicantsInboxComponent {
 
   public candidates: Subject<Candidates[]> = new Subject<Candidates[]>();
   public candidatesData: any ;
-  constructor(private candService: CandidatesServiceService) {
+  constructor(private candService: CandidatesService) {
     this.candService.getApplicants().subscribe((res) => {
       this.candidates.next(res as Candidates[]);
     });

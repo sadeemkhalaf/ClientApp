@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './../../Services/app-service.service';
-import { CandidatesServiceService } from './../../Services/candidates-service.service';
+import { CandidatesService } from '../../Services/candidates.service';
 import { Candidates } from '../Models/candidates';
 import { Subject } from 'rxjs';
 import { GridDataResult } from '@progress/kendo-angular-grid';
@@ -18,7 +18,7 @@ export class CandidatesSummaryComponent implements OnInit {
   public gridDataResult: GridDataResult = {data: [], total: 0};
   public columns: any[] = [{field: 'degree'}, {field: 'name'}, {field: 'major'}];
 
-  constructor(private appService: AppService, private candService: CandidatesServiceService) {
+  constructor(private appService: AppService, private candService: CandidatesService) {
 
     this.candService.getApplicants().subscribe((res) => {
       this.candidates.next(res as Candidates[]);
