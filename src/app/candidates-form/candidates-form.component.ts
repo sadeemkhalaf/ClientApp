@@ -8,9 +8,13 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class CandidatesFormComponent implements OnInit {
 
+  private candidateForm;
   constructor() { }
-
   ngOnInit() {
+    this.candidateForm = new FormGroup({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+    });
   }
 
 }

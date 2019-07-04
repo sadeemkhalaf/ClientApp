@@ -1,3 +1,17 @@
-<p>
-  candidates-form works!
-</p>
+
+  <form [formGroup]="candidateForm" class="form-container" (ngSubmit)="onSubmit()">
+    <div class="box">
+      <mat-form-field appearance="outline" class="input-field">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="input-field">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName">
+          </mat-form-field>
+        </div>
+
+
+          <button type="submit" [disabled]="true">Submit</button>
+  </form>
+
