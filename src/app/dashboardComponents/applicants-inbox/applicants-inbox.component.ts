@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { CandidatesService } from 'src/Services/candidates.service';
-import { Candidates } from 'src/app/Models/candidates';
+import { Component } from '@angular/core';
+import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@angular/cdk/drag-drop';
 import { Subject } from 'rxjs';
+import { InboxService } from './../../../Services/inbox.service';
+import { InboxCandidates } from 'src/app/Models/InboxCandidates';
+import { Candidates } from './../../Models/candidates';
+import { CdkRow } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-applicants-inbox',
@@ -11,23 +13,25 @@ import { Subject } from 'rxjs';
 })
 export class ApplicantsInboxComponent {
 
-  public candidates: Subject<Candidates[]> = new Subject<Candidates[]>();
-  public candidatesData: any ;
-  constructor(private candService: CandidatesService) {
-    this.candService.getApplicants().subscribe((res) => {
-      this.candidates.next(res as Candidates[]);
+  public inboxCandidates: Subject<InboxCandidates[]> = new Subject<InboxCandidates[]>();
+  public inboxedCandidatesData: InboxCandidates[];
+
+  constructor(private inboxService: InboxService) {
+    this.inboxService.getAllInbox().subscribe((res) => {
+      this.inboxCandidates.next(res as InboxCandidates[]);
     });
-    this.candidates.subscribe((res) => {
-      this.candidatesData = res;
-      res.forEach((r) => {
-        console.log(r);
+    this.inboxCandidates.subscribe((res: InboxCandidates[]) => {
+      this.inboxedCandidatesData = res;
+      res.forEach((r: InboxCandidates) => {
+      console.log (r.name);
       });
+
     });
    }
+  updatedIndex: InboxCandidates [] = [];
 
-  updatedCandidates: Candidates [] = [];
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<InboxCandidates[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -35,6 +39,7 @@ export class ApplicantsInboxComponent {
                         event.container.data,
                         event.previousIndex,
                         event.currentIndex);
+      console.log(event.container.data.entries().next().value[1]);
     }
   }
 

@@ -81,3 +81,7 @@ p {
 .list-items button:focus {
   background: rgb(255, 0, 204);
 }
+
+.side-icons {
+  color: #5D1049;
+}

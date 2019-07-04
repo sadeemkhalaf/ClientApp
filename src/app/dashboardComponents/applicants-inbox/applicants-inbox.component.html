@@ -7,12 +7,13 @@
   
     <div
       cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="candidatesData"
-      [cdkDropListConnectedTo]="[doneList]"
+      #inboxList="cdkDropList"
+      [cdkDropListData]="inboxedCandidatesData"
+      [cdkDropListConnectedTo]="[updatedList]"
       class="list"
       (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of candidatesData" cdkDrag><span><span class="sub-title">{{item.name}}</span> submitted to <span class="sub-title">{{item.currentposition}}</span></span></div>
+      <div class="box" *ngFor="let item of inboxedCandidatesData" cdkDrag><span>
+        <span class="sub-title">{{item.name}}</span> submitted as <span class="sub-title">{{item.currentPosition}}</span></span></div>
     </div>
   </div>
   
@@ -21,16 +22,15 @@
   
     <div
       cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="updatedCandidates"
-      [cdkDropListConnectedTo]="[todoList]"
+      #updatedList="cdkDropList"
+      [cdkDropListData]="updatedIndex"
+      [cdkDropListConnectedTo]="[inboxList]"
       class="list"
       (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of updatedCandidates" cdkDrag>
+      <div class="box" *ngFor="let item of updatedIndex" cdkDrag>
         <span><span class="sub-title">{{item.name}}</span> changed to to-call status</span>
       </div>
     </div>
   </div>
 
-  
   

@@ -20,7 +20,7 @@ export class CandidatesSummaryComponent implements OnInit {
 
   constructor(private appService: AppService, private candService: CandidatesService) {
 
-    this.candService.getApplicants().subscribe((res) => {
+    this.candService.getCandidates().subscribe((res) => {
       this.candidates.next(res as Candidates[]);
     });
 

@@ -10,12 +10,21 @@ import { AppService } from './../Services/app-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { InboxDashboardComponent } from './inbox-dashboard/inbox-dashboard.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { ApplicantsInboxComponent } from './dashboardComponents/applicants-inbox/applicants-inbox.component';
+import { ReminderComponent } from './dashboardComponents/reminder/reminder.component';
+import { MenuComponent } from './dashboardComponents/menu/menu.component';
+import { MaterialModule } from '../app/material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     CandidatesSummaryComponent,
-    InboxDashboardComponent
+    InboxDashboardComponent,
+    MainDashboardComponent,
+    ApplicantsInboxComponent,
+    MenuComponent,
+    ReminderComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +32,8 @@ import { InboxDashboardComponent } from './inbox-dashboard/inbox-dashboard.compo
     GridModule,
     DragDropModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   exports: [],
   providers: [ AppService ],
