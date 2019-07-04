@@ -10,6 +10,11 @@
 .container {
     width: 400px;
     max-width: 100%;
+    height: 400px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-padding: 3px;
+    scroll-margin-right: 5px;
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;

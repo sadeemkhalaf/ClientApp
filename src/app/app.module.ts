@@ -15,6 +15,8 @@ import { ApplicantsInboxComponent } from './dashboardComponents/applicants-inbox
 import { ReminderComponent } from './dashboardComponents/reminder/reminder.component';
 import { MenuComponent } from './dashboardComponents/menu/menu.component';
 import { MaterialModule } from '../app/material/material.module';
+import { CandidatesFormComponent } from './candidates-form/candidates-form.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MaterialModule } from '../app/material/material.module';
     MainDashboardComponent,
     ApplicantsInboxComponent,
     MenuComponent,
-    ReminderComponent
+    ReminderComponent,
+    CandidatesFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,9 @@ import { MaterialModule } from '../app/material/material.module';
     DragDropModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [],
   providers: [ AppService ],

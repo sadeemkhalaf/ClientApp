@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Candidates } from 'src/app/Models/candidates';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Candidates } from 'src/app/Models/candidates';
 
 export class CandidatesService {
 
-  constructor(private http: HttpClient, private httpHeaders: HttpHeaders) { }
+  constructor(private http: HttpClient) { }
 
   public getCandidates() {
    return this.http.get('https://localhost:44318/api/applicants');
@@ -21,6 +21,7 @@ export class CandidatesService {
 
   // insert
   public async insertCandidate(candidates: Candidates) {
+    console.log(candidates);
     return this.http.post<Candidates>('https://localhost:44318/api/applicants', candidates).toPromise();
   }
 

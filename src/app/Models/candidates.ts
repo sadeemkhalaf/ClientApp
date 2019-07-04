@@ -1,5 +1,4 @@
 export interface Candidates {
-        id: number;
         name: string;
         phoneNumber: string;
         email: string;
@@ -9,7 +8,7 @@ export interface Candidates {
         devExperience: string;
         teamLeaderExperience: string;
         englishSkills: string;
-        examScore: string;
+        examScore: number;
         expectedSalary: number;
         gpA1: number;
         gpA2: number;
@@ -18,12 +17,13 @@ export interface Candidates {
         nationality: string;
         otherUniversity: string;
         status: string;
-        technologies: Date;
+        technologies: string;
         toCallDate: Date;
+        interviewDate: Date;
         university: string;
-        interviewDate: string;
         joinDate: string;
         lastUdateLog: string;
         cvAttachment: string;
         notes: string;
+        title: string;
 }

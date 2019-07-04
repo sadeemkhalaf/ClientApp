@@ -4,7 +4,6 @@
 
 <div class="container">
     <h2 class="title">Inbox</h2>
-  
     <div
       cdkDropList
       #inboxList="cdkDropList"
@@ -13,13 +12,14 @@
       class="list"
       (cdkDropListDropped)="drop($event)">
       <div class="box" *ngFor="let item of inboxedCandidatesData" cdkDrag><span>
-        <span class="sub-title">{{item.name}}</span> submitted as <span class="sub-title">{{item.currentPosition}}</span></span></div>
+        <span class="sub-title">{{item.name}}</span> submitted as <span class="sub-title">{{item.title}}</span></span></div>
     </div>
   </div>
+
   
+
   <div class="container">
     <h2 class="title">Updated Applicants</h2>
-  
     <div
       cdkDropList
       #updatedList="cdkDropList"
@@ -28,9 +28,10 @@
       class="list"
       (cdkDropListDropped)="drop($event)">
       <div class="box" *ngFor="let item of updatedIndex" cdkDrag>
-        <span><span class="sub-title">{{item.name}}</span> changed to to-call status</span>
+        <span><span class="sub-title">{{item.name}}</span> changed to <span class="sub-title">{{item.status}}</span> status</span>
       </div>
     </div>
   </div>
+
 
   
