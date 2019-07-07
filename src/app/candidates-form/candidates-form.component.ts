@@ -51,7 +51,7 @@ export class CandidatesFormComponent implements OnInit {
   constructor() {
     this.filteredTechnologies = this.technologiesCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allTechnologies.slice()));
+      map((technology: string | null) => technology ? this._filter(technology) : this.allTechnologies.slice()));
    }
   ngOnInit() {
   }
@@ -85,7 +85,7 @@ export class CandidatesFormComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.technologies.push(event.option.viewValue);
-    this.TechnologiesInput.nativeElement.value = '';
+    // this.TechnologiesInput.nativeElement = '';
     this.technologiesCtrl.setValue(null);
   }
 
