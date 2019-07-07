@@ -17,6 +17,12 @@ import { MenuComponent } from './dashboardComponents/menu/menu.component';
 import { MaterialModule } from '../app/material/material.module';
 import { CandidatesFormComponent } from './candidates-form/candidates-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UploadFormComponent } from './upload-form/upload-form.component';
+import { FileDropDirective } from './file-drop.directive';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +33,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ApplicantsInboxComponent,
     MenuComponent,
     ReminderComponent,
-    CandidatesFormComponent
+    CandidatesFormComponent,
+    UploadFormComponent,
+    FileDropDirective
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   exports: [],
   providers: [ AppService ],

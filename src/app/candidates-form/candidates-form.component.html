@@ -1,17 +1,180 @@
-
   <form [formGroup]="candidateForm" class="form-container" (ngSubmit)="onSubmit()">
+      <mat-label class="box-label">Basic Details</mat-label>
+      <div class="box-outline">
     <div class="box">
-      <mat-form-field appearance="outline" class="input-field">
+      <mat-form-field appearance="legacy" class="input-field">
           <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName">
+          <input matInput type="text" formControlName="firstName" required>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="input-field">
+        <mat-form-field appearance="legacy" class="input-field">
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName">
+            <input matInput type="text" formControlName="lastName" required>
           </mat-form-field>
+
+          <div class="input-icon-inline"> <i class='material-icons'>email</i>
+          <mat-form-field appearance="legacy" class="input-field">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" required>
+                  <mat-error class="error-message"
+                  *ngIf="(candidateForm.get('email').dirty || candidateForm.get('email').touched)">
+                  Enter a valid email
+                </mat-error>
+            </mat-form-field>
+          </div>
+
+            <div class="input-icon-inline">
+              <i class='material-icons'>phone</i>
+              <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>Phone Number</mat-label>  
+                  <input matInput type="number" formControlName="mobile" required>
+                  <mat-error class="error-message"
+                  *ngIf="(candidateForm.get('mobile').dirty || candidateForm.get('mobile').touched)">
+                  Enter a valid mobile number
+                </mat-error>
+                </mat-form-field>
+            </div>
+
         </div>
 
+        <div class="box">
+            <mat-form-field appearance="legacy" class="input-field">
+                <mat-label>Nationality</mat-label>
+                <input matInput formControlName="nationality" required>
+              </mat-form-field>
+              <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>How did you find us?</mat-label>
+                  <input matInput formControlName="social" required>
+                </mat-form-field>
+        </div>
+      </div>
 
+        <mat-label class="box-label">Education</mat-label>
+        <div class="box-outline">
+            <div class="box">
+              <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>Major</mat-label>
+                  <input matInput formControlName="major" required>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="input-field">
+                    <mat-label>GPA</mat-label>
+                    <input matInput type="number" formControlName="gpa" required>
+                  </mat-form-field>
+        
+                  <mat-form-field appearance="legacy" class="input-field">
+                      <mat-label>University</mat-label>
+                      <input matInput formControlName="university" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy">
+                            <mat-label>Degree</mat-label>
+                            <select matNativeControl required formControlName="degree">
+                              <option value="Associate">Associate's degree</option>
+                              <option value="Bachelor">Bachelor's degree</option>
+                              <option value="Master">Master's degree</option>
+                              <option value="Doctoral">Doctoral degree</option>
+                            </select>
+                          </mat-form-field>                       
+
+                    <mat-form-field appearance="legacy" class="input-field">
+                        <mat-label>Other University</mat-label>
+                        <input matInput formControlName="otherUniversity">
+                      </mat-form-field>
+                </div>
+              </div>
+
+        <mat-label class="box-label">Experience</mat-label>
+        <div class="box-outline">
+            <div class="box">
+              
+              <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>Last Position</mat-label>
+                  <input matInput formControlName="lastPosition">
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                    <mat-label>Career Level</mat-label>
+                    <select matNativeControl required formControlName="degree">
+                      <option value="undergraduate">Undergraduate</option>
+                      <option value="entry">Fresh</option>
+                      <option value="junior">Junior</option>
+                      <option value="middle">Middle</option>
+                      <option value="senior">Senior</option>
+                    </select>
+                  </mat-form-field>
+
+                <mat-form-field appearance="legacy" class="input-field">
+                    <mat-label>Experience Years</mat-label>
+                    <input matInput formControlName="lastName" type="number" required>
+                  </mat-form-field>
+                    
+                </div>
+        
+                <div class="box">
+                  
+                    <mat-form-field appearance="legacy" class="input-field">
+                        <mat-label>Applying As</mat-label>
+                        <input matInput formControlName="applyingAs" type="text">
+                      </mat-form-field>
+  
+          
+                    <mat-form-field appearance="legacy" class="input-field">
+                        <mat-label>Expected Salary</mat-label>
+                        <input matInput formControlName="expectedSalary" type="number" required>
+                      </mat-form-field>
+
+                    <mat-form-field appearance="legacy" class="input-field">
+                        <mat-label>Expected Join Duration</mat-label>
+                        <select matNativeControl required formControlName="degree">
+                            <option value="0 days">0 days</option>
+                            <option value="1-2 weeks">1-2 weeks</option>
+                            <option value="3-4 weeks">3-4 weeks</option>
+                            <option value="1 month">1 month</option>
+                            <option value="over 2 months">over 2 months</option>
+                          </select>
+                      </mat-form-field>
+
+                    <mat-form-field appearance="legacy" class="input-field"
+                    [hideRequiredMarker]="candidateForm.value.hideRequired"
+                    [floatLabel]="candidateForm.value.floatLabel">
+                        <mat-label>English Skills</mat-label>
+                        <select matNativeControl required formControlName="englishSkills">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                          </select>
+                      </mat-form-field>
+                    </div>
+                    <div class="box">
+                          <mat-form-field>
+                            <mat-chip-list #chipList aria-label="technology selection">
+                              <mat-chip
+                                *ngFor="let technology of technologies"
+                                [selectable]="selectable"
+                                [removable]="removable"
+                                (removed)="remove(technology)">
+                                {{technology}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                              </mat-chip>
+                              <input
+                                placeholder="Technologies"
+                                #fruitInput
+                                [formControl]="technologiesCtrl"
+                                [matAutocomplete]="auto"
+                                [matChipInputFor]="chipList"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="add($event)">
+                            </mat-chip-list>
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                              <mat-option *ngFor="let technology of filteredTechnologies | async" [value]="technologies">
+                                {{technology}}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field>
+                    </div>
+                          <app-upload-form></app-upload-form>
+                    
+              </div>
+
+            
           <button type="submit" [disabled]="true">Submit</button>
   </form>
-
