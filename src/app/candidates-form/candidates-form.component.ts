@@ -13,17 +13,19 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class CandidatesFormComponent implements OnInit {
 
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
   private visible = true;
   private selectable = true;
   private removable = true;
   private addOnBlur = true;
-  private separatorKeysCodes: number[] = [ENTER, COMMA];
   private filteredTechnologies: Observable<string[]>;
   private technologies: string[] = ['c#'];
   private allTechnologies: string[] = ['Java', 'C#', '.net core', 'Angular', 'Flutter', 'docker', 'JavaScript', 'ionic'];
 
   @ViewChild('TechnologiesInput', {static: false}) TechnologiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
+
   private technologiesCtrl = new FormControl();
   private candidateForm = new FormGroup({
     firstName: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z]')]),
@@ -53,20 +55,15 @@ export class CandidatesFormComponent implements OnInit {
       startWith(null),
       map((technology: string | null) => technology ? this._filter(technology) : this.allTechnologies.slice()));
    }
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   add(event: MatChipInputEvent): void {
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
-
-      // Add our fruit
       if ((value || '').trim()) {
         this.technologies.push(value.trim());
       }
-
-      // Reset the input value
       if (input) {
         input.value = '';
       }
@@ -75,8 +72,8 @@ export class CandidatesFormComponent implements OnInit {
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.technologies.indexOf(fruit);
+  remove(technology: string): void {
+    const index = this.technologies.indexOf(technology);
 
     if (index >= 0) {
       this.technologies.splice(index, 1);
@@ -91,7 +88,6 @@ export class CandidatesFormComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.allTechnologies.filter(tech => tech.toLowerCase().indexOf(filterValue) === 0);
   }
 }

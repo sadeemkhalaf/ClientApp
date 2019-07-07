@@ -22,10 +22,6 @@
     width: 100%;
 }
 
-mat-form-field {
-    margin-right: 10px; 
-}
-
 .input-icon-inline {
     display: contents;
     margin-left: 25px;
@@ -52,4 +48,13 @@ i {
 app-upload-form {
     margin: 10px 20px 10px 20px;
     display: block;
+}
+
+.chip-list {
+    display: contents;
+    margin: 20px;
+}
+
+mat-icon {
+    margin-bottom: 25px;
 }

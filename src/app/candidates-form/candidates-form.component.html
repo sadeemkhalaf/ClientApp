@@ -143,34 +143,36 @@
                           </select>
                       </mat-form-field>
                     </div>
-                    <div class="box">
-                          <mat-form-field>
-                            <mat-chip-list #chipList aria-label="technology selection">
-                              <mat-chip
-                                *ngFor="let technology of technologies"
-                                [selectable]="selectable"
-                                [removable]="removable"
-                                (removed)="remove(technology)">
-                                {{technology}}
-                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                              </mat-chip>
-                              <input
-                                placeholder="Technologies"
-                                #fruitInput
-                                [formControl]="technologiesCtrl"
-                                [matAutocomplete]="auto"
-                                [matChipInputFor]="chipList"
-                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                [matChipInputAddOnBlur]="addOnBlur"
-                                (matChipInputTokenEnd)="add($event)">
-                            </mat-chip-list>
-                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                              <mat-option *ngFor="let technology of filteredTechnologies | async" [value]="technologies">
-                                {{technology}}
-                              </mat-option>
-                            </mat-autocomplete>
-                          </mat-form-field>
+                    <div>
+                      <mat-form-field class="chip-list">
+                        <mat-chip-list #chipList aria-label="technologies selection">
+                          <mat-chip
+                            *ngFor="let tech of technologies"
+                            [selectable]="selectable"
+                            [removable]="removable"
+                            (removed)="remove(tech)">
+                            {{tech}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input
+                            placeholder="New technology..."
+                            #fruitInput
+                            [formControl]="technologiesCtrl"
+                            [matAutocomplete]="auto"
+                            [matChipInputFor]="chipList"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                          <mat-option *ngFor="let technology of filteredTechnologies | async" [value]="technology">
+                            {{technology}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
                     </div>
+       
+                    
                           <app-upload-form></app-upload-form>
                     
               </div>
