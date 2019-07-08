@@ -10,7 +10,6 @@ export class UploadFilesService {
 
   constructor(private fireDatabase: AngularFireDatabase) { }
 
-  // push upload
   public pushUpload(upload: Upload) {
     const storageReference = firebase.storage().ref();
     const uploadTask = storageReference.child(`uploads/${upload.file.name}`).put(upload.file);

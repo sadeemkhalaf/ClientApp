@@ -1,7 +1,8 @@
 .form-container {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    margin: 20px auto;
+    align-content: center;
 }
 
 .box{
@@ -50,6 +51,10 @@ app-upload-form {
     display: block;
 }
 
+.chip-list-box {
+    margin: 20px;
+}
+
 .chip-list {
     display: contents;
     margin: 20px;
@@ -57,4 +62,10 @@ app-upload-form {
 
 mat-icon {
     margin-bottom: 25px;
+}
+
+.button-row button,
+.button-row a {
+    margin-top: 20px;
+    margin-right: 8px;
 }

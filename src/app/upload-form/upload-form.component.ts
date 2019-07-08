@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Upload } from '../Models/upload';
 import { UploadFilesService } from './../../Services/upload-files.service';
 import * as _ from 'lodash';
@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 })
 export class UploadFormComponent implements OnInit {
 
+  @Output() outputFilesList = new EventEmitter<Upload[]>();
   public currentUpload: Upload;
   public dropzoneActive = false;
   public filesList: Upload[] = [];
@@ -29,6 +30,10 @@ export class UploadFormComponent implements OnInit {
       this.uploadFileService.pushUpload(this.currentUpload);
       this.filesList.push(this.currentUpload);
     });
-    console.log(this.filesList);
+    this.oFilesList(this.filesList);
+  }
+
+  public oFilesList( filesList: Upload[]) {
+    this.outputFilesList.emit(filesList);
   }
 }
