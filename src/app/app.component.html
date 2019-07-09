@@ -11,7 +11,7 @@
             <mat-divider></mat-divider>
             <mat-list-item>
               <button class='list-items' mat-button>
-              <mat-icon class='material-icons' matBadge="15" matBadgeColor="accent" matBadgePosition="before">all_inbox</mat-icon>
+              <mat-icon class='material-icons' matBadge="{{inboxCount}}" matBadgeColor="accent" matBadgePosition="before">all_inbox</mat-icon>
               <span> Inbox</span>
             </button>
           </mat-list-item> 
@@ -43,7 +43,7 @@
               <mat-list *ngIf="drawerClosed">
                 <mat-list-item>
                   <button class='list-items' mat-button>
-                  <mat-icon class='material-icons side-icons' matBadge="15" matBadgeColor="accent">all_inbox</mat-icon>
+                  <mat-icon class='material-icons side-icons' matBadge="{{inboxCount}}" matBadgeColor="accent">all_inbox</mat-icon>
                 </button>
               </mat-list-item> 
                 <mat-list-item>

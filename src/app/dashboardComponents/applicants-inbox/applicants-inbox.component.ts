@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@angular/cdk/drag-drop';
 import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
@@ -11,6 +11,7 @@ import { Candidates } from 'src/app/Models/candidates';
 })
 export class ApplicantsInboxComponent {
 
+  @Output() inboxCount = new EventEmitter<number>();
   public inboxCandidates: ReplaySubject<Candidates[]> = new ReplaySubject<Candidates[]>(1);
   public inboxedCandidatesData: Candidates[] = [];
   private updatedIndex: Candidates [] = [];
@@ -23,6 +24,7 @@ export class ApplicantsInboxComponent {
       this.updatedIndex = item;
       this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
     });
+    this.inboxCount.emit(this.inboxedCandidatesData.length);
    }
 
   async drop(event: CdkDragDrop<Candidates[]>) {
