@@ -1,5 +1,6 @@
-
-<form [formGroup]="candidateForm" class="form-container" (ngSubmit)="onSubmit()">
+<div class="outer">
+<app-submit-result (closedCard)="closeCard($event)" *ngIf="registerationSuccess"></app-submit-result>
+<form [formGroup]="candidateForm" class="form-container" (ngSubmit)="onSubmit()" *ngIf="!registerationSuccess">
     <mat-label class="box-label">Basic Details</mat-label>
       <div class="box-outline">
     <div class="box">
@@ -34,7 +35,6 @@
                 </mat-error>
                 </mat-form-field>
             </div>
-
         </div>
 
         <div class="box">
@@ -185,3 +185,4 @@
           <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
         </div>
   </form>
+</div>

@@ -8,6 +8,7 @@ import {map, startWith} from 'rxjs/operators';
 import { Upload } from '../Models/upload';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from './../Models/candidates';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-candidates-form',
@@ -19,45 +20,47 @@ export class CandidatesFormComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   private filesList: Upload[] = [];
+  private registerationSuccess = false;
   private visible = true;
   private selectable = true;
   private removable = true;
   private addOnBlur = true;
   private filteredTechnologies: Observable<string[]>;
   private technologies: string[] = [];
-  private allTechnologies: string[] = ['java', 'C#', '.net core', 'angular', 'flutter', 'docker', 'javaScript', 'ionic'];
+  private allTechnologies: string[] = ['java', 'python', 'php' , 'C#', '.net core', 'angular', 'flutter', 'docker', 'javaScript', 'ionic'];
 
   @ViewChild('TechnologiesInput', {static: false}) TechnologiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
 
   private technologiesCtrl = new FormControl();
   private candidateForm = new FormGroup({});
-  constructor(private candidatesService: CandidatesService) {
+  constructor(private candidatesService: CandidatesService, private router: Router) {
     this.filteredTechnologies = this.technologiesCtrl.valueChanges.pipe(
       startWith(null),
       map((technology: string | null) => technology ? this._filter(technology) : this.allTechnologies.slice()));
    }
   ngOnInit() {
+    console.log(this.router.url.includes('apply'));
     this.candidateForm = new FormGroup({
       firstName: new FormControl('test', Validators.required),
       lastName: new FormControl('capella', Validators.required),
       mobile: new FormControl('0792077863', Validators.required),
-      email: new FormControl('sadeem@capella.io', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+      email: new FormControl('sadeem@capella.io', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       social: new FormControl('LinkedIn', Validators.required),
       nationality: new FormControl('Jordanian', Validators.required),
       major: new FormControl('', Validators.required),
       gpa: new FormControl('3.24', Validators.required),
       university: new FormControl('YU', Validators.required),
-      degree: new FormControl('', Validators.required),
+      degree: new FormControl(''),
       otherUniversity: new FormControl(''),
       lastPosition: new FormControl('SE'),
       careerLevel: new FormControl('', Validators.required),
-      experienceLevel: new FormControl('', Validators.required),
+      experienceLevel: new FormControl(''),
       experienceYears: new FormControl('1', Validators.required),
-      joinDate: new FormControl('', Validators.required),
-      applyingAs: new FormControl('SE'),
+      joinDate: new FormControl(''),
+      applyingAs: new FormControl('Software Engineer', Validators.required),
       expectedSalary: new FormControl('700', Validators.required),
-      englishSkills: new FormControl('', Validators.required),
+      englishSkills: new FormControl(''),
       attachments: new FormControl(''),
     });
   }
@@ -101,8 +104,7 @@ export class CandidatesFormComponent implements OnInit {
   }
 
    private async onSubmit() {
-     console.log(this.candidateForm.status);
-     if (this.candidateForm.status !== 'INVALID') {
+     if (this.candidateForm.valid) {
            const gpa = this.candidateForm.get('gpa').value as number;
            const candidate: Candidates = {
         name: this.candidateForm.get('firstName').value + ' ' +  this.candidateForm.get('lastName').value,
@@ -125,12 +127,12 @@ export class CandidatesFormComponent implements OnInit {
         technologies: this.technologies.toString(),
         university: this.candidateForm.get('university').value,
         teamLeaderExperience: 0,
+        status: 'inbox',
         title: this.candidateForm.get('applyingAs').value
       };
            this.initializeForm();
            await this.candidatesService.insertCandidate(candidate);
-     } else {
-       console.log('complete form first!');
+           this.registerationSuccess = true;
      }
 
   }
@@ -153,5 +155,11 @@ export class CandidatesFormComponent implements OnInit {
       console.log(file);
     });
     return files;
+  }
+
+  private closeCard(event: boolean) {
+    if (event) {
+      this.registerationSuccess = !event;
+    }
   }
 }
