@@ -11,9 +11,9 @@
       [cdkDropListConnectedTo]="[updatedList]"
       class="list"
       (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of updatedIndex" cdkDrag>
-        <span *ngIf="item.status === 'Inbox'">
-        <span *ngIf="item.status === 'Inbox'" class="sub-title" >{{item.name}}</span> submitted as <span class="sub-title">{{item.title}}</span>
+      <div class="box" *ngFor="let item of inboxedCandidatesData" cdkDrag>
+        <span>
+        <span class="sub-title" >{{item.name}}</span> submitted as <span class="sub-title">{{item.title}}</span>
       </span>
       </div>
     </div>
@@ -31,7 +31,7 @@
       class="list"
       (cdkDropListDropped)="drop($event)">
       <div class="box" *ngFor="let item of updatedIndex" cdkDrag>
-        <span><span class="sub-title">{{item.name}}</span> changed to <span class="sub-title">{{item.status}}</span> status</span>
+        <span><span class="sub-title" onclick="goToApplicantDetails()">{{item.name}}</span> changed to <span class="sub-title">{{item.status}}</span> status</span>
       </div>
     </div>
   </div>

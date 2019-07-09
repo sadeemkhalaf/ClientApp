@@ -29,7 +29,13 @@ export class UploadFilesService {
       );
   }
 
+  public async deleteFile(file: Upload) {
+    const ref = firebase.storage().ref();
+    await ref.child(`uploads/${file.name}`).delete();
+  }
+
   private saveFileData(upload: Upload) {
     this.fireDatabase.list(`uploads`).push(upload);
   }
+
 }

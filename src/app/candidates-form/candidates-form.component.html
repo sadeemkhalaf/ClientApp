@@ -38,10 +38,14 @@
         </div>
 
         <div class="box">
-            <mat-form-field appearance="legacy" class="input-field">
-                <mat-label>Nationality</mat-label>
-                <input matInput formControlName="nationality">
-              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                  <mat-label>Nationality</mat-label>
+                  <select matNativeControl formControlName="nationality" [value]="value">
+                    <option></option>
+                    <option value="Jordanian">Jordanian</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </mat-form-field>  
               <mat-form-field appearance="legacy" class="input-field">
                   <mat-label>How did you find us?</mat-label>
                   <input matInput formControlName="social">
@@ -94,7 +98,7 @@
 
                 <mat-form-field appearance="legacy">
                     <mat-label>Career Level</mat-label>
-                    <select matNativeControl formControlName="degree" [value]="value">
+                    <select matNativeControl formControlName="careerLevel" [value]="value">
                       <option></option>
                       <option value="undergraduate">Undergraduate</option>
                       <option value="entry">Fresh</option>
@@ -177,7 +181,7 @@
                           <app-upload-form (outputFilesList)="getFilesList($event)"></app-upload-form>
               </div>
         <div class="button-row">
-          <button mat-stroked-button type="submit" [disabled]="candidateForm.invalid">Submit</button>
+          <button mat-stroked-button type="submit"><i class='material-icons icon'>send</i>Submit</button>
           <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
         </div>
   </form>

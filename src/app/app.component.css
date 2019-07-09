@@ -1,12 +1,10 @@
 .container {
     position: absolute;
-    display: flex;
     flex-direction: column;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 0;
   }
   
 .sidenav-content {
@@ -14,18 +12,19 @@
     height: 100%;
     align-items: flex-start;
     padding: 10px;
-    left: 0;
+    width: 80%;
   }
   
 .sidenav {
-    display: flex;
+    display: flexbox;
     padding: 10px;
-    width: 240px;
+    width: 15%;
     background: #4F0A3A;
     color: #ffffff;
     -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
     -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
     box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
+    margin-right: 20px;
   }
 
 .sidenav mat-list mat-list-item{
@@ -84,4 +83,11 @@ p {
 
 .side-icons {
   color: #5D1049;
+}
+
+.menu-icon {
+  width: 5%;
+  flex-direction: column;
+  float: left;
+  margin-right: 20px;
 }

@@ -10,7 +10,8 @@ import * as _ from 'lodash';
 })
 export class UploadFormComponent implements OnInit {
 
-  @Output() outputFilesList = new EventEmitter<Upload[]>();
+  @Output() outputFiles = new EventEmitter<Upload[]>();
+
   public currentUpload: Upload;
   public dropzoneActive = false;
   public filesList: Upload[] = [];
@@ -33,7 +34,15 @@ export class UploadFormComponent implements OnInit {
     this.oFilesList(this.filesList);
   }
 
-  public oFilesList( filesList: Upload[]) {
-    this.outputFilesList.emit(filesList);
+  public oFilesList( files: Upload[]) {
+    this.outputFiles.emit(files);
+  }
+
+  async deleteFile(event: any, file: Upload) {
+    await this.uploadFileService.deleteFile(file);
+    const index: number = this.filesList.indexOf(file);
+    if (index !== -1) {
+        this.filesList.splice(index, 1);
+    }
   }
 }

@@ -13,7 +13,6 @@ import { InboxDashboardComponent } from './inbox-dashboard/inbox-dashboard.compo
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { ApplicantsInboxComponent } from './dashboardComponents/applicants-inbox/applicants-inbox.component';
 import { ReminderComponent } from './dashboardComponents/reminder/reminder.component';
-import { MenuComponent } from './dashboardComponents/menu/menu.component';
 import { MaterialModule } from '../app/material/material.module';
 import { CandidatesFormComponent } from './candidates-form/candidates-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -31,7 +30,6 @@ import { environment } from '../environments/environment';
     InboxDashboardComponent,
     MainDashboardComponent,
     ApplicantsInboxComponent,
-    MenuComponent,
     ReminderComponent,
     CandidatesFormComponent,
     UploadFormComponent,

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@angular/cdk/drag-drop';
-import { Subject } from 'rxjs';
-import { InboxService } from './../../../Services/inbox.service';
-import { InboxCandidates } from 'src/app/Models/InboxCandidates';
+import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from 'src/app/Models/candidates';
 
@@ -13,26 +11,21 @@ import { Candidates } from 'src/app/Models/candidates';
 })
 export class ApplicantsInboxComponent {
 
-  public inboxCandidates: Subject<InboxCandidates[]> = new Subject<InboxCandidates[]>();
-  public inboxedCandidatesData: InboxCandidates[] = [];
+  public inboxCandidates: ReplaySubject<Candidates[]> = new ReplaySubject<Candidates[]>(1);
+  public inboxedCandidatesData: Candidates[] = [];
   private updatedIndex: Candidates [] = [];
-  constructor(private inboxService: InboxService,
-              private candidatesService: CandidatesService) {
-    this.inboxService.getAllInbox().subscribe((res) => {
-      this.inboxCandidates.next(res as InboxCandidates[]);
-    });
-    this.inboxCandidates.subscribe((res: InboxCandidates[]) => {
-      this.inboxedCandidatesData = res;
-    });
+  constructor(private candidatesService: CandidatesService) {
     this.candidatesService.getCandidates().subscribe((item: Candidates[]) => {
-      this.updatedIndex = item;
+      this.inboxCandidates.next(item);
     });
-    this.updatedIndex.forEach((item) => {
-      console.log((item));
+
+    this.inboxCandidates.subscribe((item) => {
+      this.updatedIndex = item;
+      this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
     });
    }
 
-  async drop(event: CdkDragDrop<InboxCandidates[]>) {
+  async drop(event: CdkDragDrop<Candidates[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -40,70 +33,7 @@ export class ApplicantsInboxComponent {
                         event.container.data,
                         event.previousIndex,
                         0);
-
-      const itemData = event.container.data.entries().next().value[1];
-
-      if (itemData.status.toLowerCase() === 'inbox') {
-      const candidate: Candidates = {
-        name: itemData.name,
-        email: itemData.email,
-        careerLevel: itemData.careerLevel,
-        currentPosition: itemData.currentPosition,
-        cvAttachment: itemData.cvAttachment,
-        degree: itemData.degree,
-        devExperience: itemData.devExperience,
-        englishSkills: itemData.englishSkills,
-        examScore: 0,
-        expectedSalary: itemData.expectedSalary,
-        howDidYouFindUs: itemData.howDidYouFindUs,
-        gpA1: itemData.gpA1,
-        gpA2: itemData.gpA2,
-        interviewDate: new Date(),
-        joinDate: itemData.joinDate,
-        lastUdateLog: 'updated status',
-        major: itemData.major,
-        nationality: itemData.nationality,
-        university: itemData.university,
-        otherUniversity: itemData.otherUniversity,
-        phoneNumber: itemData.phoneNumber,
-        status: 'archived',
-        technologies: itemData.technologies,
-        teamLeaderExperience: itemData.teamLeaderExperience,
-        toCallDate: new Date(),
-        notes: '',
-        title: itemData.title
-      };
-      const data = await this.candidatesService.insertCandidate(candidate);
-      const deleted = await this.inboxService.deleteInboxedCandidate(itemData.id);
-      } else {
-        const candidate: InboxCandidates = {
-          name: itemData.name,
-          email: itemData.email,
-          careerLevel: itemData.careerLevel,
-          currentPosition: itemData.currentPosition,
-          cvAttachment: itemData.cvAttachment,
-          degree: itemData.degree,
-          devExperience: itemData.devExperience,
-          englishSkills: itemData.englishSkills,
-          expectedSalary: itemData.expectedSalary,
-          howDidYouFindUs: itemData.howDidYouFindUs,
-          gpA1: itemData.gpA1,
-          gpA2: itemData.gpA2,
-          joinDate: itemData.joinDate,
-          major: itemData.major,
-          nationality: itemData.nationality,
-          university: itemData.university,
-          otherUniversity: itemData.otherUniversity,
-          phoneNumber: itemData.phoneNumber,
-          status: 'Inbox',
-          technologies: itemData.technologies,
-          teamLeaderExperience: itemData.teamLeaderExperience,
-          title: itemData.title
-        };
-        const data = await this.inboxService.insertInboxCandidate(candidate);
-        const deleted = await this.candidatesService.deleteCandidate(itemData.id);
-        }
-
+      // const itemData = event.container.data.entries().next().value[1];
     }
   }
 

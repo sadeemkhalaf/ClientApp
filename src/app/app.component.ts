@@ -7,10 +7,10 @@ import { Subject } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
+export class AppComponent {
 
   private $drawerClosed: Subject<boolean> = new Subject<boolean>();
-  private drawerClosed: boolean = false;
+  private drawerClosed = false;
   title = 'ClientApp';
   private userName = 'User';
   private menuIcon = '';
@@ -23,22 +23,16 @@ export class AppComponent{
     constructor(private appService: AppService) {
     this.date.getHours() <= 12 ? this.greeting = 'Good Morning' : this.greeting = 'Good Afternoon';
     this.menuIcon = 'menu';
-    this.$drawerClosed.subscribe((res) => {
-        console.log(res);
-        this.drawerClosed = res;
-    });
   }
 
   private changeIcon(event: any) {
-    if (!!event) {
-      if (this.menuIcon.localeCompare('menu') === -1) {
-        this.menuIcon = 'menu';
-        this.$drawerClosed.next(true);
-      } else {
+      if (!this.drawerClosed) {
         this.menuIcon = 'arrow_back_ios';
-        this.$drawerClosed.next(false);
+        this.drawerClosed = true;
+      } else {
+        this.menuIcon = 'menu';
+        this.drawerClosed = false;
       }
-    }
   }
 
 }

@@ -5,10 +5,10 @@ export interface Candidates {
         careerLevel: string;
         currentPosition: string;
         degree: string;
-        devExperience: string;
-        teamLeaderExperience: string;
+        devExperience: number;
+        teamLeaderExperience: number;
         englishSkills: string;
-        examScore: number;
+        examScore?: number;
         expectedSalary: number;
         gpA1: number;
         gpA2: number;
@@ -16,14 +16,14 @@ export interface Candidates {
         major: string;
         nationality: string;
         otherUniversity: string;
-        status: string;
+        status?: string;
         technologies: string;
-        toCallDate: Date;
-        interviewDate: Date;
+        toCallDate?: Date;
+        interviewDate?: Date;
         university: string;
         joinDate: string;
-        lastUdateLog: string;
+        lastUdateLog?: string;
         cvAttachment: string;
-        notes: string;
+        notes?: string;
         title: string;
 }
