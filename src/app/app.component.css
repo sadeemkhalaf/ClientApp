@@ -1,4 +1,5 @@
 .container {
+    background-color: #EEEEEE;
     position: absolute;
     flex-direction: column;
     top: 0;
@@ -7,6 +8,24 @@
     right: 0;
   }
   
+.app-toolbar {
+  background: #4F0A3A;
+  color: white;
+  overflow: hidden;
+  
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
+  }
+
+  mat-toolbar {
+    --default-height: 50px;
+    top: 0;
+    position: sticky;
+    height: var(--default-height);
+    z-index: 1;
+  }
+
 .sidenav-content {
     display: flex;
     height: 100%;
@@ -21,9 +40,9 @@
     width: 15%;
     background: #4F0A3A;
     color: #ffffff;
-    -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
-    -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
-    box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.07);
+    -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
+    -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
+    box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
     margin-right: 20px;
   }
 

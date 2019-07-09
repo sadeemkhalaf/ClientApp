@@ -10,11 +10,11 @@ import { Subject } from 'rxjs';
 export class AppComponent {
 
   private $drawerClosed: Subject<boolean> = new Subject<boolean>();
-  private drawerClosed = false;
+  private drawerClosed = true;
   title = 'ClientApp';
   private userName = 'User';
-  private menuIcon = '';
-  private greeting = '';
+  private menuIcon: string;
+  private greeting: string;
   private date = new Date();
   private weekday: string = this.date.toLocaleString('en-us', { weekday: 'long'});
   private month: string = this.date.toLocaleString('en-us', { month: 'short'});
@@ -26,12 +26,12 @@ export class AppComponent {
   }
 
   private changeIcon(event: any) {
-      if (!this.drawerClosed) {
+      if (this.menuIcon.includes('menu')) {
         this.menuIcon = 'arrow_back_ios';
-        this.drawerClosed = true;
+        this.drawerClosed = false;
       } else {
         this.menuIcon = 'menu';
-        this.drawerClosed = false;
+        this.drawerClosed = true;
       }
   }
 
