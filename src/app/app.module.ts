@@ -21,6 +21,7 @@ import { FileDropDirective } from './file-drop.directive';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { SubmitResultComponent } from './submit-result/submit-result.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { environment } from '../environments/environment';
     ReminderComponent,
     CandidatesFormComponent,
     UploadFormComponent,
-    FileDropDirective
+    FileDropDirective,
+    SubmitResultComponent
   ],
   imports: [
     BrowserModule,
