@@ -1,0 +1,50 @@
+.container{
+    position:relative;
+    width:90vw;
+    height: 90vh;
+    margin: auto;
+    z-index: 999;
+  }
+  
+  .element{
+    position:absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    margin: auto;
+    /* background: #7DBAAB; */
+    width: 50vw; height: 77vh;
+    z-index: 999;
+
+  }
+
+  .message-aria {
+    text-align: center;
+    vertical-align: middle;
+    /* background: #7DBAAB; */
+    /* color: white; */
+  }
+
+  mat-icon {
+      margin-top: 20px;
+      width: 120px; height: 120px;
+      font-size: 120px;
+      font-weight: normal;
+      color: #7DBAAB;
+  }
+  
+  .card {
+    text-align: center;
+    vertical-align: middle;
+    -webkit-box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
+    -moz-box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
+    box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
+  }
+  
+  button {
+      color: white;
+      background-color: #7DBAAB;
+      margin-bottom: 20px;
+  }
+
+  mat-card-header {
+      display: unset;
+  }
