@@ -22,3 +22,55 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const universitiesList = [
+    '-',
+    'Ajloun National Private University',
+    'Al al-Bayt University',
+    'Al Hussein Technical University',
+    'Al-Ahliyya Amman University',
+    'Al-Balqa\' Applied University',
+    'Al-Hussein Bin Talal University',
+    'Al-Zaytoonah University of Jordan',
+    'American University of Madaba',
+    'Amman Arab University',
+    'Ammon Applied University College',
+    'Applied Science Private University',
+    'Aqaba University of Technology',
+    'Arab Academy for Management, Banking and Financial Sciences',
+    'German Jordanian University',
+    'Irbid National University',
+    'Isra University',
+    'Jadara University',
+    'Jerash Private University',
+    'Jordan Academy of Music',
+    'Jordan University of Science and Technology',
+    'Middle East University, Jordan',
+    'Mutah university',
+    'Philadelphia University',
+    'Princess Sumaya University for Technology',
+    'Tafila Technical University',
+    'The Hashemite University',
+    'The World Islamic Sciences and Education University',
+    'University of Jordan',
+    'University of Petra',
+    'Yarmouk University',
+    'Zarqa University',
+    'Other'
+];
+
+export const technologiesList = [
+    'java',
+    'python',
+    'php' ,
+    'C#',
+    '.net core',
+    'angular',
+    'flutter',
+    'docker',
+    'javaScript',
+    'ionic'
+];
+
+export const randomNumber = 15752961;
+// Math.pow(Math.ceil(Math.ceil(Math.random() * Math.floor(30)) * Math.ceil(Math.random() * Math.floor(25))), 4);

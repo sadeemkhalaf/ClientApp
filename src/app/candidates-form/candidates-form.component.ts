@@ -9,6 +9,7 @@ import { Upload } from '../Models/upload';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from './../Models/candidates';
 import { Router } from '@angular/router';
+import { universitiesList, technologiesList } from './../../environments/environment';
 
 @Component({
   selector: 'app-candidates-form',
@@ -27,7 +28,8 @@ export class CandidatesFormComponent implements OnInit {
   private addOnBlur = true;
   private filteredTechnologies: Observable<string[]>;
   private technologies: string[] = [];
-  private allTechnologies: string[] = ['java', 'python', 'php' , 'C#', '.net core', 'angular', 'flutter', 'docker', 'javaScript', 'ionic'];
+  private allTechnologies: string[] = technologiesList;
+  private universitiesList: string[] = universitiesList;
 
   @ViewChild('TechnologiesInput', {static: false}) TechnologiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -44,16 +46,16 @@ export class CandidatesFormComponent implements OnInit {
     this.candidateForm = new FormGroup({
       firstName: new FormControl('test', Validators.required),
       lastName: new FormControl('capella', Validators.required),
-      mobile: new FormControl('0792077863', Validators.required),
+      mobile: new FormControl('0792277999', Validators.required),
       email: new FormControl('sadeem@capella.io', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       social: new FormControl('LinkedIn', Validators.required),
       nationality: new FormControl('Jordanian', Validators.required),
       major: new FormControl('', Validators.required),
-      gpa: new FormControl('3.24', Validators.required),
-      university: new FormControl('YU', Validators.required),
-      degree: new FormControl(''),
+      gpa: new FormControl('3.28', Validators.required),
+      university: new FormControl('Yarmouk University', Validators.required),
+      degree: new FormControl('', Validators.required),
       otherUniversity: new FormControl(''),
-      lastPosition: new FormControl('SE'),
+      lastPosition: new FormControl('Software Engineer'),
       careerLevel: new FormControl('', Validators.required),
       experienceLevel: new FormControl(''),
       experienceYears: new FormControl('1', Validators.required),
@@ -128,13 +130,12 @@ export class CandidatesFormComponent implements OnInit {
         university: this.candidateForm.get('university').value,
         teamLeaderExperience: 0,
         status: 'inbox',
-        title: this.candidateForm.get('applyingAs').value
+        title: this.candidateForm.get('applyingAs').value,
       };
            this.initializeForm();
            await this.candidatesService.insertCandidate(candidate);
            this.registerationSuccess = true;
      }
-
   }
 
   private getFilesList(event: Upload[]) {
@@ -152,7 +153,6 @@ export class CandidatesFormComponent implements OnInit {
     const files: string [] = [];
     filesList.forEach((file) => {
       files.push(file.url);
-      console.log(file);
     });
     return files;
   }

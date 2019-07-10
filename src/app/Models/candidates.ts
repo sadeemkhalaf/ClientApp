@@ -26,4 +26,5 @@ export interface Candidates {
         cvAttachment: string;
         notes?: string;
         title: string;
+        applicationDate?: Date;
 }

@@ -67,7 +67,11 @@
         
                   <mat-form-field appearance="legacy" class="input-field">
                       <mat-label>University</mat-label>
-                      <input matInput formControlName="university">
+                      <mat-select formControlName="university">
+                          <mat-option *ngFor="let uni of universitiesList" [value]="uni">
+                            {{uni}}
+                          </mat-option>
+                        </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="legacy">
                             <mat-label>Degree</mat-label>

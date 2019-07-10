@@ -3,6 +3,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@ang
 import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from 'src/app/Models/candidates';
+import { Router } from '@angular/router';
+import { randomNumber } from 'src/environments/environment';
 
 @Component({
   selector: 'app-applicants-inbox',
@@ -11,11 +13,10 @@ import { Candidates } from 'src/app/Models/candidates';
 })
 export class ApplicantsInboxComponent {
 
-  @Output() inboxCount = new EventEmitter<number>();
   public inboxCandidates: ReplaySubject<Candidates[]> = new ReplaySubject<Candidates[]>(1);
   public inboxedCandidatesData: Candidates[] = [];
   private updatedIndex: Candidates [] = [];
-  constructor(private candidatesService: CandidatesService) {
+  constructor(private candidatesService: CandidatesService, private router: Router) {
     this.candidatesService.getCandidates().subscribe((item: Candidates[]) => {
       this.inboxCandidates.next(item);
     });
@@ -24,7 +25,6 @@ export class ApplicantsInboxComponent {
       this.updatedIndex = item;
       this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
     });
-    this.inboxCount.emit(this.inboxedCandidatesData.length);
    }
 
   async drop(event: CdkDragDrop<Candidates[]>) {
@@ -37,6 +37,11 @@ export class ApplicantsInboxComponent {
                         0);
       // const itemData = event.container.data.entries().next().value[1];
     }
+  }
+
+  applicantDetails(cand: any) {
+    const idChanged = cand.id * randomNumber;
+    this.router.navigate([`dashboard/details/${idChanged}`]);
   }
 
 }

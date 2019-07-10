@@ -77,3 +77,8 @@ mat-icon{
     margin-top: 20px;
     margin-right: 8px;
 }
+
+mat-form-field {
+    margin-left: 10px;
+    margin-right: 10px;
+}
