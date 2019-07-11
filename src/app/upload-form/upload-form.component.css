@@ -2,12 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    min-height: 100px;
-    width: 100%;
     border: 2px dashed #c4c4c4;
     border-radius: 5px;
     background: white;
-    margin: 10px 0;
+    margin: 20px;
 }
 
 .file-label {
@@ -24,9 +22,18 @@ progress::-webkit-progress-value {
     align-items: center;
     margin-left: 50%;
     margin-right: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 mat-list {
     text-align: start;
     margin-left: 20px; 
+}
+
+.box {
+    align-content: unset;
+    display: unset;
+    display: unset;
+    -webkit-box-orient: unset;
 }

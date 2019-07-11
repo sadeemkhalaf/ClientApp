@@ -1,6 +1,149 @@
-<div *ngIf="candidate">
-  
-<mat-label>{{candidate.name}}</mat-label>
-<mat-label *ngIf="candidate.applicationDate">{{candidate.applicationDate}}</mat-label>
+<div *ngIf="candidate" [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="form-container">
+    <div class="form-header">
+        <div class="box">
+            <mat-list>
+                    <mat-list-item>
+                        <mat-label class="name-label">{{candidate.name}}</mat-label>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-label *ngIf="candidate.applicationDate">{{candidate.applicationDate}}</mat-label>
+                    </mat-list-item>
+                </mat-list>  
+                </div>
+        <div class="contact-field box">
+                <div class="input-icon-inline"> <i class='material-icons'>email</i>
+                    <mat-form-field appearance="legacy" class="input-field">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email" value="{{candidate.email}}">
+                            <mat-error class="error-message"
+                            *ngIf="(candidateForm.get('email').dirty || candidateForm.get('email').touched)">
+                            Enter a valid email
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+        
+                    <div class="input-icon-inline">
+                        <i class='material-icons'>phone</i>
+                        <mat-form-field appearance="legacy" class="input-field">
+                            <mat-label>Phone Number</mat-label>  
+                            <input matInput type="number" formControlName="mobile" value="{{candidate.phoneNumber}}">
+                            <mat-error class="error-message"
+                            *ngIf="(candidateForm.get('mobile').dirty || candidateForm.get('mobile').touched)">
+                            Enter a valid mobile number
+                        </mat-error>
+                        </mat-form-field>
+                    </div>
+        </div>
+    </div>
 
-</div>
+    <div class="form-container">
+            <mat-label class="box-label">Process</mat-label>
+              <div class="box-outline">
+                <div class="box">
+                      <mat-form-field appearance="legacy">
+                          <mat-label>Status</mat-label>
+                          <input matInput formControlName="status" value="{{candidate.status}}">
+                        </mat-form-field>  
+                      <mat-form-field appearance="legacy" class="input-field">
+                          <mat-label>How did you find us?</mat-label>
+                          <input matInput formControlName="social">
+                        </mat-form-field>
+                </div>
+              </div>
+        
+              <mat-label class="box-label">Basic Details</mat-label>
+              <div class="box-outline">
+                <div class="box">
+                      <mat-form-field appearance="legacy">
+                          <mat-label>Nationality</mat-label>
+                          <input matInput formControlName="nationality" value="{{candidate.nationality}}">
+                        </mat-form-field>  
+                      <mat-form-field appearance="legacy" class="input-field">
+                          <mat-label>How did you find us?</mat-label>
+                          <input matInput formControlName="social">
+                        </mat-form-field>
+                </div>
+              </div>
+                <mat-label class="box-label">Education</mat-label>
+                <div class="box-outline">
+                    <div class="box">
+                      <mat-form-field appearance="legacy" class="input-field">
+                          <mat-label>Major</mat-label>
+                          <input matInput formControlName="major" value="{{candidate.major}}">
+                        </mat-form-field>
+                        <mat-form-field appearance="legacy" class="input-field" >
+                            <mat-label>GPA</mat-label>
+                            <input matInput value="{{candidate.gpA2}}" formControlName="gpa">
+                          </mat-form-field>
+                
+                          <mat-form-field appearance="legacy" class="input-field">
+                              <mat-label>University</mat-label>
+                              <input matInput value="{{candidate.university}}" formControlName="university">
+                            </mat-form-field>
+                            <mat-form-field appearance="legacy">
+                                    <mat-label>Degree</mat-label>
+                                    <input matInput formControlName="degree" value="{{candidate.degree}}">
+                                  </mat-form-field>                       
+        
+                            <mat-form-field appearance="legacy" class="input-field"  *ngIf="!!candidate.otherUniversity">
+                                <mat-label >Other University</mat-label>
+                                <input matInput formControlName="otherUniversity" value="{{candidate.otherUniversity}}">
+                              </mat-form-field>
+                        </div>
+                      </div>
+        
+                <mat-label class="box-label">Experience</mat-label>
+                <div class="box-outline">
+                    <div class="box">
+                      
+                      <mat-form-field appearance="legacy" class="input-field">
+                          <mat-label>Last Position</mat-label>
+                          <input matInput formControlName="lastPosition" value="{{candidate.lastPosition}}">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Career Level</mat-label>
+                            <input matInput formControlName="careerLevel" value="{{candidate.careerLevel}}">
+                          </mat-form-field>
+        
+                        <mat-form-field appearance="legacy" class="input-field">
+                            <mat-label>Experience Years</mat-label>
+                            <input matInput formControlName="experienceYears" value="{{candidate.devexperience + candidate.teamLeaderExperience}}">
+                          </mat-form-field>
+
+                            <mat-form-field appearance="legacy" class="input-field">
+                                <mat-label>Applying As</mat-label>
+                                <input matInput formControlName="applyingAs" value="{{candidate.title}}">
+                              </mat-form-field>
+          
+                  
+                            <mat-form-field appearance="legacy" class="input-field">
+                                <mat-label>Expected Salary</mat-label>
+                                <input matInput formControlName="expectedSalary" value="{{candidate.expectedSalary}}">
+                              </mat-form-field>
+        
+                            <mat-form-field appearance="legacy" class="input-field">
+                                <mat-label>Expected Join Duration</mat-label>
+                                <input matInput formControlName="joinDate" value="{{candidate.joinDate}}">
+                              </mat-form-field>
+        
+                            <mat-form-field appearance="legacy" class="input-field"
+                            [hideRequiredMarker]="candidateForm.value.hideRequired"
+                            [floatLabel]="candidateForm.value.floatLabel">
+                                <mat-label>English Skills</mat-label>
+                                <input matInput formControlName="englishSkills" value="{{candidate.englishSkills}}">
+                              </mat-form-field>
+                              <mat-form-field class="input-field" appearance="legacy">
+                                    <mat-label>Technologies</mat-label>
+                                  <input matInput value="{{candidate.technologies}}">
+                              </mat-form-field>
+                            </div>
+                                  <app-upload-form (outputFilesList)="getFilesList($event)" ></app-upload-form>
+                      </div>
+                <div class="button-row">
+                  <button mat-stroked-button type="submit">Submit</button>
+                  <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
+                </div>
+            </div>
+            </div>
+

@@ -63,7 +63,7 @@ export class CandidatesFormComponent implements OnInit {
       applyingAs: new FormControl('Software Engineer', Validators.required),
       expectedSalary: new FormControl('700', Validators.required),
       englishSkills: new FormControl(''),
-      attachments: new FormControl(''),
+      attachments: new FormControl('')
     });
   }
 

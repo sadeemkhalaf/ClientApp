@@ -40,7 +40,7 @@ export class ApplicantsInboxComponent {
   }
 
   applicantDetails(cand: any) {
-    const idChanged = cand.id * randomNumber;
+    const idChanged = cand.id;
     this.router.navigate([`dashboard/details/${idChanged}`]);
   }
 

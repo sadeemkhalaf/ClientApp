@@ -47,3 +47,37 @@ body {
     /* Support for IE. */
     font-feature-settings: 'liga';
   }
+
+  .form-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    margin: 20px auto;
+    align-content: center;
+}
+
+.box{
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    right: 0;
+    left: 0;
+}
+
+.box-outline {
+    border: 1px solid #c8c8c8;
+    width: auto;
+    height: fit-content;
+}
+
+.input-field {
+    margin-left: 10px;
+    width: 100%;
+}
+
+.input-icon-inline {
+  display: contents;
+  margin-left: 25px;
+  margin-right: 25px;
+}

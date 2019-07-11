@@ -1,0 +1,67 @@
+.form-container {
+    position: inherit;
+    margin: 10px;
+}
+
+.mat-list-item-content {
+    margin-left: 0;
+}
+
+.material-icons {
+    margin-top: 25px;
+    padding: 2px;
+    color: #720D5D;
+}
+.box {
+    display: inline-table;
+    margin: 10px;
+}
+
+.box-label {
+    font-weight: normal;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.material-icons {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form-header {
+    display: flex;
+}
+
+.name-field {
+    align-content: flex-start;
+}
+
+.name-label {
+    font-size: 22px;
+    color: #4F0A3A;
+    margin-bottom: -5px;
+}
+
+.contact-field {
+    display: inline-flex;
+    align-self: baseline;
+    align-content: flex-end;
+    width: 35%;
+}
+
+.button-row button,
+.button-row a {
+    margin-top: 20px;
+    margin-right: 8px;
+}
+
+.input-field {
+    width: 45%;
+}
