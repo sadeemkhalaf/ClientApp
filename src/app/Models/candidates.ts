@@ -5,26 +5,33 @@ export interface Candidates {
         careerLevel: string;
         currentPosition: string;
         degree: string;
-        devExperience: number;
-        teamLeaderExperience: number;
+        devexperience: number;
+        teamLeaderExperience?: number;
         englishSkills: string;
         examScore?: number;
         expectedSalary: number;
         gpA1: number;
         gpA2: number;
-        howDidYouFindUs: string;
+        howdidyoufindus: string;
         major: string;
         nationality: string;
         otherUniversity: string;
         status?: string;
-        technologies: string;
+        technologies?: string;
         toCallDate?: Date;
         interviewDate?: Date;
         university: string;
         joinDate: string;
         lastUdateLog?: string;
-        cvAttachment: string;
+        cvAttachment?: string;
         notes?: string;
-        title: string;
+        title?: string;
         applicationDate?: Date;
+}
+
+export interface CandidatesStatusHistory {
+        id: number;
+        ApplicantId: number;
+        Status: string;
+        UpdateDate: Date;
 }

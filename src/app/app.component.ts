@@ -27,7 +27,6 @@ export class AppComponent {
     this.date.getHours() <= 12 ? this.greeting = 'Good Morning' : this.greeting = 'Good Afternoon';
     this.menuIcon = 'menu';
 
-
     this.candidatesService.getCandidates().subscribe((item: Candidates[]) => {
       item.forEach((i) => {
         this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');

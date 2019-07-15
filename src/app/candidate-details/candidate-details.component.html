@@ -1,4 +1,4 @@
-<div *ngIf="candidate" [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="form-container">
+<form *ngIf="candidate && candidateStatusHistory" [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="form-container">
     <div class="form-header">
         <div class="box">
             <mat-list>
@@ -26,7 +26,7 @@
                         <i class='material-icons'>phone</i>
                         <mat-form-field appearance="legacy" class="input-field">
                             <mat-label>Phone Number</mat-label>  
-                            <input matInput type="number" formControlName="mobile" value="{{candidate.phoneNumber}}">
+                            <input matInput formControlName="mobile" value="{{candidate.phoneNumber}}">
                             <mat-error class="error-message"
                             *ngIf="(candidateForm.get('mobile').dirty || candidateForm.get('mobile').touched)">
                             Enter a valid mobile number
@@ -40,14 +40,35 @@
             <mat-label class="box-label">Process</mat-label>
               <div class="box-outline">
                 <div class="box">
-                      <mat-form-field appearance="legacy">
-                          <mat-label>Status</mat-label>
-                          <input matInput formControlName="status" value="{{candidate.status}}">
-                        </mat-form-field>  
-                      <mat-form-field appearance="legacy" class="input-field">
-                          <mat-label>How did you find us?</mat-label>
-                          <input matInput formControlName="social">
-                        </mat-form-field>
+                    <mat-list>
+                      <span  *ngIf="candidateStatusHistory.length > 0" >Status History: </span>
+                        <mat-list-item>
+                          <div class="status-tree" *ngFor="let st of candidateStatusHistory"> 
+                            <span>{{st.status}}</span> <mat-icon class="arrow-next" *ngIf="candidateStatusHistory.length > 1">arrow_forward</mat-icon>
+                          </div>
+                                 </mat-list-item>
+                        <mat-list-item>
+                              <mat-form-field appearance="legacy">
+                                    <mat-label>Status</mat-label>
+                              <mat-select matNativeControl formControlName="statusSelect">
+                                <mat-option [value]="stat" *ngFor="let stat of status">
+                                  {{stat}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <div *ngIf="candidateForm.get('statusSelect').value.includes('To Call') || candidateForm.get('statusSelect').value.includes('Interview schedule')">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" placeholder="Choose a date" formControlName="serializedDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                              </mat-form-field>
+                            <mat-form-field appearance="legacy">
+                              <mat-label>choose time</mat-label>
+                              <input matInput type="time" formControlName="time">
+                            </mat-form-field>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>              
                 </div>
               </div>
         
@@ -60,7 +81,7 @@
                         </mat-form-field>  
                       <mat-form-field appearance="legacy" class="input-field">
                           <mat-label>How did you find us?</mat-label>
-                          <input matInput formControlName="social">
+                          <input matInput formControlName="social" value="{{candidate.howdidyoufindus}}">
                         </mat-form-field>
                 </div>
               </div>
@@ -135,15 +156,15 @@
                               </mat-form-field>
                               <mat-form-field class="input-field" appearance="legacy">
                                     <mat-label>Technologies</mat-label>
-                                  <input matInput value="{{candidate.technologies}}">
+                                  <input matInput value="{{candidate.technologies}}" formControlName="technologies">
                               </mat-form-field>
                             </div>
                                   <app-upload-form (outputFilesList)="getFilesList($event)" ></app-upload-form>
                       </div>
                 <div class="button-row">
-                  <button mat-stroked-button type="submit">Submit</button>
+                  <button mat-stroked-button type="submit" [disabled]="!candidateForm.touched">Save Changes</button>
                   <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
                 </div>
             </div>
-            </div>
+          </form>
 

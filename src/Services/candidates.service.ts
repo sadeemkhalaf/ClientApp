@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Candidates } from 'src/app/Models/candidates';
-import { retry, catchError } from 'rxjs/operators';
+import { Candidates, CandidatesStatusHistory } from 'src/app/Models/candidates';
 import { throwError, Observable } from 'rxjs';
 
 @Injectable({
@@ -32,6 +31,9 @@ export class CandidatesService {
     return this.http.delete(`https://localhost:44318/api/applicants/${id}`).toPromise();
   }
 
+  public getApplicantStatusHistory(id: number) {
+    return this.http.get<CandidatesStatusHistory[]>(`https://localhost:44318/api/applicantStatusHistory/${id}`);
+  }
     // Error handling
   private handleError( error: any ) {
       let errorMessage = '';
