@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { Observable } from 'rxjs';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import { Upload } from '../Models/upload';
 import { CandidatesService } from 'src/Services/candidates.service';
@@ -50,20 +50,21 @@ export class CandidatesFormComponent implements OnInit {
       email: new FormControl('sadeem@capella.io', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       social: new FormControl('LinkedIn', Validators.required),
       nationality: new FormControl('Jordanian', Validators.required),
-      major: new FormControl('', Validators.required),
+      major: new FormControl('Conputer Science', Validators.required),
       gpa: new FormControl('3.28', Validators.required),
       university: new FormControl('Yarmouk University', Validators.required),
-      degree: new FormControl('', Validators.required),
+      degree: new FormControl('Bachelor', Validators.required),
       otherUniversity: new FormControl(''),
       lastPosition: new FormControl('Software Engineer'),
-      careerLevel: new FormControl('', Validators.required),
-      experienceLevel: new FormControl(''),
+      careerLevel: new FormControl('junior', Validators.required),
+      experienceLevel: new FormControl('middle'),
       experienceYears: new FormControl('1', Validators.required),
-      joinDate: new FormControl(''),
+      joinDate: new FormControl('1-2 weeks'),
       applyingAs: new FormControl('Software Engineer', Validators.required),
-      expectedSalary: new FormControl('700', Validators.required),
-      englishSkills: new FormControl(''),
-      attachments: new FormControl('')
+      expectedSalary: new FormControl('500', Validators.required),
+      englishSkills: new FormControl('Intermediate'),
+      attachments: new FormControl(''),
+      socialOther: new FormControl('')
     });
   }
 
@@ -120,7 +121,8 @@ export class CandidatesFormComponent implements OnInit {
         expectedSalary: this.candidateForm.get('expectedSalary').value as number,
         devexperience: this.candidateForm.get('experienceYears').value as number,
         englishSkills: this.candidateForm.get('englishSkills').value,
-        howdidyoufindus: this.candidateForm.get('social').value,
+        howdidyoufindus: (!!this.candidateForm.get('social').value && this.candidateForm.get('social').value !== 'Other')
+        ? this.candidateForm.get('social').value : this.candidateForm.get('socialOther').value,
         joinDate: this.candidateForm.get('joinDate').value,
         major: this.candidateForm.get('major').value,
         nationality: this.candidateForm.get('nationality').value,
@@ -130,7 +132,7 @@ export class CandidatesFormComponent implements OnInit {
         university: this.candidateForm.get('university').value,
         teamLeaderExperience: 0,
         status: 'inbox',
-        title: this.candidateForm.get('applyingAs').value,
+        title: this.candidateForm.get('applyingAs').value
       };
            this.initializeForm();
            await this.candidatesService.insertCandidate(candidate);

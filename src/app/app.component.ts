@@ -26,14 +26,7 @@ export class AppComponent {
     constructor(private appService: AppService, private candidatesService: CandidatesService) {
     this.date.getHours() <= 12 ? this.greeting = 'Good Morning' : this.greeting = 'Good Afternoon';
     this.menuIcon = 'menu';
-
-    this.candidatesService.getCandidates().subscribe((item: Candidates[]) => {
-      item.forEach((i) => {
-        this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
-        this.inboxCount = this.inboxedCandidatesData.length;
-      });
-    });
-
+    this.getInboxCount();
   }
 
   private changeIcon(event: any) {
@@ -45,5 +38,14 @@ export class AppComponent {
         this.drawerClosed = true;
       }
   }
+
+  private getInboxCount() {
+    this.candidatesService.getCandidates().toPromise().then((item: Candidates[]) => {
+      item.forEach((i) => {
+        this.inboxCount = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox').length;
+      });
+    });
+  }
+
 
 }

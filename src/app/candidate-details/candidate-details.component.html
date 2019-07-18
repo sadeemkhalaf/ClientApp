@@ -1,170 +1,426 @@
-<form *ngIf="candidate && candidateStatusHistory" [formGroup]="candidateForm" (ngSubmit)="onSubmit()" class="form-container">
-    <div class="form-header">
-        <div class="box">
-            <mat-list>
-                    <mat-list-item>
-                        <mat-label class="name-label">{{candidate.name}}</mat-label>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-label *ngIf="candidate.applicationDate">{{candidate.applicationDate}}</mat-label>
-                    </mat-list-item>
-                </mat-list>  
-                </div>
-        <div class="contact-field box">
-                <div class="input-icon-inline"> <i class='material-icons'>email</i>
-                    <mat-form-field appearance="legacy" class="input-field">
-                        <mat-label>Email</mat-label>
-                        <input matInput type="email" formControlName="email" value="{{candidate.email}}">
-                            <mat-error class="error-message"
-                            *ngIf="(candidateForm.get('email').dirty || candidateForm.get('email').touched)">
-                            Enter a valid email
-                        </mat-error>
-                    </mat-form-field>
-                    </div>
-        
-                    <div class="input-icon-inline">
-                        <i class='material-icons'>phone</i>
-                        <mat-form-field appearance="legacy" class="input-field">
-                            <mat-label>Phone Number</mat-label>  
-                            <input matInput formControlName="mobile" value="{{candidate.phoneNumber}}">
-                            <mat-error class="error-message"
-                            *ngIf="(candidateForm.get('mobile').dirty || candidateForm.get('mobile').touched)">
-                            Enter a valid mobile number
-                        </mat-error>
-                        </mat-form-field>
-                    </div>
-        </div>
+<form
+  *ngIf="candidate && candidateStatusHistory"
+  [formGroup]="candidateForm"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+>
+  <div class="form-header">
+    <div class="box">
+      <mat-list>
+        <mat-list-item>
+          <mat-label class="name-label">{{ candidate.name }}</mat-label>
+        </mat-list-item>
+        <mat-list-item>
+          <div class="date-added" *ngIf="candidate.applicationDate">
+            <small>
+              {{ candidate.applicationDate }}
+            </small>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="contact-field box">
+      <div class="input-icon-inline">
+        <i class="material-icons">email</i>
+        <mat-form-field appearance="legacy">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            value="{{ candidate.email }}"
+          />
+          <mat-error
+            class="error-message"
+            *ngIf="
+              candidateForm.get('email').dirty ||
+              candidateForm.get('email').touched
+            "
+          >
+            Enter a valid email
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-icon-inline">
+        <i class="material-icons">phone</i>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            formControlName="mobile"
+            type="tel"
+            value="{{ candidate.phoneNumber }}"
+          />
+          <mat-error
+            class="error-message"
+            *ngIf="
+              candidateForm.get('mobile').dirty ||
+              candidateForm.get('mobile').touched
+            "
+          >
+            Enter a valid mobile number
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <mat-label class="box-label">Process</mat-label>
+    <div class="box-outline">
+      <div class="box">
+        <mat-list>
+          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
+            <mat-label><b>Status History:</b> </mat-label>
+          </mat-list-item>
+          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
+          </mat-list-item>
+          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
+            <mat-chip-list class="status-tree">
+              <mat-chip
+                *ngFor="let st of candidateStatusHistory"
+                color="primary"
+                >{{ st.status }} -></mat-chip
+              >
+            </mat-chip-list>
+          </mat-list-item>
+          <mat-list-item *ngIf="!!candidateStatusHistory"> </mat-list-item>
+          <mat-list-item
+            *ngIf="
+              candidate.status === null || candidate.status.includes('N/A') || candidate.status.includes('Screen Call')
+            "
+          >
+            <mat-form-field appearance="legacy">
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage1">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item *ngIf="!!candidate.status">
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="
+                candidate.status.toLowerCase().includes('inbox') ||
+                candidate.status.toLowerCase().includes('rejected')
+              "
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage1">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="
+                candidate.status.toLowerCase().includes('initial') ||
+                candidate.status.toLowerCase().includes('archive')
+              "
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage2">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="
+                candidate.status.toLowerCase().includes('schedule') ||
+                candidate.status.toLowerCase().includes('interview')
+              "
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage3">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="
+                candidate.status.toLowerCase().includes('to call') ||
+                candidate.status.toLowerCase().includes('interviewed') ||
+                candidate.status.toLowerCase().includes('hold')
+              "
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage4">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="candidate.status.toLowerCase().includes('Offer')"
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage5">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="legacy"
+              *ngIf="candidate.status.toLowerCase().includes('hired')"
+            >
+              <mat-label>Status</mat-label>
+              <mat-select matNativeControl formControlName="statusSelect">
+                <mat-option [value]="stat" *ngFor="let stat of statusStage6">
+                  {{ stat }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <div
+              *ngIf="
+                candidateForm.get('statusSelect').value.includes('Call') ||
+                candidateForm.get('statusSelect').value.includes('schedule')
+              "
+            >
+              <mat-form-field class="example-full-width">
+                <input
+                  matInput
+                  [matDatepickerFilter]="dateFilter"
+                  [matDatepicker]="picker"
+                  placeholder="Choose a date"
+                  formControlName="serializedDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>choose time</mat-label>
+                <input
+                  matInput
+                  type="time"
+                  formControlName="time"
+                  formControlName="time"
+                />
+              </mat-form-field>
+            </div>
+          </mat-list-item>
+          <mat-list-item></mat-list-item>
+          <mat-list-item>
+            <mat-form-field appearance="legacy" class="input-field">
+              <mat-label>Exam Score</mat-label>
+              <input
+                matInput
+                formControlName="examScore"
+                type="number"
+                value="{{ candidate.examScore }}"
+                placeholder="out of 10"
+              />
+            </mat-form-field>
+            <span *ngIf="!!candidate.examScore && candidate.examScore >= 6"
+              >/10 passed</span
+            >
+            <span *ngIf="!!candidate.examScore && 6 > candidate.examScore"
+              >/10 failed</span
+            >
+          </mat-list-item>
+          <mat-list-item></mat-list-item>
+          <mat-list-item>
+            <mat-form-field class="notes-input">
+              <textarea
+                matInput
+                placeholder="Notes"
+                formControlName="notes"
+              ></textarea>
+            </mat-form-field>
+          </mat-list-item>
+          <mat-list-item></mat-list-item>
+        </mat-list>
+      </div>
     </div>
 
-    <div class="form-container">
-            <mat-label class="box-label">Process</mat-label>
-              <div class="box-outline">
-                <div class="box">
-                    <mat-list>
-                      <span  *ngIf="candidateStatusHistory.length > 0" >Status History: </span>
-                        <mat-list-item>
-                          <div class="status-tree" *ngFor="let st of candidateStatusHistory"> 
-                            <span>{{st.status}}</span> <mat-icon class="arrow-next" *ngIf="candidateStatusHistory.length > 1">arrow_forward</mat-icon>
-                          </div>
-                                 </mat-list-item>
-                        <mat-list-item>
-                              <mat-form-field appearance="legacy">
-                                    <mat-label>Status</mat-label>
-                              <mat-select matNativeControl formControlName="statusSelect">
-                                <mat-option [value]="stat" *ngFor="let stat of status">
-                                  {{stat}}
-                                </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                            <div *ngIf="candidateForm.get('statusSelect').value.includes('To Call') || candidateForm.get('statusSelect').value.includes('Interview schedule')">
-                            <mat-form-field class="example-full-width">
-                                <input matInput [matDatepickerFilter]="dateFilter" [matDatepicker]="picker" placeholder="Choose a date" formControlName="serializedDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                              </mat-form-field>
-                            <mat-form-field appearance="legacy">
-                              <mat-label>choose time</mat-label>
-                              <input matInput type="time" formControlName="time">
-                            </mat-form-field>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>              
-                </div>
-              </div>
-        
-              <mat-label class="box-label">Basic Details</mat-label>
-              <div class="box-outline">
-                <div class="box">
-                      <mat-form-field appearance="legacy">
-                          <mat-label>Nationality</mat-label>
-                          <input matInput formControlName="nationality" value="{{candidate.nationality}}">
-                        </mat-form-field>  
-                      <mat-form-field appearance="legacy" class="input-field">
-                          <mat-label>How did you find us?</mat-label>
-                          <input matInput formControlName="social" value="{{candidate.howdidyoufindus}}">
-                        </mat-form-field>
-                </div>
-              </div>
-                <mat-label class="box-label">Education</mat-label>
-                <div class="box-outline">
-                    <div class="box">
-                      <mat-form-field appearance="legacy" class="input-field">
-                          <mat-label>Major</mat-label>
-                          <input matInput formControlName="major" value="{{candidate.major}}">
-                        </mat-form-field>
-                        <mat-form-field appearance="legacy" class="input-field" >
-                            <mat-label>GPA</mat-label>
-                            <input matInput value="{{candidate.gpA2}}" formControlName="gpa">
-                          </mat-form-field>
-                
-                          <mat-form-field appearance="legacy" class="input-field">
-                              <mat-label>University</mat-label>
-                              <input matInput value="{{candidate.university}}" formControlName="university">
-                            </mat-form-field>
-                            <mat-form-field appearance="legacy">
-                                    <mat-label>Degree</mat-label>
-                                    <input matInput formControlName="degree" value="{{candidate.degree}}">
-                                  </mat-form-field>                       
-        
-                            <mat-form-field appearance="legacy" class="input-field"  *ngIf="!!candidate.otherUniversity">
-                                <mat-label >Other University</mat-label>
-                                <input matInput formControlName="otherUniversity" value="{{candidate.otherUniversity}}">
-                              </mat-form-field>
-                        </div>
-                      </div>
-        
-                <mat-label class="box-label">Experience</mat-label>
-                <div class="box-outline">
-                    <div class="box">
-                      
-                      <mat-form-field appearance="legacy" class="input-field">
-                          <mat-label>Last Position</mat-label>
-                          <input matInput formControlName="lastPosition" value="{{candidate.lastPosition}}">
-                        </mat-form-field>
-        
-                        <mat-form-field appearance="legacy">
-                            <mat-label>Career Level</mat-label>
-                            <input matInput formControlName="careerLevel" value="{{candidate.careerLevel}}">
-                          </mat-form-field>
-        
-                        <mat-form-field appearance="legacy" class="input-field">
-                            <mat-label>Experience Years</mat-label>
-                            <input matInput formControlName="experienceYears" value="{{candidate.devexperience + candidate.teamLeaderExperience}}">
-                          </mat-form-field>
+    <mat-label class="box-label">Basic Details</mat-label>
+    <div class="box-outline">
+      <div class="box">
+        <mat-form-field appearance="legacy">
+          <mat-label>Nationality</mat-label>
+          <input
+            matInput
+            formControlName="nationality"
+            value="{{ candidate.nationality }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>How did you find us?</mat-label>
+          <input
+            matInput
+            formControlName="social"
+            value="{{ candidate.howdidyoufindus }}"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-label class="box-label">Education</mat-label>
+    <div class="box-outline">
+      <div class="box">
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Major</mat-label>
+          <input
+            matInput
+            formControlName="major"
+            value="{{ candidate.major }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>GPA</mat-label>
+          <input matInput value="{{ candidate.gpA2 }}" formControlName="gpa" />
+        </mat-form-field>
 
-                            <mat-form-field appearance="legacy" class="input-field">
-                                <mat-label>Applying As</mat-label>
-                                <input matInput formControlName="applyingAs" value="{{candidate.title}}">
-                              </mat-form-field>
-          
-                  
-                            <mat-form-field appearance="legacy" class="input-field">
-                                <mat-label>Expected Salary</mat-label>
-                                <input matInput formControlName="expectedSalary" value="{{candidate.expectedSalary}}">
-                              </mat-form-field>
-        
-                            <mat-form-field appearance="legacy" class="input-field">
-                                <mat-label>Expected Join Duration</mat-label>
-                                <input matInput formControlName="joinDate" value="{{candidate.joinDate}}">
-                              </mat-form-field>
-        
-                            <mat-form-field appearance="legacy" class="input-field"
-                            [hideRequiredMarker]="candidateForm.value.hideRequired"
-                            [floatLabel]="candidateForm.value.floatLabel">
-                                <mat-label>English Skills</mat-label>
-                                <input matInput formControlName="englishSkills" value="{{candidate.englishSkills}}">
-                              </mat-form-field>
-                              <mat-form-field class="input-field" appearance="legacy">
-                                    <mat-label>Technologies</mat-label>
-                                  <input matInput value="{{candidate.technologies}}" formControlName="technologies">
-                              </mat-form-field>
-                            </div>
-                                  <app-upload-form (outputFilesList)="getFilesList($event)" ></app-upload-form>
-                      </div>
-                <div class="button-row">
-                  <button mat-stroked-button type="submit" [disabled]="!candidateForm.touched">Save Changes</button>
-                  <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
-                </div>
-            </div>
-          </form>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>University</mat-label>
+          <input
+            matInput
+            value="{{ candidate.university }}"
+            formControlName="university"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+          <mat-label>Degree</mat-label>
+          <input
+            matInput
+            formControlName="degree"
+            value="{{ candidate.degree }}"
+          />
+        </mat-form-field>
 
+        <mat-form-field
+          appearance="legacy"
+          class="input-field"
+          *ngIf="!!candidate.otherUniversity"
+        >
+          <mat-label>Other University</mat-label>
+          <input
+            matInput
+            formControlName="otherUniversity"
+            value="{{ candidate.otherUniversity }}"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-label class="box-label">Experience</mat-label>
+    <div class="box-outline">
+      <div class="box">
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Last Position</mat-label>
+          <input
+            matInput
+            formControlName="lastPosition"
+            value="{{ candidate.currentposition }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Career Level</mat-label>
+          <input
+            matInput
+            formControlName="careerLevel"
+            value="{{ candidate.careerLevel }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Experience Years</mat-label>
+          <input
+            matInput
+            formControlName="experienceYears"
+            value="{{
+              candidate.devexperience + candidate.teamLeaderExperience
+            }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Applying As</mat-label>
+          <input
+            matInput
+            formControlName="applyingAs"
+            value="{{ candidate.title }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Expected Salary</mat-label>
+          <input
+            matInput
+            formControlName="expectedSalary"
+            value="{{ candidate.expectedSalary }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Expected Join Duration</mat-label>
+          <input
+            matInput
+            formControlName="joinDate"
+            value="{{ candidate.joinDate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="legacy"
+          class="input-field"
+          [hideRequiredMarker]="candidateForm.value.hideRequired"
+          [floatLabel]="candidateForm.value.floatLabel"
+        >
+          <mat-label>English Skills</mat-label>
+          <input
+            matInput
+            formControlName="englishSkills"
+            value="{{ candidate.englishSkills }}"
+          />
+        </mat-form-field>
+        <mat-form-field class="input-field" appearance="legacy">
+          <mat-label>Technologies</mat-label>
+          <input
+            matInput
+            value="{{ candidate.technologies }}"
+            formControlName="technologies"
+          />
+        </mat-form-field>
+      </div>
+      <app-upload-form
+        (outputFilesList)="getFilesList($event)"
+      ></app-upload-form>
+    </div>
+    <div class="button-row">
+      <button
+        mat-stroked-button
+        type="submit"
+        [disabled]="!candidateForm.touched"
+      >
+        Save Changes
+      </button>
+      <button
+        mat-stroked-button
+        type="cancel"
+        [disabled]="false"
+        color="warn"
+        [routerLink]="['/dashboard']"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>

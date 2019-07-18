@@ -74,3 +74,5 @@ export const technologiesList = [
 
 export const randomNumber = 15752961;
 // Math.pow(Math.ceil(Math.ceil(Math.random() * Math.floor(30)) * Math.ceil(Math.random() * Math.floor(25))), 4);
+
+export const API = `https://localhost:44318/api`;

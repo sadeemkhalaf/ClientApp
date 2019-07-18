@@ -12,7 +12,6 @@
             <mat-label>Last Name</mat-label>
             <input matInput type="text" formControlName="lastName">
           </mat-form-field>
-
           <div class="input-icon-inline"> <i class='material-icons'>email</i>
           <mat-form-field appearance="legacy" class="input-field">
               <mat-label>Email</mat-label>
@@ -23,7 +22,6 @@
                 </mat-error>
             </mat-form-field>
           </div>
-
             <div class="input-icon-inline">
               <i class='material-icons'>phone</i>
               <mat-form-field appearance="legacy" class="input-field">
@@ -48,8 +46,16 @@
                 </mat-form-field>  
               <mat-form-field appearance="legacy" class="input-field">
                   <mat-label>How did you find us?</mat-label>
-                  <input matInput formControlName="social">
+                  <select matNativeControl formControlName="social" [value]="value">
+                      <option></option>
+                      <option value="Facebook">Facebook</option>
+                      <option value="LinkedIn">LinkedIn</option>
+                      <option value="Job Fair">Job Fair</option>
+                      <option value="Personal Reference">Personal Reference</option>
+                      <option value="Other">Other</option>
+                    </select>      
                 </mat-form-field>
+                <input matInput type="text" *ngIf="candidateForm.value.social == 'Other'" placeholder="other ..." formControlName="socialOther" value="">
         </div>
       </div>
 
@@ -186,7 +192,7 @@
               </div>
         <div class="button-row">
           <button mat-stroked-button type="submit"><i class='material-icons icon'>send</i>Submit</button>
-          <button mat-stroked-button type="cancel" [disabled]="false" color="warn">Cancel</button>
+          <button mat-stroked-button type="cancel" [disabled]="false" color="warn" [routerLink]="['/dashboard']">Cancel</button>
         </div>
   </form>
 </div>

@@ -1,5 +1,5 @@
 .searchContainer {
-     max-width: 100%;
+    max-width: 85%;
     margin: 0 25px 15px 0;
     display: flex;
     padding: 19px;
@@ -8,8 +8,7 @@
   }
 
 .container {
-    width: 400px;
-    max-width: 100%;
+   max-width: 40%;
     height: 400px;
     overflow-y: scroll;
     scroll-behavior: smooth;

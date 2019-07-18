@@ -3,38 +3,58 @@
 </div>
 
 <div class="container">
-    <h2 class="title">Inbox</h2>
+  <h2 class="title">Inbox</h2>
+  <div
+    cdkDropList
+    #inboxList="cdkDropList"
+    [cdkDropListData]="inboxedCandidatesData"
+    [cdkDropListConnectedTo]="[updatedList]"
+    class="list"
+    (cdkDropListDropped)="drop($event)"
+    *ngIf="inboxedCandidatesData.length > 0"
+  >
     <div
-      cdkDropList
-      #inboxList="cdkDropList"
-      [cdkDropListData]="inboxedCandidatesData"
-      [cdkDropListConnectedTo]="[updatedList]"
-      class="list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of inboxedCandidatesData" cdkDrag>
-        <span>
-        <span class="sub-title" >{{item.name}}</span> submitted as <span class="sub-title">{{item.title}}</span>
+      class="box"
+      *ngFor="let item of inboxedCandidatesData"
+      (click)="applicantDetails(item)"
+      cdkDrag
+    >
+      <span>
+        <span class="sub-title">{{ item.name }}</span>
+        <span>  submitted as </span>
+        <span class="sub-title" *ngIf="!!item.title">{{ item.title }}</span>
+        <span *ngIf="!!item.applicationDate"> <small>  {{ item.applicationDate | date:'short'}}</small></span>
       </span>
-      </div>
     </div>
   </div>
+  <mat-label *ngIf="inboxedCandidatesData.length == 0">
+    <small>
+      <mat-icon class="material-icons">inbox</mat-icon>
+      Empty Inbox</small
+    ></mat-label
+  >
+</div>
 
-  
-
-  <div class="container">
-    <h2 class="title">Updated Applicants</h2>
+<div class="container">
+  <h2 class="title">Updated Applicants</h2>
+  <div
+    cdkDropList
+    #updatedList="cdkDropList"
+    [cdkDropListData]="updatedIndex"
+    [cdkDropListConnectedTo]="[inboxList]"
+    class="list"
+    (cdkDropListDropped)="drop($event)"
+  >
     <div
-      cdkDropList
-      #updatedList="cdkDropList"
-      [cdkDropListData]="updatedIndex"
-      [cdkDropListConnectedTo]="[inboxList]"
-      class="list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="box" *ngFor="let item of updatedIndex" cdkDrag (click)="applicantDetails(item)">
-        <span><span class="sub-title">{{item.name}}</span> changed to <span class="sub-title">{{item.status}}</span> status</span>
-      </div>
+      class="box"
+      *ngFor="let item of updatedIndex"
+      cdkDrag
+      (click)="applicantDetails(item)"
+    >
+      <span
+        ><span class="sub-title">{{ item.name }}</span> 
+        <span class="sub-title"  *ngIf="!!item.status">changed to {{ item.status }}</span> status</span
+      >
     </div>
   </div>
-
-
-  
+</div>

@@ -18,15 +18,15 @@ export interface Candidates {
         otherUniversity: string;
         status?: string;
         technologies?: string;
-        toCallDate?: Date;
-        interviewDate?: Date;
+        toCallDate?: string;
+        interviewDate?: string;
         university: string;
         joinDate: string;
         lastUdateLog?: string;
         cvAttachment?: string;
         notes?: string;
         title?: string;
-        applicationDate?: Date;
+        applicationDate?: string;
 }
 
 export interface CandidatesStatusHistory {
