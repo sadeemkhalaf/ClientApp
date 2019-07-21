@@ -38,7 +38,7 @@ export class CandidateDetailsComponent {
 
   private statusStage4: string[] = [
     'To Call',
-    'Canceled',
+    'Cancelled',
     'Rejected',
     'Offer',
     'Hold',

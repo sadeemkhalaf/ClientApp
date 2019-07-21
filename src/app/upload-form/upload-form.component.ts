@@ -28,10 +28,11 @@ export class UploadFormComponent implements OnInit {
     _.each(fileIndex,
       (index: any) => {
       this.currentUpload = new Upload(fileList[index]);
-      this.uploadFileService.pushUpload(this.currentUpload);
+      // this.uploadFileService.pushUpload(this.currentUpload);
       this.filesList.push(this.currentUpload);
     });
     this.oFilesList(this.filesList);
+    console.log(this.filesList);
   }
 
   public oFilesList( files: Upload[]) {
@@ -39,7 +40,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   async deleteFile(event: any, file: Upload) {
-    await this.uploadFileService.deleteFile(file);
+    // await this.uploadFileService.deleteFile(file);
     const index: number = this.filesList.indexOf(file);
     if (index !== -1) {
         this.filesList.splice(index, 1);

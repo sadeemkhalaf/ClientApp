@@ -1,12 +1,39 @@
-<div class="example-box" cdkDragLockAxis="x" cdkDrag>
-  I can only be dragged left/right
+<div class="container">
+<button class="export-button" mat-flat-button type="button">Export Report</button>
+<mat-label>Filter by: </mat-label>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="Archived"><small>Archived</small></mat-button-toggle>
+    <mat-button-toggle value="To Call"><small>To Call</small></mat-button-toggle>
+    <mat-button-toggle value="To Interview"><small>To Interview</small></mat-button-toggle>
+    <mat-button-toggle value="Hold"><small>Hold</small></mat-button-toggle>
+  </mat-button-toggle-group>
+
 </div>
-<kendo-grid
-[data]="gridData"
-[height]="600">
-    <kendo-grid-column *ngFor="let col of columns" [field]="col.field" [width]="60"
-      [headerStyle]="{'background-color': '#666','color': '#fff','line-height': '1em'}"
-      [style]="{'background-color': '#888','color': '#fff'}"
-      [footerStyle]="{'background-color': '#888','color': '#fff'}">
+<div class="advanced-search-container container">
+  <mat-label>Advanced Filter</mat-label>
+    </div>
+<kendo-grid 
+[kendoGridBinding]="gridData" 
+[height]="600"
+[pageSize]="gridState.take"
+[skip]="gridState.skip"
+[sort]="gridState.sort"
+[pageable]="true"
+[sortable]="true"
+>
+
+  <kendo-grid-column
+    *ngFor="let col of columns"
+    [field]="col.field"
+    [title]="col.title"
+    [headerStyle]="{
+      'color': '#333333',
+      'font-weight': 'bold'
+    }"
+    [width]="auto"
+    [footerStyle]="{
+      'background-color': '#888',
+      color: '#fff' }"
+  >
   </kendo-grid-column>
 </kendo-grid>

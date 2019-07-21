@@ -1,11 +1,6 @@
-<div *ngFor="let upload of filesList">
-<div *ngIf="currentUpload && currentUpload?.progress !== 100">
-    <progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
-    Progress: {{upload?.name}} | {{upload?.progress}}% Complete
-</div>
-</div>
 <div class="box">
     <mat-label>  Drop Files</mat-label>
+</div>
     <div class="dropzone"
          appFileDrop
          (filesDropped)="handleDrop($event)"
@@ -15,7 +10,7 @@
                 <mat-list>
                         <h3 mat-subheader *ngIf="filesList.length !== 0">uploaded Files</h3>
                         <mat-list-item *ngFor="let file of filesList">
-                          <h4 mat-line><mat-icon>attach_file</mat-icon> {{file.name}} <small> {{file.createdAt | date:'short'}} </small></h4>
+                          <h4 mat-line><mat-icon>attach_file</mat-icon> {{file.file.name}} <small> {{file.createdAt | date:'short'}} </small></h4>
                           <button mat-icon-button color="warn" (click)="deleteFile($event,file)">
                             <mat-icon>cancel</mat-icon>
                           </button>
@@ -23,4 +18,10 @@
                         <mat-divider></mat-divider>
                 </mat-list>
     </div>
+    <div class="progress-box" *ngFor="let upload of filesList">
+        <div *ngIf="currentUpload && currentUpload?.progress !== 100">
+            <mat-progress-bar *ngIf="!!upload?.progress" mode="determinate" value= "{{ currentUpload?.progress }}"></mat-progress-bar>
+            <mat-progress-bar  *ngIf="!upload?.progress" mode="buffer"></mat-progress-bar>
+            <span>{{upload?.file.name}}</span> <span *ngIf="!!upload?.progress">: {{upload?.progress}}%</span>
+        </div>
 </div>

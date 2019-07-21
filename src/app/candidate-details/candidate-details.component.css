@@ -49,7 +49,7 @@ mat-form-field {
     font-size: 22px;
     color: #4F0A3A;
     margin-bottom: -5px;
-    margin-left: -30px;
+    margin-left: -20px;
 }
 
 .contact-field {
@@ -81,11 +81,15 @@ mat-form-field {
     margin-top: -15px;
 }
 
-.notes-input {
-    width: 95%;
-    display: flow-root;
-}
-
 .small-field {
     width: 10%;
+}
+
+mat-list-item {
+    margin-bottom: 20px;
+}
+
+.status-updated {
+    background-color: #720D5D;
+    color: white;
 }

@@ -38,7 +38,7 @@
     display: flexbox;
     padding: 10px;
     width: 15%;
-    background: #4F0A3A;
+    background: rgb(97, 14, 72);
     color: #ffffff;
     -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
     -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
@@ -110,3 +110,5 @@ p {
   float: left;
   margin-right: 20px;
 }
+
+

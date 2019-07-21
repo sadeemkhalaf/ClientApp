@@ -73,22 +73,22 @@
         <mat-list>
           <mat-list-item *ngIf="candidateStatusHistory.length > 0">
             <mat-label><b>Status History:</b> </mat-label>
-          </mat-list-item>
-          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
-          </mat-list-item>
-          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
-            <mat-chip-list class="status-tree">
+            <mat-chip-list class="status-tree" *ngIf="candidateStatusHistory.length > 0">
               <mat-chip
                 *ngFor="let st of candidateStatusHistory"
                 color="primary"
-                >{{ st.status }} -></mat-chip
-              >
+                >{{ st.status }} ->
+                </mat-chip>
+                <mat-chip class="status-updated" *ngIf="!!candidateForm.get('statusSelect').value" >{{candidateForm.get("statusSelect").value}}</mat-chip>
             </mat-chip-list>
           </mat-list-item>
           <mat-list-item *ngIf="!!candidateStatusHistory"> </mat-list-item>
           <mat-list-item
             *ngIf="
-              candidate.status === null || candidate.status.includes('N/A') || candidate.status.includes('Screen Call')
+              candidate.status === null || candidate.status.includes('N/A') 
+              || candidate.status.includes('Screen Call') 
+              || candidate.status.toLowerCase().includes('inbox') 
+              || candidate.status.toLowerCase().includes('rejected')
             "
           >
             <mat-form-field appearance="legacy">
@@ -101,20 +101,6 @@
             </mat-form-field>
           </mat-list-item>
           <mat-list-item *ngIf="!!candidate.status">
-            <mat-form-field
-              appearance="legacy"
-              *ngIf="
-                candidate.status.toLowerCase().includes('inbox') ||
-                candidate.status.toLowerCase().includes('rejected')
-              "
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="statusSelect">
-                <mat-option [value]="stat" *ngFor="let stat of statusStage1">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
 
             <mat-form-field
               appearance="legacy"
@@ -217,7 +203,6 @@
               </mat-form-field>
             </div>
           </mat-list-item>
-          <mat-list-item></mat-list-item>
           <mat-list-item>
             <mat-form-field appearance="legacy" class="input-field">
               <mat-label>Exam Score</mat-label>
@@ -236,7 +221,6 @@
               >/10 failed</span
             >
           </mat-list-item>
-          <mat-list-item></mat-list-item>
           <mat-list-item>
             <mat-form-field class="notes-input">
               <textarea
@@ -246,7 +230,6 @@
               ></textarea>
             </mat-form-field>
           </mat-list-item>
-          <mat-list-item></mat-list-item>
         </mat-list>
       </div>
     </div>

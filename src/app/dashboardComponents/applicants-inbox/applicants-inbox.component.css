@@ -1,5 +1,4 @@
 .searchContainer {
-    max-width: 85%;
     margin: 0 25px 15px 0;
     display: flex;
     padding: 19px;
@@ -8,7 +7,6 @@
   }
 
 .container {
-   max-width: 40%;
     height: 400px;
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -19,7 +17,7 @@
     vertical-align: top;
     padding: 19px;
     background: #DBDBDB;
-    border-radius: 8px;
+    border-radius: 13px;
   }
   
   .list {

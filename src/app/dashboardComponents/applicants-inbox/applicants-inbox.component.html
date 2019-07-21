@@ -21,9 +21,13 @@
     >
       <span>
         <span class="sub-title">{{ item.name }}</span>
-        <span>  submitted as </span>
-        <span class="sub-title" *ngIf="!!item.title">{{ item.title }}</span>
-        <span *ngIf="!!item.applicationDate"> <small>  {{ item.applicationDate | date:'short'}}</small></span>
+
+        <span class="sub-title" *ngIf="!!item.title"
+          ><span> submitted as </span>{{ item.title }}</span
+        >
+        <span *ngIf="!!item.applicationDate">
+          <small> {{ item.applicationDate | date: "short" }}</small></span
+        >
       </span>
     </div>
   </div>
@@ -52,9 +56,14 @@
       (click)="applicantDetails(item)"
     >
       <span
-        ><span class="sub-title">{{ item.name }}</span> 
-        <span class="sub-title"  *ngIf="!!item.status">changed to {{ item.status }}</span> status</span
-      >
+        ><span class="sub-title">{{ item.name }}</span>
+        <span *ngIf="!!item.status"
+          ><span> changed to </span>
+          <span class="sub-title" *ngIf="!!item.status">{{
+            item.status
+          }}</span>
+          </span>
+        status</span>
     </div>
   </div>
 </div>
