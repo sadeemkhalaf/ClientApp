@@ -8,6 +8,7 @@ import { CandidateDetailsComponent } from './candidate-details/candidate-details
 const routes: Routes = [{path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 { path: 'dashboard', component: MainDashboardComponent},
 { path: 'dashboard/applicants', component: CandidatesSummaryComponent},
+{ path: 'dashboard/applicants/add-new', component: CandidatesFormComponent},
 { path: 'dashboard/apply', component: CandidatesFormComponent},
 { path: 'dashboard/details/:id', component: CandidateDetailsComponent}
 ];
