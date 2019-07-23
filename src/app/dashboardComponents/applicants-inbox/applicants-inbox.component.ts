@@ -22,7 +22,7 @@ export class ApplicantsInboxComponent {
     });
 
     this.inboxCandidates.subscribe((item) => {
-      this.updatedIndex = item;
+      this.updatedIndex = item.filter((appl) => appl.status && appl.status.toLowerCase() !== 'inbox');
       this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
     });
    }
@@ -35,7 +35,6 @@ export class ApplicantsInboxComponent {
                         event.container.data,
                         event.previousIndex,
                         0);
-      // const itemData = event.container.data.entries().next().value[1];
     }
   }
 

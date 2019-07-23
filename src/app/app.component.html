@@ -11,7 +11,7 @@
             <mat-divider></mat-divider>
             <mat-list-item>
               <button class='list-items' mat-button [routerLink]="['/dashboard']">
-              <mat-icon class='material-icons' matBadge="{{inboxCount}}" matBadgeColor="accent" matBadgePosition="before">all_inbox</mat-icon>
+              <mat-icon class='material-icons' matBadge="{{$inboxCount | async}}" matBadgeColor="accent" matBadgePosition="before">all_inbox</mat-icon>
               <span> Inbox</span>
             </button>
           </mat-list-item> 
@@ -37,26 +37,7 @@
       </mat-toolbar>
         <div class='sidenav-content'>
             <div class="menu-icon">
-                
 
-                
-              <mat-list *ngIf="drawerClosed">
-                <mat-list-item>
-                  <button class='list-items' mat-button [routerLink]="['/dashboard']">
-                  <mat-icon class='material-icons side-icons' matBadge="{{inboxCount}}" matBadgeColor="accent">all_inbox</mat-icon>
-                </button>
-              </mat-list-item> 
-                <mat-list-item>
-                  <button class='list-items' mat-button [routerLink]="['/dashboard/applicants']">
-                    <i class='material-icons side-icons'>people</i>
-                  </button>
-                </mat-list-item>
-                <mat-list-item>
-                  <button class='list-items' mat-button>
-                    <i class='material-icons side-icons'>settings</i>
-                  </button>
-                </mat-list-item>
-                </mat-list>
              </div>
                  <router-outlet></router-outlet>
                     </div>

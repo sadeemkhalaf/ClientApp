@@ -144,14 +144,12 @@ export class CandidateDetailsComponent {
       const time = this.candidateForm.value.time.split(':');
       date.setHours(time[0]);
       date.setMinutes(time[1]);
-      console.log(date);
       this.candidate.toCallDate = date.toLocaleString();
       } else if (this.candidate.status.includes('scheduled')) {
         const date = this.candidateForm.value.serializedDate as Date;
         const time = this.candidateForm.value.time.split(':');
         date.setHours(time[0]);
         date.setMinutes(time[1]);
-        console.log(date);
         this.candidate.interviewDate = date.toLocaleString();
         }
     this.updateCandidate(this.candidate);
@@ -160,7 +158,6 @@ export class CandidateDetailsComponent {
   async getCandidateDetails(id: number) {
     this.candidatesService.getCandidate(this.id).toPromise().then(
       async (res: Candidates) => {
-          console.log(res);
           this.candidate = await res;
       },
       (error: any) => console.log(error));
@@ -170,7 +167,6 @@ export class CandidateDetailsComponent {
     this.candidatesService.getApplicantStatusHistory(id).toPromise().then(
       async (result: CandidatesStatusHistory[]) => {
         this.candidateStatusHistory = await result;
-        console.log(this.candidateStatusHistory);
     },
     (error: any) => console.log(error));
   }

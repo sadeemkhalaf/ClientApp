@@ -5,6 +5,12 @@
   background-color: #DBDBDB;
   margin-bottom: 10px;
   align-content: center;
+  display: -webkit-box;
+}
+
+mat-button-toggle-group {
+  display: inline-flex;
+  border: none;
 }
 
 button {
@@ -15,25 +21,60 @@ button {
 mat-button-toggle {
   margin: 20px 10px 20px 10px;
   border-radius: 13px;
-  width: 110px;
+  flex: auto;
 }
 
 mat-button-toggle:hover {
   background-color: #FD9726;
 }
 
-mat-button-toggle:active {
+mat-button-toggle:focus {
   background-color: #FD9726;
 }
 
-mat-button-toggle-group {
-  border: none;
+.export-button {
+  background-color: #FD9726;
 }
 
-.export-button {
-  background-color: #FD9726
+.header {
+  height: 70px;
+}
+
+.headline {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  position: absolute;
+}
+
+.add-button {
+  float: right;
+  background-color: #AB188D;
+  color: rgb(247, 247, 247);
+  margin-right: 0;
 }
 
 .advanced-search-container {
   height: 150px;
+}
+
+kendo-grid  {
+  display: table-cell;
+}
+
+.material-icons {
+  font-size: 18px;
+}
+
+kendo-grid-column {
+  display: flexbox;
+} 
+
+.k-button {
+  padding: 0;
+}
+
+.small-label {
+  bottom: 10px;
+  font-size: x-small;
 }

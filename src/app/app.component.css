@@ -27,11 +27,12 @@
   }
 
 .sidenav-content {
-    display: flex;
-    height: 100%;
+    display: inherit;
+    height: auto 100%;
     align-items: flex-start;
     padding: 10px;
     width: 80%;
+    margin: 20px;
   }
   
 .sidenav {

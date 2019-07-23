@@ -14,6 +14,7 @@ export class CandidatesService {
 
   constructor(private http: HttpClient) { }
 
+  // candidates
   public getCandidates() {
    return this.http.get(`${API}/applicants`);
   }
@@ -36,6 +37,13 @@ export class CandidatesService {
 
   public getApplicantStatusHistory(id: number) {
     return this.http.get<CandidatesStatusHistory[]>(`${API}/applicantStatusHistory/${id}`);
+  }
+  public getApplicantCountByStatus(status: string) {
+    return this.http.get<number>(`${API}/applicants/count/${status}`);
+  }
+
+  public async getApplicantByStatus(status: string) {
+    return this.http.get(`${API}/applicants/status/${status}`);
   }
 
   // eduacationDeatils

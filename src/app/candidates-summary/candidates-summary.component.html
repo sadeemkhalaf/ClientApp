@@ -1,39 +1,80 @@
-<div class="container">
-<button class="export-button" mat-flat-button type="button">Export Report</button>
-<mat-label>Filter by: </mat-label>
-<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle value="Archived"><small>Archived</small></mat-button-toggle>
-    <mat-button-toggle value="To Call"><small>To Call</small></mat-button-toggle>
-    <mat-button-toggle value="To Interview"><small>To Interview</small></mat-button-toggle>
-    <mat-button-toggle value="Hold"><small>Hold</small></mat-button-toggle>
-  </mat-button-toggle-group>
+<div class="header">
+  <mat-label class="headline">Candidates Summary</mat-label>
+  <button class="add-button" mat-flat-button type="button" (click)="addApplicant()">
+    <span>+ Add Candidate</span>
+    </button>
+</div>
 
+<div class="container">
+  <button class="export-button" mat-flat-button type="button">
+    Export Report
+  </button>
+  <mat-label>Filter by: </mat-label>
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle
+      value="AllApplicants"
+      (click)="filterByStatusValue($event, 'AllApplicants')"
+      ><b>{{ $allCount | async }} </b>
+      <span class="small-label"> All</span></mat-button-toggle
+    >
+    <mat-button-toggle
+      value="Archive"
+      (click)="filterByStatusValue($event, 'Archive')"
+      ><b>{{ $archivedCount | async }} </b>
+      <span class="small-label"> Archived</span></mat-button-toggle>
+    <mat-button-toggle
+      value="Call"
+      (click)="filterByStatusValue($event, 'initial call')"
+      ><b>{{ $toCallCount | async }} </b>
+      <span class="small-label">Call</span></mat-button-toggle>
+    <mat-button-toggle
+      value="To Interview"
+      (click)="filterByStatusValue($event, 'interview')"
+      ><b>{{ $interviewcount | async }} </b>
+      <span class="small-label"> Interview</span></mat-button-toggle>
+    <mat-button-toggle
+      value="Hold"
+      (click)="filterByStatusValue($event, 'hold')"
+      ><b>{{ $holdCount | async }} </b>
+      <span class="small-label"> Hold</span></mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
 <div class="advanced-search-container container">
   <mat-label>Advanced Filter</mat-label>
-    </div>
-<kendo-grid 
-[kendoGridBinding]="gridData" 
-[height]="600"
-[pageSize]="gridState.take"
-[skip]="gridState.skip"
-[sort]="gridState.sort"
-[pageable]="true"
-[sortable]="true"
->
+</div>
 
+<kendo-grid
+  [data] = "gridData1"
+  [kendoGridBinding] = "$filteredGridData"
+  [height]="600"
+  [pageSize]="gridState.take"
+  [skip]="gridState.skip"
+  [sort]="gridState.sort"
+  [pageable]="true"
+  [sortable]="true"
+  [selectable]="true">
+  <kendo-grid-command-column title="view" width="80">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <mat-icon
+        kendoGridEditCommand
+        class="material-icons k-button"
+        (click)="selected(dataItem)"
+        >visibility</mat-icon>
+    </ng-template>
+  </kendo-grid-command-column>
   <kendo-grid-column
     *ngFor="let col of columns"
     [field]="col.field"
     [title]="col.title"
     [headerStyle]="{
-      'color': '#333333',
+      color: '#333333',
       'font-weight': 'bold'
     }"
-    [width]="auto"
+    [width]="col.width"
     [footerStyle]="{
       'background-color': '#888',
-      color: '#fff' }"
-  >
+      color: '#fff'
+    }"
+    aria-selected="false">
   </kendo-grid-column>
 </kendo-grid>

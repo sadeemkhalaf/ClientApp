@@ -1,4 +1,5 @@
 export interface Candidates {
+        id?: number;
         name: string;
         phoneNumber: string;
         email: string;

@@ -10,6 +10,7 @@ import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidates } from './../Models/candidates';
 import { Router } from '@angular/router';
 import { universitiesList, technologiesList } from './../../environments/environment';
+import { EducationDetails } from '../Models/EducationDetails';
 
 @Component({
   selector: 'app-candidates-form',
@@ -30,6 +31,7 @@ export class CandidatesFormComponent implements OnInit {
   private technologies: string[] = [];
   private allTechnologies: string[] = technologiesList;
   private universitiesList: string[] = universitiesList;
+  private educationList: EducationDetails[] = [];
 
   @ViewChild('TechnologiesInput', {static: false}) TechnologiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;

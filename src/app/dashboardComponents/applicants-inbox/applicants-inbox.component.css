@@ -8,25 +8,28 @@
 
 .container {
     height: 400px;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    scroll-padding: 3px;
-    scroll-margin-right: 5px;
     margin: 0 25px 25px 0;
-    display: inline-block;
+    display: inline-flex;
     vertical-align: top;
-    padding: 19px;
+    padding: 10px;
     background: #DBDBDB;
     border-radius: 13px;
   }
   
+  .scrollable-box {
+    margin: 0 25px 25px 0;
+  }
+  
   .list {
     border: solid 1px #ccc;
-    min-height: 60px;
-    background: white;
+    height: 350px;
     border-radius: 13px;
-    overflow: hidden;
-    display: block;
+    overflow: overlay;
+    display: list-item;
+    scroll-behavior: smooth;
+    scroll-padding: 3px;
+    scroll-margin-right: 5px;
+    margin-top: 10px;
   }
   
   .box {
@@ -41,14 +44,12 @@
     cursor: move;
     background: white;
     font-size: 14px;
+    
   }
   
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
   }
   
   .cdk-drag-placeholder {
@@ -69,10 +70,24 @@
   
   .title {
       text-align: center;
-      margin: 10px;
+      margin: 20px 0 20px 0;
       font-weight: normal;
 
   }
   .sub-title {
       font-weight: bold;
+  }
+
+  .empty-box {
+    padding: 20px 10px;
+    border-bottom: solid 0.5px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
   }

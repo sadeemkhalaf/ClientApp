@@ -1,5 +1,5 @@
 .form-container {
-    position: inherit;
+    position: absolute;
 }
 
 .material-icons {
@@ -51,4 +51,8 @@ mat-icon{
 mat-form-field {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.outer {
+    margin: 20px;
 }

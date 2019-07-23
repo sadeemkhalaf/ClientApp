@@ -11,7 +11,7 @@
           <mat-label class="name-label">{{ candidate.name }}</mat-label>
         </mat-list-item>
         <mat-list-item>
-          <div class="date-added" *ngIf="candidate.applicationDate">
+          <div class="date-added" *ngIf="!!candidate.applicationDate">
             <small>
               {{ candidate.applicationDate }}
             </small>
@@ -86,7 +86,7 @@
           <mat-list-item
             *ngIf="
               candidate.status === null || candidate.status.includes('N/A') 
-              || candidate.status.includes('Screen Call') 
+              || candidate.status.includes('initial call') 
               || candidate.status.toLowerCase().includes('inbox') 
               || candidate.status.toLowerCase().includes('rejected')
             "
@@ -150,7 +150,7 @@
 
             <mat-form-field
               appearance="legacy"
-              *ngIf="candidate.status.toLowerCase().includes('Offer')"
+              *ngIf="candidate.status.toLowerCase().includes('offer')"
             >
               <mat-label>Status</mat-label>
               <mat-select matNativeControl formControlName="statusSelect">
@@ -174,7 +174,7 @@
 
             <div
               *ngIf="
-                candidateForm.get('statusSelect').value.includes('Call') ||
+                candidateForm.get('statusSelect').value.includes('to call') ||
                 candidateForm.get('statusSelect').value.includes('schedule')
               "
             >
