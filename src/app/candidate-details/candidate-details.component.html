@@ -74,15 +74,16 @@
           <mat-list-item *ngIf="candidateStatusHistory.length > 0">
             <mat-label><b>Status History:</b> </mat-label>
             <mat-chip-list class="status-tree" *ngIf="candidateStatusHistory.length > 0">
+              <div *ngFor="let st of candidateStatusHistory">
               <mat-chip
-                *ngFor="let st of candidateStatusHistory"
                 color="primary"
-                >{{ st.status }} ->
+                >{{ st.status }}
                 </mat-chip>
+                <mat-icon>arrow_forward</mat-icon>
+              </div>
                 <mat-chip class="status-updated" *ngIf="!!candidateForm.get('statusSelect').value" >{{candidateForm.get("statusSelect").value}}</mat-chip>
             </mat-chip-list>
           </mat-list-item>
-          <mat-list-item *ngIf="!!candidateStatusHistory"> </mat-list-item>
           <mat-list-item
             *ngIf="
               candidate.status === null || candidate.status.includes('N/A') 
@@ -301,6 +302,7 @@
           />
         </mat-form-field>
       </div>
+
     </div>
 
     <mat-label class="box-label">Experience</mat-label>

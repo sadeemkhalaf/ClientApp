@@ -9,8 +9,9 @@
   <button class="export-button" mat-flat-button type="button">
     Export Report
   </button>
-  <mat-label>Filter by: </mat-label>
+
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-label>Filter by: </mat-label>
     <mat-button-toggle
       value="AllApplicants"
       (click)="filterByStatusValue($event, 'AllApplicants')"
@@ -44,15 +45,16 @@
 </div>
 
 <kendo-grid
-  [data] = "gridData1"
+  [data] = "gridData"
   [kendoGridBinding] = "$filteredGridData"
-  [height]="600"
   [pageSize]="gridState.take"
   [skip]="gridState.skip"
   [sort]="gridState.sort"
   [pageable]="true"
   [sortable]="true"
-  [selectable]="true">
+  [selectable]="true"
+  scrollable="none"
+  (dataStateChange)="dataStateChange($event, $filteredGridData)">
   <kendo-grid-command-column title="view" width="80">
     <ng-template kendoGridCellTemplate let-dataItem>
       <mat-icon

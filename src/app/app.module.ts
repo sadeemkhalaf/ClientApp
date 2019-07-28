@@ -23,7 +23,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { SubmitResultComponent } from './submit-result/submit-result.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
-import { EducationDetailsComponent } from './education-details/education-details.component';
 
 
 @NgModule({
@@ -38,8 +37,7 @@ import { EducationDetailsComponent } from './education-details/education-details
     UploadFormComponent,
     FileDropDirective,
     SubmitResultComponent,
-    CandidateDetailsComponent,
-    EducationDetailsComponent
+    CandidateDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Candidates, CandidatesStatusHistory } from 'src/app/Models/candidates';
+import { Candidate, CandidatesStatusHistory } from 'src/app/Models/candidate';
 import { throwError, Observable } from 'rxjs';
 import { CandidateFiles } from 'src/app/Models/CandidateFiles';
 import { EducationDetails } from 'src/app/Models/EducationDetails';
@@ -19,16 +19,16 @@ export class CandidatesService {
    return this.http.get(`${API}/applicants`);
   }
 
-  public getCandidate(id: number): Observable<Candidates> {
-    return this.http.get<Candidates>(`${API}/applicants/${id}`);
+  public getCandidate(id: number): Observable<Candidate> {
+    return this.http.get<Candidate>(`${API}/applicants/${id}`);
    }
 
-  public async insertCandidate(candidates: Candidates) {
-    return this.http.post<Candidates>(`${API}/applicants`, candidates).toPromise();
+  public async insertCandidate(candidates: Candidate) {
+    return this.http.post<Candidate>(`${API}/applicants`, candidates).toPromise();
   }
 
-  public async updateCandidate(id: number, candidates: Candidates) {
-    return this.http.put<Candidates>(`${API}/applicants/${id}`, candidates).toPromise();
+  public async updateCandidate(id: number, candidates: Candidate) {
+    return this.http.put<Candidate>(`${API}/applicants/${id}`, candidates).toPromise();
   }
 
   public async deleteCandidate(id: number) {

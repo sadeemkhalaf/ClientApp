@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { AppService } from './../Services/app-service.service';
 import { Subject, timer, of, merge, Observable, BehaviorSubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
-import { Candidates } from './Models/candidates';
+import { Candidate } from './Models/candidate';
 import { map, catchError, switchMap, takeUntil, repeat, concatMap } from 'rxjs/operators';
 
 @Component({
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
   private weekday: string = this.date.toLocaleString('en-us', { weekday: 'long'});
   private month: string = this.date.toLocaleString('en-us', { month: 'short'});
   private day: string = this.date.getDate().toString();
-  private inboxedCandidatesData: Candidates[] = [];
+  private inboxedCandidatesData: Candidate[] = [];
   private $inboxCount: Observable<number>;
   private inboxCount: number;
   private load$ = new BehaviorSubject('');
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit{
   }
 
   private getInboxCount() {
-    this.candidatesService.getCandidates().toPromise().then((item: Candidates[]) => {
+    this.candidatesService.getCandidates().toPromise().then((item: Candidate[]) => {
       item.forEach((i) => {
         this.inboxCount = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox').length;
       });

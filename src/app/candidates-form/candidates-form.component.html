@@ -60,8 +60,12 @@
       </div>
 
         <mat-label class="box-label">Education</mat-label>
+        <button mat-stroked-button type="button" (click)="addRow()" class="educationButton">add more <mat-icon>add_circle_outline</mat-icon></button>
         <div class="box-outline">
-            <div class="box">
+            <div formArrayName="educationDetails"
+            *ngFor="let item of candidateForm.get('educationDetails').controls; let i = index;"
+            >
+            <div class="box" [formGroupName]="i">
               <mat-form-field appearance="legacy" class="input-field">
                   <mat-label>Major</mat-label>
                   <input matInput formControlName="major">
@@ -88,13 +92,10 @@
                               <option value="Master">Master's degree</option>
                               <option value="Doctoral">Doctoral degree</option>
                             </select>
-                          </mat-form-field>                       
-
-                    <mat-form-field appearance="legacy" class="input-field">
-                        <mat-label>Other University</mat-label>
-                        <input matInput formControlName="otherUniversity">
-                      </mat-form-field>
+                          </mat-form-field> 
+                          <button mat-icon-button type="button" (click)="removeRow(i)"><mat-icon>delete_forever</mat-icon></button>
                 </div> 
+              </div>
               </div>
 
               
@@ -192,8 +193,8 @@
                           <app-upload-form (outputFilesList)="getFilesList($event)"></app-upload-form>
               </div>
         <div class="button-row">
-          <button mat-stroked-button type="submit"><i class='material-icons icon'>send</i>Submit</button>
-          <button mat-stroked-button type="cancel" [disabled]="false" color="warn" [routerLink]="['/dashboard']">Cancel</button>
+          <button mat-stroked-button type="submit">Submit <i class='material-icons icon'>send</i></button>
+          <button mat-stroked-button type="button" [disabled]="false" color="warn" (click)="cancel()">Cancel</button>
         </div>
   </form>
 

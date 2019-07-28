@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './../../Services/app-service.service';
 import { CandidatesService } from '../../Services/candidates.service';
-import { Candidates } from '../Models/candidates';
+import { Candidate } from '../Models/candidate';
 import { Subject, Observable, BehaviorSubject, timer } from 'rxjs';
 import { GridDataResult, RowArgs, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { process, State } from '@progress/kendo-data-query';
@@ -14,13 +14,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./candidates-summary.component.css']
 })
 export class CandidatesSummaryComponent implements OnInit {
+    public title = 'Dashboard';
+    public gridState: State = {
+    sort: [],
+    skip: 0,
+    take: 10
+  };
 
-  public title = 'Dashboard';
-  public candidates: Subject<Candidates[]> = new Subject<Candidates[]>();
+  public candidates: Subject<Candidate[]> = new Subject<Candidate[]>();
   public gridDataResult: GridDataResult = {data: [], total: 0};
 
   public columns: any[] = [
-    {field: 'id', title: 'Id', width: 30},
+    {field: 'id', title: 'Id', width: 40},
     {field: 'name', title: 'Name', width: 120},
     {field: 'status', title: 'Status', width: 80},
     {field: 'phoneNumber', title: 'Mobile', width: 80},
@@ -31,11 +36,6 @@ export class CandidatesSummaryComponent implements OnInit {
     {field: 'devexperience', title: 'Experience', width: 80}
   ];
 
-    public gridState: State = {
-    sort: [],
-    skip: 0,
-    take: 10
-  };
 
   public gridData: GridDataResult;
   private $archivedCount: Observable<number>;
@@ -48,11 +48,11 @@ export class CandidatesSummaryComponent implements OnInit {
   private toCall$ = new BehaviorSubject('');
   private hold$ = new BehaviorSubject('');
   private interview$ = new BehaviorSubject('');
-  private $filteredGridData: Candidates[] = [];
+  private $filteredGridData: Candidate[] = [];
 
   constructor(private appService: AppService, private candService: CandidatesService, private router: Router) {
     this.candService.getCandidates().subscribe((res) => {
-      this.candidates.next(res as Candidates[]);
+      this.candidates.next(res as Candidate[]);
     });
     this.candidates.subscribe((res) => {
       this.$filteredGridData = res;
@@ -86,21 +86,27 @@ export class CandidatesSummaryComponent implements OnInit {
 
   private async filterByStatusValue(event: any, status: string) {
     this.$filteredGridData = [];
+
     return new Promise((resolve, reject) => {
       this.candService.getApplicantByStatus(status).then(
         res => {
-          res.subscribe((result: Candidates[]) => {
+          res.subscribe((result: Candidate[]) => {
             this.$filteredGridData = result;
+            this.gridState.skip = 0;
+            this.gridState.take = 10;
+            this.gridState.sort = [];
           });
           resolve(res);
-          this.gridState.skip = 0;
-          this.gridData = process(this.$filteredGridData, this.gridState);
         }
       );
     });
-
-
   }
+
+  private dataStateChange(state: DataStateChangeEvent, list: any): void {
+    this.gridState = state;
+    this.gridData = process(list, this.gridState);
+  }
+
     addApplicant() {
       this.router.navigate([`dashboard/applicants/add-new`]);
     }

@@ -1,3 +1,9 @@
+.sidenav-content {
+  padding: 10px;
+  text-align: center;
+  display: grid;
+}
+
 .searchContainer {
     margin: 0 25px 15px 0;
     display: flex;
@@ -18,6 +24,7 @@
   
   .scrollable-box {
     margin: 0 25px 25px 0;
+    width: 100%;
   }
   
   .list {

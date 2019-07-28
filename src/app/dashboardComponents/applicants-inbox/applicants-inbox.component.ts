@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@angular/cdk/drag-drop';
 import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
-import { Candidates } from 'src/app/Models/candidates';
+import { Candidate } from 'src/app/Models/candidate';
 import { Router } from '@angular/router';
 import { randomNumber } from 'src/environments/environment';
 
@@ -13,11 +13,11 @@ import { randomNumber } from 'src/environments/environment';
 })
 export class ApplicantsInboxComponent {
 
-  public inboxCandidates: ReplaySubject<Candidates[]> = new ReplaySubject<Candidates[]>(1);
-  public inboxedCandidatesData: Candidates[] = [];
-  private updatedIndex: Candidates [] = [];
+  public inboxCandidates: ReplaySubject<Candidate[]> = new ReplaySubject<Candidate[]>(1);
+  public inboxedCandidatesData: Candidate[] = [];
+  private updatedIndex: Candidate [] = [];
   constructor(private candidatesService: CandidatesService, private router: Router) {
-    this.candidatesService.getCandidates().subscribe((item: Candidates[]) => {
+    this.candidatesService.getCandidates().subscribe((item: Candidate[]) => {
       this.inboxCandidates.next(item);
     });
 
@@ -27,7 +27,7 @@ export class ApplicantsInboxComponent {
     });
    }
 
-  async drop(event: CdkDragDrop<Candidates[]>) {
+  async drop(event: CdkDragDrop<Candidate[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Candidates, CandidatesStatusHistory } from './../Models/candidates';
+import { Candidate, CandidatesStatusHistory } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Time } from '@angular/common';
@@ -13,7 +13,7 @@ import { Time } from '@angular/common';
 })
 export class CandidateDetailsComponent {
 
-  private candidate: Candidates;
+  private candidate: Candidate;
   private candidateForm = new FormGroup({});
   private id: number;
   private candidateStatusHistory: CandidatesStatusHistory[] = [];
@@ -157,7 +157,7 @@ export class CandidateDetailsComponent {
 
   async getCandidateDetails(id: number) {
     this.candidatesService.getCandidate(this.id).toPromise().then(
-      async (res: Candidates) => {
+      async (res: Candidate) => {
           this.candidate = await res;
       },
       (error: any) => console.log(error));
@@ -171,7 +171,7 @@ export class CandidateDetailsComponent {
     (error: any) => console.log(error));
   }
 
-  async updateCandidate(updateCandidate: Candidates) {
+  async updateCandidate(updateCandidate: Candidate) {
     console.log('candidate is updated', updateCandidate);
     await this.candidatesService.updateCandidate(this.id, updateCandidate)
     .finally(() => this.openSnackBar('applicant updated successfully', 'x'));

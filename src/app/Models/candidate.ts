@@ -1,4 +1,4 @@
-export interface Candidates {
+export interface Candidate {
         id?: number;
         name: string;
         phoneNumber: string;

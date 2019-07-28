@@ -1,5 +1,6 @@
 .form-container {
     position: absolute;
+    display: contents;
 }
 
 .material-icons {
@@ -11,8 +12,6 @@
 .box-label {
     font-weight: normal;
     font-size: 22px;
-    margin-top: 15px;
-    margin-bottom: 15px;
 }
 
 .material-icons {
@@ -33,7 +32,7 @@ app-upload-form {
     margin: 20px;
 }
 
-mat-icon{
+mat-icon {
     margin-bottom: 25px;
 }
 
@@ -55,4 +54,20 @@ mat-form-field {
 
 .outer {
     margin: 20px;
+}
+
+.box-outline {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.educationButton {
+    position: relative;
+    float: right;
+    margin-top: 0;
+    border-radius: 13px;
+}
+
+.educationButton mat-icon {
+    margin: 0;
 }

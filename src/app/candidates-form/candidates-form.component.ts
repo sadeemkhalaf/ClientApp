@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
@@ -7,10 +7,11 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {map, startWith} from 'rxjs/operators';
 import { Upload } from '../Models/upload';
 import { CandidatesService } from 'src/Services/candidates.service';
-import { Candidates } from './../Models/candidates';
+import { Candidate } from './../Models/candidate';
 import { Router } from '@angular/router';
 import { universitiesList, technologiesList } from './../../environments/environment';
 import { EducationDetails } from '../Models/EducationDetails';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-candidates-form',
@@ -38,7 +39,9 @@ export class CandidatesFormComponent implements OnInit {
 
   private technologiesCtrl = new FormControl();
   private candidateForm = new FormGroup({});
-  constructor(private candidatesService: CandidatesService, private router: Router) {
+  private educationDetails: FormArray;
+  constructor(private candidatesService: CandidatesService, private router: Router
+            , private _location: Location , private formBuilder: FormBuilder) {
     this.filteredTechnologies = this.technologiesCtrl.valueChanges.pipe(
       startWith(null),
       map((technology: string | null) => technology ? this._filter(technology) : this.allTechnologies.slice()));
@@ -52,10 +55,6 @@ export class CandidatesFormComponent implements OnInit {
       email: new FormControl('sadeem@capella.io', [Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
       social: new FormControl('LinkedIn', Validators.required),
       nationality: new FormControl('Jordanian', Validators.required),
-      major: new FormControl('Conputer Science', Validators.required),
-      gpa: new FormControl('3.28', Validators.required),
-      university: new FormControl('Yarmouk University', Validators.required),
-      degree: new FormControl('Bachelor', Validators.required),
       otherUniversity: new FormControl(''),
       lastPosition: new FormControl('Software Engineer'),
       careerLevel: new FormControl('junior', Validators.required),
@@ -66,7 +65,16 @@ export class CandidatesFormComponent implements OnInit {
       expectedSalary: new FormControl('500', Validators.required),
       englishSkills: new FormControl('Intermediate'),
       attachments: new FormControl(''),
-      socialOther: new FormControl('')
+      socialOther: new FormControl(''),
+      educationDetails: this.formBuilder.array([
+        this.formBuilder.group({
+          major: '',
+          gpa: '',
+          university: '',
+          degree: '',
+          graduated: false
+        })
+      ])
     });
   }
 
@@ -110,35 +118,36 @@ export class CandidatesFormComponent implements OnInit {
 
    private async onSubmit() {
      if (this.candidateForm.valid) {
-           const gpa = this.candidateForm.get('gpa').value as number;
-           const candidate: Candidates = {
-        name: this.candidateForm.get('firstName').value + ' ' +  this.candidateForm.get('lastName').value,
-        email:  this.candidateForm.get('email').value,
-        gpA1: gpa <= 4 ? gpa : this.convertGpa(gpa),
-        gpA2: gpa > 4 ? gpa : this.convertGpa(gpa),
-        careerLevel: this.candidateForm.get('careerLevel').value,
-        currentPosition: !!this.candidateForm.get('lastPosition').value ? this.candidateForm.get('lastPosition').value : '',
-        cvAttachment: this.getUrlFromFilesList(this.filesList).toString(),
-        degree: this.candidateForm.get('degree').value,
-        expectedSalary: this.candidateForm.get('expectedSalary').value as number,
-        devexperience: this.candidateForm.get('experienceYears').value as number,
-        englishSkills: this.candidateForm.get('englishSkills').value,
-        howdidyoufindus: (!!this.candidateForm.get('social').value && this.candidateForm.get('social').value !== 'Other')
-        ? this.candidateForm.get('social').value : this.candidateForm.get('socialOther').value,
-        joinDate: this.candidateForm.get('joinDate').value,
-        major: this.candidateForm.get('major').value,
-        nationality: this.candidateForm.get('nationality').value,
-        otherUniversity: this.candidateForm.get('otherUniversity').value,
-        phoneNumber: this.candidateForm.get('mobile').value,
-        technologies: this.technologies.toString(),
-        university: this.candidateForm.get('university').value,
-        teamLeaderExperience: 0,
-        status: 'inbox',
-        title: this.candidateForm.get('applyingAs').value
-      };
-           this.initializeForm();
-           await this.candidatesService.insertCandidate(candidate);
-           this.registerationSuccess = true;
+            this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
+            const gpa = this.educationDetails.at(0).get('gpa').value as number;
+            const candidate: Candidate = {
+                  name: this.candidateForm.get('firstName').value + ' ' +  this.candidateForm.get('lastName').value,
+                  email:  this.candidateForm.get('email').value,
+                  gpA1: gpa <= 4 ? gpa : this.convertGpa(gpa),
+                  gpA2: gpa > 4 ? gpa : this.convertGpa(gpa),
+                  careerLevel: this.candidateForm.get('careerLevel').value,
+                  currentPosition: !!this.candidateForm.get('lastPosition').value ? this.candidateForm.get('lastPosition').value : '',
+                  cvAttachment: this.getUrlFromFilesList(this.filesList).toString(),
+                  degree: this.educationDetails.at(0).get('degree').value,
+                  expectedSalary: this.candidateForm.get('expectedSalary').value as number,
+                  devexperience: this.candidateForm.get('experienceYears').value as number,
+                  englishSkills: this.candidateForm.get('englishSkills').value,
+                  howdidyoufindus: (!!this.candidateForm.get('social').value && this.candidateForm.get('social').value !== 'Other')
+                  ? this.candidateForm.get('social').value : this.candidateForm.get('socialOther').value,
+                  joinDate: this.candidateForm.get('joinDate').value,
+                  major: this.educationDetails.at(0).get('major').value,
+                  nationality: this.candidateForm.get('nationality').value,
+                  otherUniversity: '',
+                  phoneNumber: this.candidateForm.get('mobile').value,
+                  technologies: this.technologies.toString(),
+                  university: this.educationDetails.at(0).get('university').value,
+                  teamLeaderExperience: 0,
+                  status: 'inbox',
+                  title: this.candidateForm.get('applyingAs').value
+                };
+            this.initializeForm();
+            await this.candidatesService.insertCandidate(candidate);
+            this.registerationSuccess = true;
      }
   }
 
@@ -165,5 +174,29 @@ export class CandidatesFormComponent implements OnInit {
     if (event) {
       this.registerationSuccess = !event;
     }
+  }
+
+  private cancel() {
+    this._location.back();
+  }
+
+  addRow(): void {
+    this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
+    this.educationDetails.push(this.createGroup());
+    console.log('educationDetails length: ', this.educationDetails.controls.length);
+  }
+
+  removeRow(index: number): void {
+    this.educationDetails.removeAt(index);
+  }
+
+  createGroup(): FormGroup {
+    return this.formBuilder.group({
+      major: '',
+      gpa: '',
+      university: '',
+      degree: '',
+      graduated: false
+    });
   }
 }
