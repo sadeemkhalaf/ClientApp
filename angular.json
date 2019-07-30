@@ -26,7 +26,8 @@
               {
                 "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
               },
-              "src/styles.css"
+              "src/styles.css",
+              "../assets/all.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

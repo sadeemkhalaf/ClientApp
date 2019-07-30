@@ -36,7 +36,6 @@ export class CandidatesSummaryComponent implements OnInit {
     {field: 'devexperience', title: 'Experience', width: 80}
   ];
 
-
   public gridData: GridDataResult;
   private $archivedCount: Observable<number>;
   private $toCallCount: Observable<number>;
@@ -70,9 +69,9 @@ export class CandidatesSummaryComponent implements OnInit {
     this.$interviewcount = this.getCountByStatus('interview', this.interview$);
     this.$toCallCount = this.getCountByStatus('call', this.toCall$);
   }
-  private getCountByStatus(status: string, load$: BehaviorSubject<any>) {
+  private getCountByStatus(status: string, $load: BehaviorSubject<any>) {
     const $Count = this.candService.getApplicantCountByStatus(status);
-    return load$.pipe(
+    return $load.pipe(
       switchMap( _ => timer(0, 30000).pipe(
         concatMap( _ => $Count),
         map((response: number) => response)

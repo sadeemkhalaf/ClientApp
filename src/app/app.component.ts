@@ -1,14 +1,20 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { AppService } from './../Services/app-service.service';
-import { Subject, timer, of, merge, Observable, BehaviorSubject } from 'rxjs';
+import { Subject, timer, Observable, BehaviorSubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidate } from './Models/candidate';
-import { map, catchError, switchMap, takeUntil, repeat, concatMap } from 'rxjs/operators';
+import { map, switchMap, concatMap } from 'rxjs/operators';
+import { slideInAnimation } from './animations';
+import { RouterOutlet } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    slideInAnimation
+  ]
 })
 export class AppComponent implements OnInit{
 
@@ -63,6 +69,10 @@ export class AppComponent implements OnInit{
         this.inboxCount = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox').length;
       });
     });
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 }

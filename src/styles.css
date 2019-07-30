@@ -67,8 +67,6 @@ body {
 
 .box-outline {
     border: 1px solid #c8c8c8;
-    width: auto;
-    height: fit-content;
 }
 
 .input-field {

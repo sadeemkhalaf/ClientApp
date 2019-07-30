@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Candidate, CandidatesStatusHistory } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-candidate-details',
@@ -67,7 +66,7 @@ export class CandidateDetailsComponent {
   }
 
   constructor(private formBuilder: FormBuilder, private candidatesService: CandidatesService,
-              private router: Router, private route: ActivatedRoute, private _snackBar: MatSnackBar) {
+              private router: Router, private route: ActivatedRoute, private snackBar: MatSnackBar) {
     this.id = (this.route.snapshot.paramMap.get('id') as unknown as number);
     this.getCandidateDetails(this.id);
     this.getCandidatesStatusHistory(this.id);
@@ -93,7 +92,6 @@ export class CandidateDetailsComponent {
       status: [''],
       examScore: [''],
       notes: [''],
-      // comments: this.candidate.,
       serializedDate : ((new Date()).toISOString()),
       time: '',
       technologies: ''
@@ -178,7 +176,7 @@ export class CandidateDetailsComponent {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 2000,
     });
   }

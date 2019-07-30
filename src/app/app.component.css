@@ -9,13 +9,11 @@
   }
   
 .app-toolbar {
-  background: #4F0A3A;
+  background: #981e21;
   color: white;
   overflow: hidden;
-  
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
+  
   }
 
   mat-toolbar {
@@ -28,17 +26,18 @@
 
 .sidenav-content {
   height: auto 100%;
-  -webkit-box-align: start;
   align-items: flex-start;
+  display: flex;
   padding: 10px;
-  margin: 20px;
+  margin-left: 20px;
+  flex-wrap: wrap;
   }
   
 .sidenav {
     display: flexbox;
     padding: 10px;
     width: 15%;
-    background: rgb(97, 14, 72);
+    background: #7c1819;
     color: #ffffff;
     -webkit-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
     -moz-box-shadow: 15px 15px 10px 0px rgba(0,0,0,0.11);
@@ -97,11 +96,11 @@ p {
 }
 
 .list-items button:focus {
-  background: rgb(255, 0, 204);
+  background: #981e21;
 }
 
 .side-icons {
-  color: #5D1049;
+  color: #981e21;
 }
 
 .menu-icon {

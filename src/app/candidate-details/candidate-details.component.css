@@ -7,15 +7,13 @@
     margin-left: 0;
 }
 
-.material-icons {
-    margin-top: 25px;
-    padding: 2px;
-    color: #720D5D;
-}
 .box {
-    display: inline-table;
-    margin: 10px;
+    display: flex;
     padding: 3px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    flex-grow: 0;
+    flex-shrink: 1;
 }
 
 .box-label {
@@ -28,7 +26,12 @@
 
 .material-icons {
     margin-left: 10px;
-    margin-bottom: 20px;
+    align-items: baseline;
+    padding: 2px;
+    color: #981e21;
+    font-size: small;
+    height: 15px;
+    width: 15px;
 }
 
 mat-form-field {
@@ -47,16 +50,18 @@ mat-form-field {
 
 .name-label {
     font-size: 22px;
-    color: #4F0A3A;
-    margin-bottom: -5px;
+    color: #771819;
     margin-left: -20px;
 }
 
 .contact-field {
-    display: inline-flex;
+    display: flex;
     align-self: baseline;
-    align-content: flex-end;
-    width: 35%;
+    align-items: center;
+    margin-top: 15px;
+    flex-flow: row;
+    flex-grow: 1;
+
 }
 
 .button-row button,
@@ -86,14 +91,50 @@ mat-form-field {
 }
 
 mat-list-item {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .status-updated {
-    background-color: #720D5D;
+    background-color: #981e21;
     color: white;
 }
 
 .status-tree {
     margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.status-tree mat-icon {
+    margin: 0;
+}
+
+.notes-field {
+    width: 100%;
+}
+
+.name-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.small-text {
+    align-items: center;
+    font-size: xx-small;
+}
+
+.chip-content {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+}
+
+mat-chip-list {
+    align-content: center;
 }

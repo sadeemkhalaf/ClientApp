@@ -34,9 +34,7 @@
   .card {
     text-align: center;
     vertical-align: middle;
-    -webkit-box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
-    -moz-box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
-    box-shadow: 7px 5px 5px 0px rgba(0,0,0,0.18);
+    box-shadow: 3px 3px 12px -5px #a2248c;
   }
   
   button {
