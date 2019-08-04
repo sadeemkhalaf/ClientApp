@@ -57,9 +57,9 @@ body {
 }
 
 .box{
-    align-content: center;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     padding: 15px;
     right: 0;
     left: 0;
@@ -67,11 +67,6 @@ body {
 
 .box-outline {
     border: 1px solid #c8c8c8;
-}
-
-.input-field {
-    margin-left: 10px;
-    width: 100%;
 }
 
 .input-icon-inline {

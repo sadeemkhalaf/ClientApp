@@ -1,9 +1,9 @@
 .container{
-    position:relative;
+    /* position:relative;
     width:90vw;
     height: 90vh;
     margin: auto;
-    z-index: 999;
+    z-index: 999; */
   }
   
   .element{
