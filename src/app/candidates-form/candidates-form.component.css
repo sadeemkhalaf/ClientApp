@@ -1,12 +1,14 @@
 .form-container {
-    position: absolute;
     display: contents;
+    flex-wrap: wrap;
+
 }
 
 .material-icons {
     margin-top: 25px;
     padding: 2px;
-    color: #981e21;
+    /* color: #981e21; */
+    color: rgb(114,36,130);
 }
 
 .box-label {
@@ -48,6 +50,7 @@ mat-icon {
 }
 
 mat-form-field {
+    display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
 }
