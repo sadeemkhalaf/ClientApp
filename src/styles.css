@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '../src/assets/all.css';
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -60,13 +61,14 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 20px;
     right: 0;
     left: 0;
 }
 
 .box-outline {
     border: 1px solid #c8c8c8;
+    padding: 10px;
 }
 
 .input-icon-inline {

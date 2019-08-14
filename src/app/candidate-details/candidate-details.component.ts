@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Candidate, CandidatesStatusHistory } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { statusStage1, statusStage2, statusStage3, statusStage4, statusStage5, statusStage6} from 'src/environments/environment';
 
 @Component({
   selector: 'app-candidate-details',
@@ -16,48 +17,18 @@ export class CandidateDetailsComponent {
   private candidateForm = new FormGroup({});
   private id: number;
   private candidateStatusHistory: CandidatesStatusHistory[] = [];
-  private statusStage1: string[] = [
-    'Irrelevent',
-    'initial Call',
-    'Archive'
-  ];
-  private statusStage2: string[] = [
-    'Interview scheduled',
-    'No Answer',
-    'Wrong Number',
-    'Inbox'
-  ]; // if prev. status was 'To Call 'initial''
-
-  private statusStage3: string[] = [
-    'Canceled',
-    'Didn\'t attend',
-    'Interviewed',
-    'Inbox'
-  ]; // if prev. status was 'Interview scheduled'
-
-  private statusStage4: string[] = [
-    'To Call',
-    'Cancelled',
-    'Rejected',
-    'Offer',
-    'Hold',
-    'Shortlisted',
-    'Blacklisted',
-    'Refused Test',
-    'Inbox'
-  ]; // if prev. status was Interviewed or To Call
-
-  private statusStage5: string[] = [
-    'Hired',
-    'Rejected offer',
-    'Inbox'
-  ]; // if prev. status was to hire
-
-  private statusStage6: string[] = [
-    'Hired',
-    'Resigned',
-    'Terminated'
-  ];
+  // tslint:disable-next-line: variable-name
+  private _statusStage1: string[] = [];
+   // tslint:disable-next-line: variable-name
+  private _statusStage2: string[] = [];
+   // tslint:disable-next-line: variable-name
+  private _statusStage3: string[] = [];
+   // tslint:disable-next-line: variable-name
+  private _statusStage4: string[] = [];
+   // tslint:disable-next-line: variable-name
+  private _statusStage5: string[] = [];
+   // tslint:disable-next-line: variable-name
+  private _statusStage6: string[] = [];
 
   private dateFilter = (d: Date): boolean => {
     const day = d.getDay();
@@ -71,32 +42,48 @@ export class CandidateDetailsComponent {
     this.getCandidateDetails(this.id);
     this.getCandidatesStatusHistory(this.id);
     this.candidateForm = this.formBuilder.group({
-      mobile: '',
+      id: this.id,
+      name: [''],
+      phoneNumber: '',
       email: ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
-      social: [''],
+      howdidyoufindus: [''],
       nationality: [''],
-      statusSelect: [''],
+      status: [''],
       major: [''],
-      gpa: [''],
+      gpA1: [''],
+      gpA2: [''],
       university: [''],
       degree: [''],
       otherUniversity: [''],
-      lastPosition: [''],
+      currentposition: [''],
       careerLevel: [''],
-      experienceYears: [''],
+      devexperience: [''],
+      teamLeaderExperience: [''],
       joinDate: [''],
-      applyingAs: [''],
+      title: [''],
       expectedSalary: [''],
       englishSkills: [''],
-      attachments: [''],
-      status: [''],
+      cvAttachment: [''],
       examScore: [''],
       notes: [''],
-      serializedDate : ((new Date()).toISOString()),
-      time: '',
-      technologies: ''
+      lastUdateLog: [],
+      technologies: '',
+      toCallDate: [''],
+      interviewDate: [''],
+      applicationDate: [''],
+      comments: [''],
+      applicantStatusHistory: [''],
+      applicantFiles: [''],
+      activityLog: [''],
+      applicantEducationDetails: ['']
     }
       );
+    this._statusStage1 = statusStage1;
+    this._statusStage2 = statusStage2;
+    this._statusStage3 = statusStage3;
+    this._statusStage4 = statusStage4;
+    this._statusStage5 = statusStage5;
+    this._statusStage6 = statusStage6;
   }
 
   private convertGpa(gpa: number) {
@@ -104,59 +91,17 @@ export class CandidateDetailsComponent {
   }
 
   onSubmit() {
-    const gpa = this.candidateForm.value.gpa as number;
-    this.candidate = {
-            name: this.candidate.name,
-            email: !!this.candidateForm.value.email ? this.candidateForm.value.email : this.candidate.email,
-            gpA1: !!this.candidate.gpA1 ? this.candidate.gpA1 : (!!gpa ? (gpa <= 4 ? gpa : this.convertGpa(gpa)) : 0),
-            gpA2: !!this.candidate.gpA2 ? this.candidate.gpA2 : !!gpa ? (gpa > 4 ? gpa : this.convertGpa(gpa)) : 0,
-            careerLevel: !!this.candidateForm.value.careerLevel ? this.candidateForm.value.careerLevel : this.candidate.careerLevel,
-            currentPosition: !!this.candidateForm.value.lastPosition
-            ? this.candidateForm.value.lastPosition : this.candidate.currentPosition,
-            degree: !!this.candidateForm.value.degree ? this.candidateForm.value.degree : this.candidate.degree,
-            expectedSalary: !!this.candidateForm.value.expectedSalary ? this.candidateForm.value.expectedSalary
-            : this.candidate.expectedSalary,
-            devexperience: this.candidate.devexperience,
-            englishSkills: !!this.candidateForm.value.englishSkills ? this.candidateForm.value.englishSkills : this.candidate.englishSkills,
-            howdidyoufindus: !!this.candidateForm.value.social ? this.candidateForm.value.social : this.candidate.howdidyoufindus,
-            joinDate: !!this.candidateForm.value.joinDate ? this.candidateForm.value.joinDate : this.candidate.joinDate,
-            major: !!this.candidateForm.value.major ? this.candidateForm.value.major : this.candidate.major,
-            nationality: !!this.candidateForm.value.nationality ? this.candidateForm.value.nationality : this.candidate.nationality,
-            otherUniversity: !!this.candidateForm.value.otherUniversity ? this.candidateForm.value.otherUniversity
-            : this.candidate.otherUniversity,
-            phoneNumber: !!this.candidateForm.value.mobile ? this.candidateForm.value.mobile : this.candidate.phoneNumber,
-            university: !!this.candidateForm.value.university ? this.candidateForm.value.university : this.candidate.university,
-            status: !!this.candidateForm.value.statusSelect ? this.candidateForm.value.statusSelect : this.candidate.status,
-            title: !!this.candidateForm.value.applyingAs ? this.candidateForm.value.applyingAs : this.candidate.title,
-            technologies: !!this.candidateForm.value.technologies ? this.candidateForm.value.technologies : this.candidate.technologies,
-            examScore: this.candidateForm.value.examScore != null
-            ? this.candidateForm.value.examScore as number : this.candidate.examScore,
-            teamLeaderExperience: this.candidate.teamLeaderExperience,
-            notes: !!this.candidate.notes ? this.candidate.notes : ' ',
-            lastUdateLog: new Date().toDateString(),
-            applicationDate: !!this.candidate.applicationDate ? this.candidate.applicationDate : new Date().toDateString()
-          };
-
-    if (this.candidate.status.includes('Call')) {
-      const date = this.candidateForm.value.serializedDate as Date;
-      const time = this.candidateForm.value.time.split(':');
-      date.setHours(time[0]);
-      date.setMinutes(time[1]);
-      this.candidate.toCallDate = date.toLocaleString();
-      } else if (this.candidate.status.includes('scheduled')) {
-        const date = this.candidateForm.value.serializedDate as Date;
-        const time = this.candidateForm.value.time.split(':');
-        date.setHours(time[0]);
-        date.setMinutes(time[1]);
-        this.candidate.interviewDate = date.toLocaleString();
-        }
-    this.updateCandidate(this.candidate);
+    this.updateCandidate(this.candidateForm.value);
+    // console.log(this.candidateForm.value);
       }
 
   async getCandidateDetails(id: number) {
     this.candidatesService.getCandidate(this.id).toPromise().then(
       async (res: Candidate) => {
           this.candidate = await res;
+          console.log(this.candidate)
+          this.candidateForm.setValue(this.candidate);
+          console.log(this.candidateForm.value)
       },
       (error: any) => console.log(error));
   }
@@ -180,4 +125,5 @@ export class CandidateDetailsComponent {
       duration: 2000,
     });
   }
+
 }

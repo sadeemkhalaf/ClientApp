@@ -20,13 +20,10 @@ mat-button-toggle {
   margin-left: 15px;
   display: flex;
   flex-grow: 1;
+  /* background-color: rgb(197, 197, 197); */
 }
 
 mat-button-toggle:hover {
-  background-color: #FD9726;
-}
-
-mat-button-toggle:focus {
   background-color: #FD9726;
 }
 
@@ -85,4 +82,3 @@ kendo-grid-column {
   bottom: 10px;
   font-size: x-small;
 }
-

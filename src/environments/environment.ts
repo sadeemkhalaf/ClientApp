@@ -25,7 +25,7 @@ export const environment = {
 
 export const universitiesList = [
     '-',
-    'Ajloun National Private University',
+    'Ajloun National export const  University',
     'Al al-Bayt University',
     'Al Hussein Technical University',
     'Al-Ahliyya Amman University',
@@ -35,14 +35,14 @@ export const universitiesList = [
     'American University of Madaba',
     'Amman Arab University',
     'Ammon Applied University College',
-    'Applied Science Private University',
+    'Applied Science export const  University',
     'Aqaba University of Technology',
     'Arab Academy for Management, Banking and Financial Sciences',
     'German Jordanian University',
     'Irbid National University',
     'Isra University',
     'Jadara University',
-    'Jerash Private University',
+    'Jerash export const  University',
     'Jordan Academy of Music',
     'Jordan University of Science and Technology',
     'Middle East University, Jordan',
@@ -72,7 +72,54 @@ export const technologiesList = [
     'ionic'
 ];
 
-export const randomNumber = 15752961;
-// Math.pow(Math.ceil(Math.ceil(Math.random() * Math.floor(30)) * Math.ceil(Math.random() * Math.floor(25))), 4);
+
+export const  statusStage1: string[] = [
+    '',
+    'Irrelevent',
+    'initial Call',
+    'Archive'
+  ];
+export const  statusStage2: string[] = [
+    '',
+    'Interview scheduled',
+    'No Answer',
+    'Wrong Number',
+    'Inbox'
+  ]; // if prev. status was 'To Call 'initial''
+
+export const  statusStage3: string[] = [
+    '',
+    'Canceled',
+    'Didn\'t attend',
+    'Interviewed',
+    'Inbox'
+  ]; // if prev. status was 'Interview scheduled'
+
+export const  statusStage4: string[] = [
+    '',
+    'To Call',
+    'Cancelled',
+    'Rejected',
+    'Offer',
+    'Hold',
+    'Shortlisted',
+    'Blacklisted',
+    'Refused Test',
+    'Inbox'
+  ]; // if prev. status was Interviewed or To Call
+
+export const  statusStage5: string[] = [
+    '',
+    'Hired',
+    'Rejected offer',
+    'Inbox'
+  ]; // if prev. status was to hire
+
+export const  statusStage6: string[] = [
+    '',
+    'Hired',
+    'Resigned',
+    'Terminated'
+  ];
 
 export const API = `https://localhost:44318/api`;

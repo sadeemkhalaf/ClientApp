@@ -1,10 +1,9 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDropList} from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidate } from 'src/app/Models/candidate';
 import { Router } from '@angular/router';
-import { randomNumber } from 'src/environments/environment';
 
 @Component({
   selector: 'app-applicants-inbox',

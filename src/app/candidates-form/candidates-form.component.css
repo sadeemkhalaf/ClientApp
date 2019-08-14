@@ -7,17 +7,13 @@
 .material-icons {
     margin-top: 25px;
     padding: 2px;
-    /* color: #981e21; */
-    color: rgb(114,36,130);
+    color: inherit;
+    margin-left: 10px;
 }
 
 .box-label {
     font-weight: normal;
     font-size: 22px;
-}
-
-.material-icons {
-    margin-left: 10px;
 }
 
 app-upload-form {
@@ -62,6 +58,7 @@ mat-form-field {
 .box-outline {
     margin-bottom: 20px;
     margin-top: 20px;
+    padding: 10px;
 }
 
 .educationButton {

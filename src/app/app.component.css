@@ -1,5 +1,4 @@
 .container {
-    background-color: #EEEEEE;
     position: absolute;
     flex-direction: column;
     top: 0;
@@ -14,7 +13,7 @@
   color: white;
   overflow: hidden;
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.07);
-  
+
   }
 
   mat-toolbar {

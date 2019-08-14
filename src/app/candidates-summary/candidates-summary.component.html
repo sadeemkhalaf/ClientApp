@@ -6,12 +6,12 @@
 </div>
 
 <div class="container">
-
     <button class="export-button" mat-flat-button type="button">
         Export Report
       </button>
+
+      <mat-label  name="fontStyle" aria-label="Font Style">Filter by: </mat-label>
   <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-label>Filter by: </mat-label>
     <mat-button-toggle
       value="AllApplicants"
       (click)="filterByStatusValue($event, 'AllApplicants')"
@@ -25,7 +25,7 @@
       <span class="small-label"> Archived</span></mat-button-toggle>
     <mat-button-toggle
       value="Call"
-      (click)="filterByStatusValue($event, 'initial call')"
+      (click)="filterByStatusValue($event, 'call')"
       ><b>{{ $toCallCount | async }} </b>
       <span class="small-label">Call</span></mat-button-toggle>
     <mat-button-toggle
@@ -43,7 +43,6 @@
 <div class="advanced-search-container container">
   <mat-label>Advanced Filter</mat-label>
 </div>
-
 <kendo-grid
   [data] = "gridData"
   [kendoGridBinding] = "$filteredGridData"
@@ -73,10 +72,7 @@
       'font-weight': 'bold'
     }"
     [width]="col.width"
-    [footerStyle]="{
-      'background-color': '#888',
-      color: '#fff'
-    }"
-    aria-selected="false">
+    aria-selected="false"
+    >
   </kendo-grid-column>
 </kendo-grid>

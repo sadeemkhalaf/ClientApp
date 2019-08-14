@@ -12,7 +12,7 @@
             <mat-label>Last Name</mat-label>
             <input matInput type="text" formControlName="lastName">
           </mat-form-field>
-          <div class="input-icon-inline"> <i class='material-icons'>email</i>
+          <div class="input-icon-inline">
           <mat-form-field appearance="legacy" class="input-field">
               <mat-label>Email</mat-label>
               <input matInput type="email" formControlName="email">
@@ -23,8 +23,8 @@
             </mat-form-field>
           </div>
             <div class="input-icon-inline">
-              <i class='material-icons'>phone</i>
               <mat-form-field appearance="legacy" class="input-field">
+                  
                   <mat-label>Phone Number</mat-label>  
                   <input matInput type="number" formControlName="mobile">
                   <mat-error class="error-message"
@@ -193,8 +193,8 @@
                           <app-upload-form (outputFilesList)="getFilesList($event)"></app-upload-form>
               </div>
         <div class="button-row">
-          <button mat-stroked-button type="submit">Submit <i class='material-icons icon'>send</i></button>
-          <button mat-stroked-button type="button" [disabled]="false" color="warn" (click)="cancel()">Cancel</button>
+          <button mat-stroked-button type="submit"> <i class='material-icons icon'>send</i> Submit</button>
+          <button mat-stroked-button type="button" [disabled]="false" color="warn" (click)="cancel()"><i class='material-icons icon'>close</i> Cancel</button>
         </div>
   </form>
 
