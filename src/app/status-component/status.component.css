@@ -1,0 +1,55 @@
+.small-text {
+    align-items: center;
+    font-weight: lighter;
+    font-size: 10px;
+}
+
+.chip-content {
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    width: fit-content;
+    align-items: center;
+    font-size: 14px;
+}
+
+mat-chip-list {
+    align-content: center;
+}
+
+.status-updated {
+    background-color: #981e21;
+    color: white;
+}
+
+.status-tree {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.arrow-next {
+    height: 15px;
+    width: 15px;
+    font-size: 15px;
+    margin: 3px;
+}
+
+.material-icons {
+    margin-left: 10px;
+    align-items: baseline;
+    padding: 2px;
+    color: rgb(114,36,130);
+    font-size: small;
+    height: 15px;
+    width: 15px;
+}
+
+.status-list-item {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}

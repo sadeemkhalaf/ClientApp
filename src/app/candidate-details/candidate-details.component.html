@@ -16,7 +16,7 @@
       <div class="input-icon-inline">
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email"/>
+          <input matInput type="email" formControlName="email" />
           <mat-icon matSuffix>email</mat-icon>
           <mat-error
             class="error-message"
@@ -32,211 +32,62 @@
       <div class="input-icon-inline">
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Phone Number</mat-label>
-          <input
-            matInput
-            formControlName="phoneNumber"
-            type="tel"
-          />
+          <input matInput formControlName="phoneNumber" type="tel" />
           <mat-icon matSuffix>phone</mat-icon>
         </mat-form-field>
       </div>
     </div>
   </div>
-  
+
   <div class="form-container">
     <mat-label class="box-label">Process</mat-label>
     <div class="box-outline">
-      <div class="box">
-        <mat-list>
-          <mat-list-item *ngIf="candidateStatusHistory.length > 0">
-            <mat-label><b>Status History:</b> </mat-label>
-            <mat-chip-list
-              class="status-tree"
-              *ngIf="candidateStatusHistory.length > 0"
-            >
-              <div *ngFor="let st of candidateStatusHistory">
-                <mat-chip color="primary" class="chip-content"
-                  >{{ st.status }}
-                  <span class="small-text" *ngIf="!!st.updateDate">
-                    {{ st.updateDate | date: "short" }}</span
-                  >
-                </mat-chip>
-                <mat-icon>arrow_forward</mat-icon>
-              </div>
-              <mat-chip color="primary" class="chip-content" *ngIf="!!status"
-              >Status
-            </mat-chip>
-            </mat-chip-list>
-
-          </mat-list-item>
-          <mat-list-item
-            *ngIf="
-              candidate.status === null ||
-              candidate.status.includes('N/A') ||
-              candidate.status.includes('initial call') ||
-              candidate.status.toLowerCase().includes('inbox') ||
-              candidate.status.toLowerCase().includes('rejected')
-            "
-          >
-            <mat-form-field appearance="legacy" class="input-field">
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage1">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </mat-list-item>
-          <mat-list-item *ngIf="!!candidate.status">
-            <mat-form-field
-              appearance="legacy"
-              class="input-field"
-              *ngIf="
-                candidate.status.toLowerCase().includes('initial') ||
-                candidate.status.toLowerCase().includes('archive')
-              "
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage2">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-              appearance="legacy"
-              class="input-field"
-              *ngIf="
-                candidate.status.toLowerCase().includes('schedule') ||
-                candidate.status.toLowerCase().includes('interview')
-              "
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage3">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-              appearance="legacy"
-              class="input-field"
-              *ngIf="
-                candidate.status.toLowerCase().includes('to call') ||
-                candidate.status.toLowerCase().includes('interviewed') ||
-                candidate.status.toLowerCase().includes('hold')
-              "
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage4">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-              appearance="legacy"
-              class="input-field"
-              *ngIf="candidate.status.toLowerCase().includes('offer')"
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage5">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field
-              appearance="legacy"
-              class="input-field"
-              *ngIf="candidate.status.toLowerCase().includes('hired')"
-            >
-              <mat-label>Status</mat-label>
-              <mat-select matNativeControl formControlName="status">
-                <mat-option [value]="stat" *ngFor="let stat of _statusStage6">
-                  {{ stat }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <div
-              *ngIf="
-                candidateForm.get('status').value.includes('to call') ||
-                candidateForm.get('status').value.includes('schedule')
-              "
-            >
-              <mat-form-field class="example-full-width">
-                <input
-                  matInput
-                  [matDatepickerFilter]="dateFilter"
-                  [matDatepicker]="picker"
-                  placeholder="Choose a date"
-                  formControlName="serializedDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <mat-form-field appearance="legacy">
-                <mat-label>choose time</mat-label>
-                <input
-                  matInput
-                  type="time"
-                  formControlName="time"
-                  formControlName="time"
-                />
-              </mat-form-field>
-            </div>
-            <mat-form-field appearance="legacy" class="input-field">
-              <mat-label>Exam Score</mat-label>
-              <input
-                matInput
-                formControlName="examScore"
-                type="number"
-                placeholder="out of 10"
-              />
-            </mat-form-field>
-            <span *ngIf="!!candidate.examScore && candidate.examScore >= 6"
-              >/10 passed</span
-            >
-            <span *ngIf="!!candidate.examScore && 6 > candidate.examScore"
-              >/10 failed</span
-            >
-          </mat-list-item>
-          <mat-list-item>
-            <mat-form-field class="input-field notes-field">
-              <textarea
-                matInput
-                placeholder="Notes"
-                formControlName="notes"
-              ></textarea>
-            </mat-form-field>
-          </mat-list-item>
-        </mat-list>
+      <app-status-component [$candidate]="candidate"
+                            [$candidateStatusHistory]="candidateStatusHistory"
+                            ($status)="pickedStatus($event)"
+                            ></app-status-component>
+    </div>
+    <mat-label class="box-label">After Interview Details</mat-label>
+    <div class="box-outline">
+      <div>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Exam Score</mat-label>
+          <input
+            matInput
+            formControlName="examScore"
+            type="number"
+            placeholder="out of 10"
+          />
+        </mat-form-field>
+        <span *ngIf="!!candidate.examScore && candidate.examScore >= 6"
+          >/10 passed</span
+        >
+        <span *ngIf="!!candidate.examScore && 6 > candidate.examScore"
+          >/10 failed</span
+        >
       </div>
+      <div class="input-field">
+        <mat-form-field class="input-full-width">
+          <textarea
+            matInput
+            placeholder="Notes"
+            placeholder="Notes"
+            formControlName="notes"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
     </div>
     <mat-label class="box-label">Basic Details</mat-label>
     <div class="box-outline">
       <div class="box">
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Nationality</mat-label>
-          <input
-            matInput
-            formControlName="nationality"
-          />
+          <input matInput formControlName="nationality" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>How did you find us?</mat-label>
-          <input
-            matInput
-            formControlName="howdidyoufindus"
-          />
+          <input matInput formControlName="howdidyoufindus" />
         </mat-form-field>
       </div>
     </div>
@@ -245,10 +96,7 @@
       <div class="box">
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Major</mat-label>
-          <input
-            matInput
-            formControlName="major"
-          />
+          <input matInput formControlName="major" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>GPA</mat-label>
@@ -257,17 +105,11 @@
 
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>University</mat-label>
-          <input
-            matInput
-            formControlName="university"
-          />
+          <input matInput formControlName="university" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Degree</mat-label>
-          <input
-            matInput
-            formControlName="degree"
-          />
+          <input matInput formControlName="degree" />
         </mat-form-field>
         <mat-form-field
           appearance="legacy"
@@ -275,10 +117,7 @@
           *ngIf="!!candidate.otherUniversity"
         >
           <mat-label>Other University</mat-label>
-          <input
-            matInput
-            formControlName="otherUniversity"
-          />
+          <input matInput formControlName="otherUniversity" />
         </mat-form-field>
       </div>
     </div>
@@ -287,46 +126,27 @@
       <div class="box">
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Last Position</mat-label>
-          <input
-            matInput
-            formControlName="currentposition"
-          />
+          <input matInput formControlName="currentposition" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Career Level</mat-label>
-          <input
-            matInput
-            formControlName="careerLevel"
-          />
+          <input matInput formControlName="careerLevel" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Experience Years</mat-label>
-          <input
-            matInput
-            formControlName="devexperience"
-            
-          />
+          <input matInput formControlName="devexperience" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Applying As</mat-label>
-          <input
-            matInput
-            formControlName="title"
-          />
+          <input matInput formControlName="title" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Expected Salary</mat-label>
-          <input
-            matInput
-            formControlName="expectedSalary"
-          />
+          <input matInput formControlName="expectedSalary" />
         </mat-form-field>
         <mat-form-field appearance="legacy" class="input-field">
           <mat-label>Expected Join Duration</mat-label>
-          <input
-            matInput
-            formControlName="joinDate"
-          />
+          <input matInput formControlName="joinDate" />
         </mat-form-field>
         <mat-form-field
           appearance="legacy"
@@ -335,29 +155,16 @@
           [floatLabel]="candidateForm.value.floatLabel"
         >
           <mat-label>English Skills</mat-label>
-          <input
-            matInput
-            formControlName="englishSkills"
-          />
+          <input matInput formControlName="englishSkills" />
         </mat-form-field>
-        <mat-form-field class="input-field" appearance="legacy">
-          <mat-label>Technologies</mat-label>
-          <input
-            matInput
-            formControlName="technologies"
-          />
-        </mat-form-field>
+
       </div>
       <app-upload-form
         (outputFilesList)="getFilesList($event)"
       ></app-upload-form>
     </div>
     <div class="button-row">
-      <button
-        mat-stroked-button
-        type="button"
-        (click)="onSubmit()"
-      >
+      <button mat-stroked-button type="button" (click)="onSubmit()">
         Save Changes
       </button>
       <button

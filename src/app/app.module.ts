@@ -24,6 +24,7 @@ import { environment } from '../environments/environment';
 import { SubmitResultComponent } from './submit-result/submit-result.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
 import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.component';
+import { StatusComponent } from './status-component/status.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.compo
     FileDropDirective,
     SubmitResultComponent,
     CandidateDetailsComponent,
-    AdvancedFilterComponent
+    AdvancedFilterComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,

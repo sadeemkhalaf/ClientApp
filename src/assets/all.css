@@ -10905,7 +10905,7 @@ div.k-scrollview .k-scrollview-prev {
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  padding: 20px 0;
+  /* padding: 20px 0; */
   text-align: center;
   width: 5em;
   height: 200px; }
@@ -15167,7 +15167,7 @@ kendo-scheduler .k-event,
     vertical-align: top; }
 
 .k-mediaplayer-titlebar {
-  padding: 20px 24px;
+  /* padding: 20px 24px; */
   position: absolute;
   z-index: 2;
   top: 0;
@@ -16352,7 +16352,8 @@ kendo-scheduler .k-event,
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     margin: -4px -16px 4px;
-    padding: 20px 24px; }
+    /* padding: 20px 24px;  */
+  }
 
 .k-text-primary {
   color: rgb(114,36,130) !important; }
@@ -16900,7 +16901,8 @@ kendo-scheduler .k-event,
   padding-bottom: 3px; }
   .k-card-deck-scrollwrap > .k-card-deck {
     margin-bottom: -20px;
-    padding-bottom: 20px; }
+    padding-bottom: 20px; 
+  }
 
 .k-chat .k-card-deck .k-card-wrap {
   display: flex;

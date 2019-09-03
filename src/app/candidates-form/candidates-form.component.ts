@@ -121,29 +121,29 @@ export class CandidatesFormComponent implements OnInit {
             this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
             const gpa = this.educationDetails.at(0).get('gpa').value as number;
             const candidate: Candidate = {
-                  name: this.candidateForm.get('firstName').value + ' ' +  this.candidateForm.get('lastName').value,
-                  email:  this.candidateForm.get('email').value,
-                  gpA1: gpa <= 4 ? gpa : this.convertGpa(gpa),
-                  gpA2: gpa > 4 ? gpa : this.convertGpa(gpa),
-                  careerLevel: this.candidateForm.get('careerLevel').value,
-                  currentPosition: !!this.candidateForm.get('lastPosition').value ? this.candidateForm.get('lastPosition').value : '',
-                  cvAttachment: this.getUrlFromFilesList(this.filesList).toString(),
-                  degree: this.educationDetails.at(0).get('degree').value,
-                  expectedSalary: this.candidateForm.get('expectedSalary').value as number,
-                  devexperience: this.candidateForm.get('experienceYears').value as number,
-                  englishSkills: this.candidateForm.get('englishSkills').value,
-                  howdidyoufindus: (!!this.candidateForm.get('social').value && this.candidateForm.get('social').value !== 'Other')
+                  Name: this.candidateForm.get('firstName').value + ' ' +  this.candidateForm.get('lastName').value,
+                  Email:  this.candidateForm.get('email').value,
+                  GPA1: gpa <= 4 ? gpa : this.convertGpa(gpa),
+                  GPA2: gpa > 4 ? gpa : this.convertGpa(gpa),
+                  CareerLevel: this.candidateForm.get('careerLevel').value,
+                  CurrentPosition: !!this.candidateForm.get('lastPosition').value ? this.candidateForm.get('lastPosition').value : '',
+                  CvAttachment: this.getUrlFromFilesList(this.filesList).toString(),
+                  Degree: this.educationDetails.at(0).get('degree').value,
+                  ExpectedSalary: this.candidateForm.get('expectedSalary').value as number,
+                  Devexperience: this.candidateForm.get('experienceYears').value as number,
+                  EnglishSkills: this.candidateForm.get('englishSkills').value,
+                  Howdidyoufindus: (!!this.candidateForm.get('social').value && this.candidateForm.get('social').value !== 'Other')
                   ? this.candidateForm.get('social').value : this.candidateForm.get('socialOther').value,
-                  joinDate: this.candidateForm.get('joinDate').value,
-                  major: this.educationDetails.at(0).get('major').value,
-                  nationality: this.candidateForm.get('nationality').value,
-                  otherUniversity: '',
-                  phoneNumber: this.candidateForm.get('mobile').value,
-                  technologies: this.technologies.toString(),
-                  university: this.educationDetails.at(0).get('university').value,
-                  teamLeaderExperience: 0,
-                  status: 'inbox',
-                  title: this.candidateForm.get('applyingAs').value
+                  JoinDate: this.candidateForm.get('joinDate').value,
+                  Major: this.educationDetails.at(0).get('major').value,
+                  Nationality: this.candidateForm.get('nationality').value,
+                  OtherUniversity: '',
+                  PhoneNumber: this.candidateForm.get('mobile').value,
+                  Technologies: this.technologies.toString(),
+                  University: this.educationDetails.at(0).get('university').value,
+                  TeamLeaderExperience: 0,
+                  Status: 'inbox',
+                  Title: this.candidateForm.get('applyingAs').value
                 };
             this.initializeForm();
             await this.candidatesService.insertCandidate(candidate);

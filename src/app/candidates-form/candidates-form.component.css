@@ -45,12 +45,6 @@ mat-icon {
     margin-right: 8px;
 }
 
-mat-form-field {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
 .outer {
     margin: 20px;
 }
@@ -59,6 +53,9 @@ mat-form-field {
     margin-bottom: 20px;
     margin-top: 20px;
     padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .educationButton {

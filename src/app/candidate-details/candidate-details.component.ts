@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Candidate, CandidatesStatusHistory } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { statusStage1, statusStage2, statusStage3, statusStage4, statusStage5, statusStage6} from 'src/environments/environment';
 
 @Component({
   selector: 'app-candidate-details',
@@ -16,6 +15,7 @@ export class CandidateDetailsComponent {
   private candidate: Candidate;
   private candidateForm = new FormGroup({});
   private id: number;
+  private _statusPicked: string;
   private candidateStatusHistory: CandidatesStatusHistory[] = [];
   // tslint:disable-next-line: variable-name
   private _statusStage1: string[] = [];
@@ -38,9 +38,10 @@ export class CandidateDetailsComponent {
 
   constructor(private formBuilder: FormBuilder, private candidatesService: CandidatesService,
               private router: Router, private route: ActivatedRoute, private snackBar: MatSnackBar) {
+    this._statusPicked = '';
     this.id = (this.route.snapshot.paramMap.get('id') as unknown as number);
     this.getCandidateDetails(this.id);
-    this.getCandidatesStatusHistory(this.id);
+    // this.getCandidatesStatusHistory(this.id);
     this.candidateForm = this.formBuilder.group({
       id: this.id,
       name: [''],
@@ -72,18 +73,14 @@ export class CandidateDetailsComponent {
       interviewDate: [''],
       applicationDate: [''],
       comments: [''],
+      rating: [''],
       applicantStatusHistory: [''],
       applicantFiles: [''],
       activityLog: [''],
       applicantEducationDetails: ['']
     }
       );
-    this._statusStage1 = statusStage1;
-    this._statusStage2 = statusStage2;
-    this._statusStage3 = statusStage3;
-    this._statusStage4 = statusStage4;
-    this._statusStage5 = statusStage5;
-    this._statusStage6 = statusStage6;
+
   }
 
   private convertGpa(gpa: number) {
@@ -92,16 +89,14 @@ export class CandidateDetailsComponent {
 
   onSubmit() {
     this.updateCandidate(this.candidateForm.value);
-    // console.log(this.candidateForm.value);
+    console.log(this.candidateForm.value);
       }
 
   async getCandidateDetails(id: number) {
     this.candidatesService.getCandidate(this.id).toPromise().then(
       async (res: Candidate) => {
           this.candidate = await res;
-          console.log(this.candidate)
           this.candidateForm.setValue(this.candidate);
-          console.log(this.candidateForm.value)
       },
       (error: any) => console.log(error));
   }
@@ -124,6 +119,11 @@ export class CandidateDetailsComponent {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  pickedStatus(status: string) {
+    console.log(status);
+    this._statusPicked = status;
   }
 
 }

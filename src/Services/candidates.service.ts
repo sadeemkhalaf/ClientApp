@@ -4,7 +4,9 @@ import { Candidate, CandidatesStatusHistory } from 'src/app/Models/candidate';
 import { throwError, Observable } from 'rxjs';
 import { CandidateFiles } from 'src/app/Models/CandidateFiles';
 import { EducationDetails } from 'src/app/Models/EducationDetails';
-import { API } from 'src/environments/environment';
+import { API , environment} from 'src/environments/environment';
+import { AngularFireDatabase } from '@angular/fire/database';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,16 @@ import { API } from 'src/environments/environment';
 
 export class CandidatesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private db: AngularFireDatabase) { }
 
   // candidates
+
+  private fbReference = firebase.database().ref().ref;
+  private getRef = this.db;
   public getCandidates() {
-   return this.http.get(`${API}/applicants`);
+    return this.db.list('/').valueChanges();
+    // return this.db.list('/').valueChanges();
+    // return this.http.get(`${API}/applicants`);
   }
 
   public getCandidate(id: number): Observable<Candidate> {

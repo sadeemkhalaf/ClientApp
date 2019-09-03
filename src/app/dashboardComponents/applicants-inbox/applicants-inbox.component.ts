@@ -21,8 +21,8 @@ export class ApplicantsInboxComponent {
     });
 
     this.inboxCandidates.subscribe((item) => {
-      this.updatedIndex = item.filter((appl) => appl.status && appl.status.toLowerCase() !== 'inbox');
-      this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
+      this.updatedIndex = item.filter((appl) => appl.Status && appl.Status.toLowerCase() !== 'inbox');
+      this.inboxedCandidatesData = item.filter((appl) => appl.Status && appl.Status.toLowerCase() === 'inbox');
     });
    }
 
