@@ -23,8 +23,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { SubmitResultComponent } from './submit-result/submit-result.component';
 import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
-import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.component';
-import { StatusComponent } from './status-component/status.component';
+import { AdvancedFilterComponent } from './Components/advanced-filter/advanced-filter.component';
+import { StatusComponent } from './Components/status-component/status.component';
 
 @NgModule({
   declarations: [

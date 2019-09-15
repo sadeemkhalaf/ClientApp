@@ -25,15 +25,15 @@ export class CandidatesSummaryComponent implements OnInit {
   public gridDataResult: GridDataResult = {data: [], total: 0};
 
   public columns: any[] = [
-    {field: 'Id', title: 'Id', width: 40},
-    {field: 'Name', title: 'Name', width: 120},
-    {field: 'Status', title: 'Status', width: 80},
-    {field: 'PhoneNumber', title: 'Mobile', width: 80},
-    {field: 'Major', title: 'Major', width: 80},
-    {field: 'GPA1', title: 'GPA', width: 50},
-    {field: 'University', title: 'University', width: 120},
-    {field: 'ExpectedSalary', title: 'Compensation', width: 90},
-    {field: 'Devexperience', title: 'Experience', width: 80}
+    {field: 'id', title: 'Id', width: 40},
+    {field: 'name', title: 'Name', width: 120},
+    {field: 'status', title: 'Status', width: 80},
+    {field: 'phoneNumber', title: 'Mobile', width: 80},
+    {field: 'major', title: 'Major', width: 80},
+    {field: 'gpA1', title: 'GPA', width: 50},
+    {field: 'university', title: 'University', width: 120},
+    {field: 'expectedSalary', title: 'Compensation', width: 90},
+    {field: 'devexperience', title: 'Experience', width: 80}
   ];
 
   public gridData: GridDataResult;
@@ -51,15 +51,7 @@ export class CandidatesSummaryComponent implements OnInit {
 
   constructor(private appService: AppService, private candService: CandidatesService, private router: Router) {
     this.candService.getCandidates().subscribe((res) => {
-      // this.candidates.next(res as Candidate[]);
-      res.forEach((cand) => {
-        let candidateList: Candidate[] = [];
-        candidateList = cand as Candidate[];
-        candidateList.forEach((val: Candidate) => {
-          console.log('hello', val);
-        });
-        this.candidates.next(candidateList as Candidate[]);
-    });
+      this.candidates.next(res as Candidate[]);
     });
     this.candidates.subscribe((res) => {
       this.$filteredGridData = res;

@@ -66,7 +66,7 @@ export class AppComponent implements OnInit{
   private getInboxCount() {
     this.candidatesService.getCandidates().toPromise().then((item: Candidate[]) => {
       item.forEach((i) => {
-        this.inboxCount = item.filter((appl) => appl.Status && appl.Status.toLowerCase() === 'inbox').length;
+        this.inboxCount = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox').length;
       });
     });
   }

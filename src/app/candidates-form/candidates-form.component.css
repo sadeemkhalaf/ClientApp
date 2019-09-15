@@ -50,12 +50,17 @@ mat-icon {
 }
 
 .box-outline {
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .educationButton {
@@ -67,4 +72,18 @@ mat-icon {
 
 .educationButton mat-icon {
     margin: 0;
+}
+
+mat-form-field {
+    margin: 10px;
+}
+
+.box-row-fields {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.box-row-fields  mat-form-field {
+    width: 50%;
 }

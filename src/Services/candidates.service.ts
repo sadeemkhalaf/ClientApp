@@ -17,21 +17,18 @@ export class CandidatesService {
   constructor(private http: HttpClient, private db: AngularFireDatabase) { }
 
   // candidates
-
   private fbReference = firebase.database().ref().ref;
   private getRef = this.db;
   public getCandidates() {
-    return this.db.list('/').valueChanges();
-    // return this.db.list('/').valueChanges();
-    // return this.http.get(`${API}/applicants`);
+    return this.http.get(`${API}/applicants`);
   }
 
   public getCandidate(id: number): Observable<Candidate> {
     return this.http.get<Candidate>(`${API}/applicants/${id}`);
    }
 
-  public async insertCandidate(candidates: Candidate) {
-    return this.http.post<Candidate>(`${API}/applicants`, candidates).toPromise();
+  public async insertCandidate(candidate: Candidate) {
+    return this.http.post<Candidate>(`${API}/applicants`, candidate);
   }
 
   public async updateCandidate(id: number, candidates: Candidate) {

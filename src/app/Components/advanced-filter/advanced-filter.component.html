@@ -1,0 +1,9 @@
+<form [formGroup]="advancedFilterForm" class="form-container" (ngSubmit)="onSubmit()">
+    <mat-label class="box-label">Basic Details</mat-label>
+    <div class="box">
+        <mat-form-field appearance="legacy" class="input-field">
+            <mat-label>Candidate Name</mat-label>
+            <input matInput type="text" formControlName="name">
+          </mat-form-field>
+    </div>
+</form>

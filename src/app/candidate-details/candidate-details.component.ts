@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Candidate, CandidatesStatusHistory } from './../Models/candidate';
+import { Candidate, CandidatesStatusHistory, CandidateStatusDetails } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -15,7 +15,7 @@ export class CandidateDetailsComponent {
   private candidate: Candidate;
   private candidateForm = new FormGroup({});
   private id: number;
-  private _statusPicked: string;
+  private _statusPicked: CandidateStatusDetails;
   private candidateStatusHistory: CandidatesStatusHistory[] = [];
   // tslint:disable-next-line: variable-name
   private _statusStage1: string[] = [];
@@ -38,7 +38,6 @@ export class CandidateDetailsComponent {
 
   constructor(private formBuilder: FormBuilder, private candidatesService: CandidatesService,
               private router: Router, private route: ActivatedRoute, private snackBar: MatSnackBar) {
-    this._statusPicked = '';
     this.id = (this.route.snapshot.paramMap.get('id') as unknown as number);
     this.getCandidateDetails(this.id);
     // this.getCandidatesStatusHistory(this.id);
@@ -67,7 +66,7 @@ export class CandidateDetailsComponent {
       cvAttachment: [''],
       examScore: [''],
       notes: [''],
-      lastUdateLog: [],
+      lastUdateLog: [''],
       technologies: '',
       toCallDate: [''],
       interviewDate: [''],
@@ -97,6 +96,7 @@ export class CandidateDetailsComponent {
       async (res: Candidate) => {
           this.candidate = await res;
           this.candidateForm.setValue(this.candidate);
+          console.log(this.candidate);
       },
       (error: any) => console.log(error));
   }
@@ -121,9 +121,9 @@ export class CandidateDetailsComponent {
     });
   }
 
-  pickedStatus(status: string) {
-    console.log(status);
+  pickedStatus(status: CandidateStatusDetails) {
     this._statusPicked = status;
+    this.candidateForm.patchValue({status: status.status});
   }
 
 }

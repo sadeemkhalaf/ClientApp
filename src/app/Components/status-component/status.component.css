@@ -53,3 +53,31 @@ mat-chip-list {
     padding-top: 16px;
     padding-bottom: 16px;
 }
+
+.mat-list-item-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.date-input {
+    margin-right: 20px;
+}
+
+.subtitle {
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: lighter;
+    color: darkslateblue;
+}
+
+.chip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.picked-status {
+    background-color: rgb(114,36,130);
+    color: white;
+}

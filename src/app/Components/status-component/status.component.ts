@@ -1,9 +1,9 @@
 import { Component, OnInit, EventEmitter, Input, Output, OnChanges } from '@angular/core';
-import { Candidate, CandidatesStatusHistory } from '../Models/candidate';
+import { Candidate, CandidatesStatusHistory, CandidateStatusDetails } from '../../Models/candidate';
 import { statusStage1, statusStage2, statusStage3, statusStage4, statusStage5, statusStage6} from 'src/environments/environment';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CandidatesService } from 'src/Services/candidates.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -34,12 +34,13 @@ export class StatusComponent implements OnInit, OnChanges {
   @Input() $candidate: Candidate;
   @Input() $candidateStatusHistory: any[] = [];
   @Input() $candidateForm: FormGroup;
-  @Output() $status: EventEmitter<any> = new EventEmitter<any>();
+  @Output() $status: EventEmitter<CandidateStatusDetails> = new EventEmitter<CandidateStatusDetails>();
 
   constructor(private formBuilder: FormBuilder
             , private candidatesService: CandidatesService
             , private route: ActivatedRoute) {
 
+    this.status = '';
     this.id = (this.route.snapshot.paramMap.get('id') as unknown as number);
     this.getCandidatesStatusHistory(this.id);
     this._statusStage1 = statusStage1;
@@ -62,22 +63,24 @@ export class StatusComponent implements OnInit, OnChanges {
   }
 
   getStatusList(status: string): string[] {
-    status = status.toLowerCase();
-    if ( status.includes('inbox') || status.includes('initial') || status.includes('rejected')) {
-      return this._statusStage1;
-    } else if ( status.includes('initial call') || status.includes('archive')) {
-      return this._statusStage2;
-    } else if ( status.includes('schedule') || status.includes('interview') ) {
-      return this._statusStage3;
-    } else if ( status.includes('to call') || status.includes('interviewed') || status.includes('hold') ) {
-      return this._statusStage4;
-    } else if ( status.includes('offer')) {
-      return this._statusStage5;
-    } else if ( status.includes('hired')) {
-      return this._statusStage6;
+    if (!!status) {
+      status = status.toLowerCase();
+      if ( status.includes('inbox') || status.includes('rejected')) {
+        return this._statusStage1;
+      } else if (  status.includes('scheduled') || status.includes('initial call') || status.includes('archive')) {
+        return this._statusStage2;
+      } else if ( status.includes('schedule') || status.includes('interview') ) {
+        return this._statusStage3;
+      } else if ( status.includes('to call') || status.includes('interviewed') || status.includes('hold') ) {
+        return this._statusStage4;
+      } else if ( status.includes('offer')) {
+        return this._statusStage5;
+      } else if ( status.includes('hired')) {
+        return this._statusStage6;
+      }
     } else {
-      return [];
-    }
+        return this._statusStage1;
+      }
   }
 
   getCandidatesStatusHistory(id: number) {
@@ -94,8 +97,8 @@ export class StatusComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: import ('@angular/core').SimpleChanges): void {
     this.candidateStatusForm.valueChanges.subscribe((val) => {
-      this.$status.emit(val.status);
       this.status = val.status;
+      this.$status.emit(val);
     });
   }
 
