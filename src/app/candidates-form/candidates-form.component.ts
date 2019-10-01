@@ -50,9 +50,9 @@ export class CandidatesFormComponent implements OnInit {
     console.log(this.router.url.includes('apply'));
 
     this.candidateForm = this.formBuilder.group({
-      name: ['Sadeem Capella'],
-      phoneNumber: '0782111000',
-      email: ['sadeem@gmail.com', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+      name: [''],
+      phoneNumber: [''],
+      email: ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
       howdidyoufindus: [''],
       nationality: [''],
       status: [''],
@@ -128,8 +128,11 @@ export class CandidatesFormComponent implements OnInit {
    private async onSubmit() {
      if (this.candidateForm.valid) {
       this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
-      await this.candidatesService.insertCandidate(this.candidateForm.value).then((reason) => {
-        console.log(reason);
+      console.log(this.candidateForm.value);
+      await this.candidatesService.insertCandidate(this.candidateForm.value).then((reason: any) => {
+        console.log(reason.error.error.text);
+      }, error => {
+        console.log(error.error.text);
       });
       this.initializeForm();
       this.registerationSuccess = true;

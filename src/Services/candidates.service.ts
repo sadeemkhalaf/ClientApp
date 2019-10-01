@@ -6,7 +6,6 @@ import { CandidateFiles } from 'src/app/Models/CandidateFiles';
 import { EducationDetails } from 'src/app/Models/EducationDetails';
 import { API , environment} from 'src/environments/environment';
 import { AngularFireDatabase } from '@angular/fire/database';
-import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,7 @@ export class CandidatesService {
   constructor(private http: HttpClient, private db: AngularFireDatabase) { }
 
   // candidates
-  private fbReference = firebase.database().ref().ref;
-  private getRef = this.db;
+
   public getCandidates() {
     return this.http.get(`${API}/applicants`);
   }
@@ -28,7 +26,8 @@ export class CandidatesService {
    }
 
   public async insertCandidate(candidate: Candidate) {
-    return this.http.post<Candidate>(`${API}/applicants`, candidate);
+    console.log(candidate);
+    return this.http.post<Candidate>(`${API}/applicants`, candidate).toPromise();
   }
 
   public async updateCandidate(id: number, candidates: Candidate) {
