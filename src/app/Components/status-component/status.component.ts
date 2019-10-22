@@ -65,7 +65,7 @@ export class StatusComponent implements OnInit, OnChanges {
   getStatusList(status: string): string[] {
     if (!!status) {
       status = status.toLowerCase();
-      if ( status.includes('inbox') || status.includes('rejected')) {
+      if ( status.includes('inbox') || status.includes('rejected') || status.includes('no answer')) {
         return this._statusStage1;
       } else if (  status.includes('scheduled') || status.includes('initial call') || status.includes('archive')) {
         return this._statusStage2;

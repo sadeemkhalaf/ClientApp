@@ -82,3 +82,8 @@ kendo-grid-column {
   bottom: 10px;
   font-size: x-small;
 }
+
+.subtitle-label {
+  display: flex;
+  align-items: center;
+}

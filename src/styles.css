@@ -67,3 +67,7 @@ body {
   margin-left: 25px;
   margin-right: 25px;
 }
+
+.col-3 {
+  width: 33%;
+}

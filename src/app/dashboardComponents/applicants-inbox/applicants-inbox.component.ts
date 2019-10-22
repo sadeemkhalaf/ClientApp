@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Candidate } from 'src/app/Models/candidate';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-applicants-inbox',
@@ -14,15 +15,23 @@ export class ApplicantsInboxComponent {
 
   public inboxCandidates: ReplaySubject<Candidate[]> = new ReplaySubject<Candidate[]>(1);
   public inboxedCandidatesData: Candidate[] = [];
-  private updatedIndex: Candidate [] = [];
-  constructor(private candidatesService: CandidatesService, private router: Router) {
+  private screeningIndex: Candidate [] = [];
+  private interviewIndex: Candidate [] = [];
+  private candidatesFilteredList: Candidate[] = [];
+  private formGroup = new FormGroup({});
+  constructor(private candidatesService: CandidatesService, private router: Router, private formBuilder: FormBuilder) {
     this.candidatesService.getCandidates().subscribe((item: Candidate[]) => {
       this.inboxCandidates.next(item);
     });
 
     this.inboxCandidates.subscribe((item) => {
-      this.updatedIndex = item.filter((appl) => appl.status && appl.status.toLowerCase() !== 'inbox');
+      this.screeningIndex = item.filter((appl) => appl.status && appl.status.toLowerCase().includes('screen'));
+      this.interviewIndex = item.filter((appl) => appl.status && appl.status.toLowerCase().includes('interview'));
       this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
+    });
+
+    this.formGroup = this.formBuilder.group({
+      search: ['']
     });
    }
 
@@ -40,6 +49,11 @@ export class ApplicantsInboxComponent {
   applicantDetails(cand: any) {
     const idChanged = cand.id;
     this.router.navigate([`dashboard/details/${idChanged}`]);
+  }
+
+  filterCandidate() {
+    console.log(this.formGroup.get('search').value);
+
   }
 
 }

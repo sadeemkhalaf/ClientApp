@@ -1,68 +1,80 @@
 <div class="sidenav-content">
-<div class="searchContainer">
-  search box
-</div>
-
-<div class="container">
-    <div class="scrollable-box">
-  <mat-label class="title">Inbox</mat-label>
-  <div
-    cdkDropList
-    #inboxList="cdkDropList"
-    [cdkDropListData]="inboxedCandidatesData"
-    [cdkDropListConnectedTo]="[updatedList]"
-    class="list"
-    (cdkDropListDropped)="drop($event)"
-    *ngIf="inboxedCandidatesData.length > 0">
-    <div
-      class="box"
-      *ngFor="let item of inboxedCandidatesData"
-      (click)="applicantDetails(item)"
-      cdkDrag>
-      <span>
-        <span class="sub-title">{{ item.name }}</span>
-        <span class="sub-title" *ngIf="!!item.title"
-          ><span> submitted as </span>{{ item.title }}</span>
-        <span *ngIf="!!item.applicationDate">
-          <small> {{ item.applicationDate }}</small></span>
-      </span>
-    </div>
+  <div class="searchContainer">
+    search box
   </div>
-  <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
-  <mat-label>
-      <small>
-        <mat-icon class="material-icons">inbox</mat-icon>
-        Empty Inbox</small
-      ></mat-label>
+
+  <div class="container">
+    <div class="scrollable-box">
+      <mat-label class="title">Inbox</mat-label>
+      <div cdkDropList #inboxList="cdkDropList" [cdkDropListData]="inboxedCandidatesData"
+        [cdkDropListConnectedTo]="[screeningList, interviewList]" class="list" (cdkDropListDropped)="drop($event)"
+        *ngIf="inboxedCandidatesData.length > 0">
+        <div class="box" *ngFor="let item of inboxedCandidatesData" (click)="applicantDetails(item)" cdkDrag>
+          <span>
+            <span class="sub-title">{{ item.name }}</span>
+            <span class="sub-title" *ngIf="!!item.title"><span> submitted as </span>{{ item.title }}</span>
+            <span *ngIf="!!item.applicationDate">
+              <small> {{ item.applicationDate }}</small></span>
+          </span>
+        </div>
+      </div>
+      <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
+        <mat-label>
+          <small>
+            <mat-icon class="material-icons">inbox</mat-icon>
+            Empty Inbox
+          </small></mat-label>
+      </div>
     </div>
-    </div>
-    
-  <div class="scrollable-box">
-<mat-label class="title">Updated Applicants</mat-label>
-  <div
-    cdkDropList
-    #updatedList="cdkDropList"
-    [cdkDropListData]="updatedIndex"
-    [cdkDropListConnectedTo]="[inboxList]"
-    class="list"
-    (cdkDropListDropped)="drop($event)">
-    <div
-      class="box"
-      *ngFor="let item of updatedIndex"
-      cdkDrag
-      (click)="applicantDetails(item)">
-      <span>
-        <span class="sub-title">{{ item.name }}</span>
-        <span *ngIf="!!item.status">
-          <span> changed to </span>
-          <span class="sub-title" *ngIf="!!item.status">{{
+
+    <div class="scrollable-box">
+      <mat-label class="title">Screening</mat-label>
+      <div cdkDropList #screeningList="cdkDropList" [cdkDropListData]="screeningIndex"
+        [cdkDropListConnectedTo]="[inboxList, interviewList]" class="list" (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let item of screeningIndex" cdkDrag (click)="applicantDetails(item)">
+          <span>
+            <span class="sub-title">{{ item.name }}</span>
+            <span *ngIf="!!item.status">
+              <span> changed to </span>
+              <span class="sub-title" *ngIf="!!item.status">{{
             item.status
           }}</span>
-          </span>
-        status</span>
+            </span>
+            status</span>
+        </div>
+      </div>
+      <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
+        <mat-label>
+          <small>
+            <mat-icon class="material-icons">inbox</mat-icon>
+            Empty Inbox
+          </small></mat-label>
+      </div>
+    </div>
+
+    <div class="scrollable-box">
+      <mat-label class="title">Interview</mat-label>
+      <div cdkDropList #interviewList="cdkDropList" [cdkDropListData]="interviewIndex"
+        [cdkDropListConnectedTo]="[inboxList, screeningList]" class="list" (cdkDropListDropped)="drop($event)">
+        <div class="box" *ngFor="let item of interviewIndex" cdkDrag (click)="applicantDetails(item)">
+          <span>
+            <span class="sub-title">{{ item.name }}</span>
+            <span *ngIf="!!item.status">
+              <span> changed to </span>
+              <span class="sub-title" *ngIf="!!item.status">{{
+                item.status
+              }}</span>
+            </span>
+            status</span>
+        </div>
+      </div>
+      <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
+        <mat-label>
+          <small>
+            <mat-icon class="material-icons">inbox</mat-icon>
+            Empty Inbox
+          </small></mat-label>
+      </div>
     </div>
   </div>
-</div>
-  
-</div>
 </div>
