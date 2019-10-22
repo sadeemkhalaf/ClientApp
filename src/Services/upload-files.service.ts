@@ -10,9 +10,9 @@ export class UploadFilesService {
 
   constructor(private fireDatabase: AngularFireDatabase) { }
 
-  public pushUpload(upload: Upload) {
+  public pushUpload(upload: Upload, id: string) {
     const storageReference = firebase.storage().ref();
-    const uploadTask = storageReference.child(`uploads/${upload.file.name}`).put(upload.file);
+    const uploadTask = storageReference.child(`uploads/${id}/${upload.file.name}`).put(upload.file);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
@@ -29,13 +29,23 @@ export class UploadFilesService {
       );
   }
 
-  public async deleteFile(file: Upload) {
-    const ref = firebase.storage().ref();
-    await ref.child(`uploads/${file.name}`).delete();
+  public async deleteFile(file: string, id: string) {
+    await firebase.storage().ref().child(`uploads/${id}/${file}`).delete();
+  }
+
+  public async deleteFileByUrl(file: string) {
+    await firebase.storage().ref().child(file).delete();
+  }
+
+  public getFilesWithId(id: string) {
+    return firebase.storage().ref().child(`uploads/${id}`);
+  }
+
+  async deleteBucket(id: string) {
+    await this.fireDatabase.object(`uploads/${id}`).remove();
   }
 
   private saveFileData(upload: Upload) {
     this.fireDatabase.list(`uploads`).push(upload);
   }
-
 }

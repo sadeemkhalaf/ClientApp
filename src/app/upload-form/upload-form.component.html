@@ -1,27 +1,38 @@
 <div class="box">
-    <mat-label>  Drop Files</mat-label>
+  <mat-label>Drop Files</mat-label>
 </div>
-    <div class="dropzone"
-         appFileDrop
-         (filesDropped)="handleDrop($event)"
-         (filesHovered)="dropzoneState($event)"
-         [ngClass]="{'active': dropzoneActive}">
-         <i class="material-icons icon" *ngIf="filesList.length == 0">cloud_upload</i>
-                <mat-list>
-                        <h3 mat-subheader *ngIf="filesList.length !== 0">uploaded Files</h3>
-                        <mat-list-item *ngFor="let file of filesList">
-                          <h4 mat-line><mat-icon>attach_file</mat-icon> {{file.file.name}} <small> {{file.createdAt | date:'short'}} </small></h4>
-                          <button mat-icon-button color="warn" (click)="deleteFile($event,file)">
-                            <mat-icon>cancel</mat-icon>
-                          </button>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                </mat-list>
-    </div>
-    <div class="progress-box" *ngFor="let upload of filesList">
-        <div *ngIf="currentUpload && currentUpload?.progress !== 100">
-            <mat-progress-bar *ngIf="!!upload?.progress" mode="determinate" value= "{{ currentUpload?.progress }}"></mat-progress-bar>
-            <mat-progress-bar  *ngIf="!upload?.progress" mode="buffer"></mat-progress-bar>
-            <span>{{upload?.file.name}}</span> <span *ngIf="!!upload?.progress">: {{upload?.progress}}%</span>
-        </div>
+<div class="dropzone" appFileDrop (filesDropped)="handleDrop($event)" (filesHovered)="dropzoneState($event)"
+  [ngClass]="{'active': dropzoneActive}">
+  <mat-list>
+    <h3 mat-subheader *ngIf="uploadedFiles.length !== 0">uploaded Files</h3>
+    <mat-list-item *ngFor="let file of uploadedFiles">
+      <h4 mat-line>
+        <mat-icon>attach_file</mat-icon> {{file.name}}
+      </h4>
+      <button mat-icon-button color="warn" (click)="deleteFileByUrl(file.path)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <i class="material-icons icon" *ngIf="filesList.length == 0 && uploadedFiles == 0 ">cloud_upload</i>
+  <mat-list>
+    <h3 mat-subheader *ngIf="filesList.length !== 0">new Files</h3>
+    <mat-list-item *ngFor="let file of filesList">
+      <h4 mat-line>
+        <mat-icon>attach_file</mat-icon> {{file.file.name}} <small> {{file.createdAt | date:'short'}} </small>
+      </h4>
+      <button mat-icon-button color="warn" (click)="deleteFile($event,file)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+<div class="progress-box" *ngFor="let upload of filesList">
+  <div *ngIf="currentUpload && currentUpload?.progress !== 100">
+    <mat-progress-bar *ngIf="!!upload?.progress" mode="determinate" value="{{ currentUpload?.progress }}">
+    </mat-progress-bar>
+    <mat-progress-bar *ngIf="!upload?.progress" mode="buffer"></mat-progress-bar>
+    <span>{{upload?.file.name}}</span> <span *ngIf="!!upload?.progress">: {{upload?.progress}}%</span>
+  </div>
 </div>

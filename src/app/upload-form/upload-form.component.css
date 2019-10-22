@@ -1,44 +1,51 @@
-.dropzone { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed #c4c4c4;
-    border-radius: 5px;
-    background: white;
-    margin: 20px;
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #c4c4c4;
+  border-radius: 5px;
+  background: white;
+  margin: 10px;
+}
+
+mat-label {
+    margin-left: 10px;
 }
 
 .file-label {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 progress::-webkit-progress-value {
-    transition: width 0.1s ease;
+  transition: width 0.1s ease;
 }
 
 .icon {
-    font-size: 50px;
-    opacity: 0.4;
-    align-items: center;
+  font-size: 50px;
+  opacity: 0.4;
+  align-items: center;
 }
 
 mat-list {
-    text-align: start;
-    margin-left: 20px; 
+  text-align: start;
+  margin-left: 20px;
 }
 
 .box {
-    align-content: unset;
-    display: unset;
-    display: unset;
-    -webkit-box-orient: unset;
+  align-content: unset;
+  display: unset;
+  display: unset;
+  -webkit-box-orient: unset;
 }
 
 mat-progress-bar {
-    /* margin: 20px; */
-    width: 100%;
+  width: 100%;
 }
 
 .progress-box {
-    margin: 20px;
+  margin: 20px;
+}
+
+mat-list {
+  width: 50%;
 }
