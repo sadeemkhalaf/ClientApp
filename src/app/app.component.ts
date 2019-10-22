@@ -7,6 +7,7 @@ import { map, switchMap, concatMap } from 'rxjs/operators';
 import { slideInAnimation } from './animations';
 import { RouterOutlet } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit{
   private inboxCount: number;
   private load$ = new BehaviorSubject('');
 
-    constructor(private appService: AppService, private candidatesService: CandidatesService) {
+    constructor(private appService: AppService, private candidatesService: CandidatesService, private _route: Location) {
     this.date.getHours() <= 12 ? this.greeting = 'Good Morning' : this.greeting = 'Good Afternoon';
     this.menuIcon = 'menu';
   }
@@ -43,6 +44,13 @@ export class AppComponent implements OnInit{
     this.filterByStatus('inbox');
   }
 
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  }
+
+  back() {
+    this._route.back();
+  }
   private changeIcon(event: any) {
       if (this.menuIcon.includes('menu')) {
         this.menuIcon = 'arrow_back_ios';
@@ -69,10 +77,6 @@ export class AppComponent implements OnInit{
         this.inboxCount = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox').length;
       });
     });
-  }
-
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 }

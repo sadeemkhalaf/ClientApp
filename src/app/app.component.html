@@ -30,18 +30,23 @@
             </mat-list>
             
         </mat-drawer>
+
       <mat-toolbar class="app-toolbar">                
           <button type='button' mat-button (click)='drawer.toggle()'>
             <i class='material-icons' (click)='changeIcon($event)'>{{menuIcon}}</i>
         </button>
       </mat-toolbar>
-        <div class='sidenav-content'>
-            <div class="menu-icon">
+      <mat-toolbar class="sub-toolbar">
+          <button type='button' mat-button (click)='back()'>
+              Back
+          </button>
+      </mat-toolbar>
 
+      <div class='sidenav-content'>
+            <div class="menu-icon">
              </div>
              <div [@routeAnimations]="prepareRoute(outlet)" >
                 <router-outlet #outlet="outlet"></router-outlet>
               </div>
-                 <!-- <router-outlet></router-outlet> -->
                     </div>
       </mat-drawer-container>
