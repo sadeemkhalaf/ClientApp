@@ -1,34 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CandidatesService } from 'src/Services/candidates.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Candidate, CandidatesStatusHistory, CandidateStatusDetails } from './../Models/candidate';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-candidate-details',
   templateUrl: './candidate-details.component.html',
   styleUrls: ['./candidate-details.component.css']
 })
-export class CandidateDetailsComponent {
+export class CandidateDetailsComponent implements OnInit {
 
   private candidate: Candidate;
   private candidateForm = new FormGroup({});
   private id: number;
   private _statusPicked: CandidateStatusDetails;
   private candidateStatusHistory: CandidatesStatusHistory[] = [];
-  // tslint:disable-next-line: variable-name
-  private _statusStage1: string[] = [];
-   // tslint:disable-next-line: variable-name
-  private _statusStage2: string[] = [];
-   // tslint:disable-next-line: variable-name
-  private _statusStage3: string[] = [];
-   // tslint:disable-next-line: variable-name
-  private _statusStage4: string[] = [];
-   // tslint:disable-next-line: variable-name
-  private _statusStage5: string[] = [];
-   // tslint:disable-next-line: variable-name
-  private _statusStage6: string[] = [];
 
   private dateFilter = (d: Date): boolean => {
     const day = d.getDay();
@@ -40,11 +29,10 @@ export class CandidateDetailsComponent {
               private router: Router, private route: ActivatedRoute, private snackBar: MatSnackBar) {
     this.id = (this.route.snapshot.paramMap.get('id') as unknown as number);
     this.getCandidateDetails(this.id);
-    // this.getCandidatesStatusHistory(this.id);
     this.candidateForm = this.formBuilder.group({
       id: this.id,
-      name: [''],
-      phoneNumber: '',
+      name: ['', Validators.required],
+      phoneNumber: [''],
       email: ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
       howdidyoufindus: [''],
       nationality: [''],
@@ -79,8 +67,9 @@ export class CandidateDetailsComponent {
       applicantEducationDetails: ['']
     }
       );
-
   }
+
+  ngOnInit(): void {}
 
   private convertGpa(gpa: number) {
     return gpa <= 4 ? gpa * 25 : gpa / 25;
@@ -88,29 +77,27 @@ export class CandidateDetailsComponent {
 
   onSubmit() {
     this.updateCandidate(this.candidateForm.value);
-    console.log(this.candidateForm.value);
-      }
+    }
 
   async getCandidateDetails(id: number) {
     this.candidatesService.getCandidate(this.id).toPromise().then(
       async (res: Candidate) => {
           this.candidate = await res;
+          if (this.candidate.cvAttachment === null || !(this.candidate.cvAttachment.length !== 0)) {
+            this.candidate.cvAttachment = uuid.v4();
+          }
           this.candidateForm.setValue(this.candidate);
-          console.log(this.candidate);
-      },
-      (error: any) => console.log(error));
+      });
   }
 
   getCandidatesStatusHistory(id: number) {
     this.candidatesService.getApplicantStatusHistory(id).toPromise().then(
       async (result: CandidatesStatusHistory[]) => {
         this.candidateStatusHistory = await result;
-    },
-    (error: any) => console.log(error));
+    });
   }
 
   async updateCandidate(updateCandidate: Candidate) {
-    console.log('candidate is updated', updateCandidate);
     await this.candidatesService.updateCandidate(this.id, updateCandidate)
     .finally(() => this.openSnackBar('applicant updated successfully', 'x'));
   }
@@ -125,5 +112,4 @@ export class CandidateDetailsComponent {
     this._statusPicked = status;
     this.candidateForm.patchValue({status: status.status});
   }
-
 }

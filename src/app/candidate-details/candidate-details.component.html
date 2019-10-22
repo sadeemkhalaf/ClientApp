@@ -4,17 +4,20 @@
   class="form-container"
 >
   <div class="form-header">
-    <div class="name-box">
-      <mat-label class="name-label">{{ candidate.name }}</mat-label>
-      <div class="date-added" *ngIf="!!candidate.applicationDate">
-        <small>
-          {{ candidate.applicationDate }}
-        </small>
-      </div>
-    </div>
+    
+
     <div class="contact-field top-box">
+      
       <div class="input-icon-inline">
-        <mat-form-field appearance="legacy" class="input-field">
+        <mat-form-field appearance="legacy" class="input-field col-3">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="input-icon-inline ">
+        <mat-form-field appearance="legacy" class="input-field col-3">
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" />
           <mat-icon matSuffix>email</mat-icon>
@@ -29,15 +32,24 @@
           </mat-error>
         </mat-form-field>
       </div>
+
       <div class="input-icon-inline">
-        <mat-form-field appearance="legacy" class="input-field">
+        <mat-form-field appearance="legacy" class="input-field col-3">
           <mat-label>Phone Number</mat-label>
           <input matInput formControlName="phoneNumber" type="tel" />
           <mat-icon matSuffix>phone</mat-icon>
         </mat-form-field>
       </div>
     </div>
+    
   </div>
+  <div class="date-added" *ngIf="!!candidate.applicationDate">
+      <small>
+        created: 
+      {{ candidate.applicationDate }}
+      </small>
+    </div>
+    
 
   <div class="form-container">
     <mat-label class="box-label">Process</mat-label>
@@ -161,7 +173,7 @@
 
       </div>
       <app-upload-form
-        (outputFilesList)="getFilesList($event)"
+        [candidateId]="candidate.cvAttachment"
       ></app-upload-form>
     </div>
     <div class="button-row">

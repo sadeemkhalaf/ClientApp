@@ -38,6 +38,8 @@
     display: flex;
     flex-direction: row;
     margin-left: 10px;
+    width: 95%;
+    align-items: baseline;
 }
 
 .name-field {
@@ -79,7 +81,7 @@
 }
 
 .date-added {
-    margin-top: -20px;
+    margin-left: 20px;
 }
 
 .small-field {
