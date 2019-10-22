@@ -12,7 +12,8 @@
       </div>
       <div class="box-row-fields">
           <div class="input-icon-inline">
-          <mat-form-field appearance="legacy" class="input-field">
+
+            <mat-form-field appearance="legacy" class="input-field">
               <mat-label>Email</mat-label>
               <input matInput type="email" formControlName="email">
                   <mat-error class="error-message"
@@ -154,11 +155,6 @@
                 </div>
         
                 <div class="box-row-fields">
-                    <!-- <mat-form-field appearance="legacy" class="input-field">
-                        <mat-label>Applying As</mat-label>
-                        <input matInput formControlName="applyingAs" type="text">
-                      </mat-form-field> -->
-  
           
                     <mat-form-field appearance="legacy" class="input-field">
                         <mat-label>Expected Salary</mat-label>
@@ -185,6 +181,7 @@
                             <option></option>
                             <option value="Beginner">Beginner</option>
                             <option value="Intermediate">Intermediate</option>
+                            <option value="Intermediate-fluent">Intermediate</option>
                             <option value="Advanced">Advanced</option>
                           </select>
                       </mat-form-field>
@@ -217,10 +214,10 @@
                         </mat-autocomplete>
                       </mat-form-field>
                     </div>
-                          <app-upload-form (outputFilesList)="getFilesList($event)"></app-upload-form>
+                          <app-upload-form (outputFiles)="getFilesList($event)" [candidateId]="tempId"></app-upload-form>
               </div>
         <div class="button-row">
-          <button mat-stroked-button type="submit"> <i class='material-icons icon'>send</i> Submit</button>
+          <button mat-stroked-button type="submit"> <i class='material-icons icon' (click)="onSubmit()">send</i> Submit</button>
           <button mat-stroked-button type="button" [disabled]="false" color="warn" (click)="cancel()"><i class='material-icons icon'>close</i> Cancel</button>
         </div>
   </form>

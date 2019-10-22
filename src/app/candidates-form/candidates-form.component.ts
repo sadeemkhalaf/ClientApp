@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 import { universitiesList, technologiesList } from './../../environments/environment';
 import { EducationDetails } from '../Models/EducationDetails';
 import {Location} from '@angular/common';
+import * as uuid from 'uuid';
+import { UploadFilesService } from 'src/Services/upload-files.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-candidates-form',
@@ -33,6 +36,7 @@ export class CandidatesFormComponent implements OnInit {
   private allTechnologies: string[] = technologiesList;
   private universitiesList: string[] = universitiesList;
   private educationList: EducationDetails[] = [];
+  public tempId: string;
 
   @ViewChild('TechnologiesInput', {static: false}) TechnologiesInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
@@ -41,17 +45,17 @@ export class CandidatesFormComponent implements OnInit {
   private candidateForm = new FormGroup({});
   private educationDetails: FormArray;
   constructor(private candidatesService: CandidatesService, private router: Router
-            , private _location: Location , private formBuilder: FormBuilder) {
+            , private _location: Location , private formBuilder: FormBuilder
+            , private uploadFileService: UploadFilesService, private snackBar: MatSnackBar) {
      this.filteredTechnologies = this.technologiesCtrl.valueChanges.pipe(
        startWith(null),
        map((technology: string | null) => technology ? this._filter(technology) : this.allTechnologies.slice()));
    }
   ngOnInit() {
-    console.log(this.router.url.includes('apply'));
-
+    this.tempId = uuid.v4();
     this.candidateForm = this.formBuilder.group({
-      name: [''],
-      phoneNumber: [''],
+      name: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       email: ['', Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
       howdidyoufindus: [''],
       nationality: [''],
@@ -70,7 +74,7 @@ export class CandidatesFormComponent implements OnInit {
       title: [''],
       expectedSalary: [''],
       englishSkills: [''],
-      cvAttachment: [''],
+      cvAttachment: [this.tempId],
       examScore: [''],
       notes: [''],
       lastUdateLog: [],
@@ -84,6 +88,26 @@ export class CandidatesFormComponent implements OnInit {
       applicantFiles: [''],
       activityLog: [''],
       applicantEducationDetails: ['']
+    });
+  }
+
+  addRow(): void {
+    this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
+    this.educationDetails.push(this.createGroup());
+    console.log('educationDetails length: ', this.educationDetails.controls.length);
+  }
+
+  removeRow(index: number): void {
+    this.educationDetails.removeAt(index);
+  }
+
+  createGroup(): FormGroup {
+    return this.formBuilder.group({
+      major: '',
+      gpa: '',
+      university: '',
+      degree: '',
+      graduated: false
     });
   }
 
@@ -128,10 +152,10 @@ export class CandidatesFormComponent implements OnInit {
    private async onSubmit() {
      if (this.candidateForm.valid) {
       this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
-      console.log(this.candidateForm.value);
       await this.candidatesService.insertCandidate(this.candidateForm.value).then((reason: any) => {
         console.log(reason.error.error.text);
       }, error => {
+        this.openSnackBar(error.error.text, 'x');
         console.log(error.error.text);
       });
       this.initializeForm();
@@ -139,10 +163,15 @@ export class CandidatesFormComponent implements OnInit {
   }
 }
 
+  private openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   private getFilesList(event: Upload[]) {
     event.forEach((fList) => {
       this.filesList.push(fList);
-      console.log(fList);
     });
   }
 
@@ -165,26 +194,8 @@ export class CandidatesFormComponent implements OnInit {
   }
 
   private cancel() {
+    this.uploadFileService.deleteBucket(this.tempId);
+    this.initializeForm();
     this._location.back();
-  }
-
-  addRow(): void {
-    this.educationDetails = this.candidateForm.get('educationDetails') as FormArray;
-    this.educationDetails.push(this.createGroup());
-    console.log('educationDetails length: ', this.educationDetails.controls.length);
-  }
-
-  removeRow(index: number): void {
-    this.educationDetails.removeAt(index);
-  }
-
-  createGroup(): FormGroup {
-    return this.formBuilder.group({
-      major: '',
-      gpa: '',
-      university: '',
-      degree: '',
-      graduated: false
-    });
   }
 }
