@@ -32,6 +32,11 @@ mat-button-toggle:hover {
   margin-right: 20px;
 }
 
+.reset-button {
+  background-color: #FD9726;
+  margin: 0 8px 8px 8px;
+}
+
 .header {
   width: 100%;
   display: flex;
@@ -55,6 +60,8 @@ mat-button-toggle:hover {
 .advanced-search-container {
   margin-top: 20px;
   margin-bottom: 20px; 
+  display: flex;
+  height: 120px;
 }
 
 kendo-grid  {
@@ -86,4 +93,13 @@ kendo-grid-column {
 .subtitle-label {
   display: flex;
   align-items: center;
+}
+
+
+app-advanced-filter {
+  margin: 16px 0;
+  background-color: #DBDBDB;
+  border-radius: 13px;
+  width: 100%;
+  padding: 16px;
 }

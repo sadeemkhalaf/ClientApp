@@ -109,4 +109,8 @@ export class CandidatesSummaryComponent implements OnInit {
     addApplicant() {
       this.router.navigate([`dashboard/applicants/add-new`]);
     }
+
+    getFiltered(event: Candidate[]) {
+      console.log(event);
+    }
 }

@@ -40,9 +40,14 @@
       <span class="small-label"> Hold</span></mat-button-toggle>
   </mat-button-toggle-group>
 </div>
-<div class="advanced-search-container container">
-  <mat-label>Advanced Filter</mat-label>
+
+<div class="container">
+  <app-advanced-filter (filteredCandidates)="getFiltered($event)"></app-advanced-filter>
 </div>
+<!-- <button class="reset-button" mat-flat-button type="button">
+    Reset
+   </button> -->
+<div>
 <kendo-grid
   [data] = "gridData"
   [kendoGridBinding] = "$filteredGridData"
@@ -76,3 +81,4 @@
     >
   </kendo-grid-column>
 </kendo-grid>
+</div>

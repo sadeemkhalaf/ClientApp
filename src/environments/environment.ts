@@ -122,4 +122,30 @@ export const  statusStage6: string[] = [
     'Terminated'
   ];
 
+export const status: string[] = [
+    '',
+    'Hired',
+    'Resigned',
+    'Terminated',
+    'To Call',
+    'Cancelled',
+    'Rejected',
+    'Offer',
+    'on Hold',
+    'Shortlisted',
+    'Blacklisted',
+    'Refused Test',
+    'Inbox',
+    'Irrelevent',
+    'initial Call',
+    'Archive',
+    'Interview scheduled',
+    'No Answer',
+    'Wrong Number',
+    'Canceled',
+    'Didn\'t attend',
+    'Interviewed',
+    'Not Interested'
+  ];
+
 export const API = `https://localhost:44318/api`;

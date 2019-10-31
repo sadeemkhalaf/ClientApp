@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Candidate, CandidatesStatusHistory } from 'src/app/Models/candidate';
+import { Candidate, CandidatesStatusHistory, ApplicantQueryStructure } from 'src/app/Models/candidate';
 import { throwError, Observable } from 'rxjs';
 import { CandidateFiles } from 'src/app/Models/CandidateFiles';
 import { EducationDetails } from 'src/app/Models/EducationDetails';
@@ -23,6 +23,11 @@ export class CandidatesService {
 
   public getCandidate(id: number): Observable<Candidate> {
     return this.http.get<Candidate>(`${API}/applicants/${id}`);
+   }
+
+   public getCandidateQueryResults(query: ApplicantQueryStructure): Observable<Candidate[]> {
+    console.log(query);
+    return this.http.post<Candidate[]>(`${API}/applicants/query`, query);
    }
 
   public async insertCandidate(candidate: Candidate) {

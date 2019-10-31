@@ -1,6 +1,22 @@
 <div class="sidenav-content">
   <div class="searchContainer">
-    search box
+      <form [formGroup]="basicFilterForm" (ngSubmit)="onSubmit()">
+              <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>Find Candidate</mat-label>
+                  <input matInput type="text" formControlName="search">
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy" class="col-3">
+                    <mat-label>Staus</mat-label>
+                    <select matNativeControl formControlName="status" [value]="value">
+                        <option></option>
+                        <option value="inbox">Inbox</option>
+                        <option value="screen">Screening</option>
+                        <option value="interview">Interview</option>
+                      </select>
+                  </mat-form-field>
+                  <mat-icon (click)="filterCandidate()">search</mat-icon>
+      </form>      
   </div>
 
   <div class="container">
@@ -22,7 +38,7 @@
         <mat-label>
           <small>
             <mat-icon class="material-icons">inbox</mat-icon>
-            Empty Inbox
+            Empty
           </small></mat-label>
       </div>
     </div>
@@ -30,7 +46,8 @@
     <div class="scrollable-box">
       <mat-label class="title">Screening</mat-label>
       <div cdkDropList #screeningList="cdkDropList" [cdkDropListData]="screeningIndex"
-        [cdkDropListConnectedTo]="[inboxList, interviewList]" class="list" (cdkDropListDropped)="drop($event)">
+        [cdkDropListConnectedTo]="[inboxList, interviewList]" class="list" (cdkDropListDropped)="drop($event)"
+        *ngIf="screeningIndex.length > 0">
         <div class="box" *ngFor="let item of screeningIndex" cdkDrag (click)="applicantDetails(item)">
           <span>
             <span class="sub-title">{{ item.name }}</span>
@@ -43,11 +60,11 @@
             status</span>
         </div>
       </div>
-      <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
+      <div class="empty-box" *ngIf="screeningIndex.length == 0">
         <mat-label>
           <small>
             <mat-icon class="material-icons">inbox</mat-icon>
-            Empty Inbox
+            Empty
           </small></mat-label>
       </div>
     </div>
@@ -55,7 +72,9 @@
     <div class="scrollable-box">
       <mat-label class="title">Interview</mat-label>
       <div cdkDropList #interviewList="cdkDropList" [cdkDropListData]="interviewIndex"
-        [cdkDropListConnectedTo]="[inboxList, screeningList]" class="list" (cdkDropListDropped)="drop($event)">
+        [cdkDropListConnectedTo]="[inboxList, screeningList]" class="list" (cdkDropListDropped)="drop($event)"
+        *ngIf="interviewIndex.length > 0"
+        >
         <div class="box" *ngFor="let item of interviewIndex" cdkDrag (click)="applicantDetails(item)">
           <span>
             <span class="sub-title">{{ item.name }}</span>
@@ -68,11 +87,11 @@
             status</span>
         </div>
       </div>
-      <div class="empty-box" *ngIf="inboxedCandidatesData.length == 0">
+      <div class="empty-box" *ngIf="interviewIndex.length == 0">
         <mat-label>
           <small>
             <mat-icon class="material-icons">inbox</mat-icon>
-            Empty Inbox
+            Empty
           </small></mat-label>
       </div>
     </div>

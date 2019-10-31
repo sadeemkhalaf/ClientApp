@@ -1,9 +1,124 @@
-<form [formGroup]="advancedFilterForm" class="form-container" (ngSubmit)="onSubmit()">
-    <mat-label class="box-label">Basic Details</mat-label>
-    <div class="box">
+<div class="container">
+  <div class="form-header">
+    <mat-label class="box-label">Advanced Filter</mat-label> 
+    <button mat-stroked-button type="button" (click)="toggle()"  *ngIf="show">
+        Hide <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <button mat-stroked-button type="button" (click)="toggle()"  *ngIf="!show">
+        Show <mat-icon>keyboard_arrow_up</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="advancedFilterForm" class="form-container" (ngSubmit)="onSubmit()" *ngIf="show">
+    <div class="box col">
+      <div class="row">
+          <mat-label>Experience Years</mat-label>
         <mat-form-field appearance="legacy" class="input-field">
-            <mat-label>Candidate Name</mat-label>
-            <input matInput type="text" formControlName="name">
-          </mat-form-field>
+          <mat-label>more than</mat-label>
+          <input matInput type="number" formControlName="devexperience">
+        </mat-form-field>
+        <mat-label>GPA</mat-label>
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>more than</mat-label>
+          <input matInput type="number" formControlName="gpa">
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+      <mat-form-field appearance="legacy" class="input-field">
+        <mat-label>Experience Level</mat-label>
+        <select matNativeControl formControlName="experienceLevel" [value]="value">
+          <option></option>
+          <option value="fresh">Fresh</option>
+          <option value="entry">Entry</option>
+          <option value="junior">Junior</option>
+          <option value="mid">Mid</option>
+          <option value="senior">Senior</option>
+          <option value="other">Other</option>
+        </select>
+      </mat-form-field>
+      <button mat-icon-button type="button" (click)="pushSelection('experienceLevel')">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-chip-list class="status-tree" *ngIf="queryTerms">
+          <div *ngFor="let cl of queryTerms.experienceLevel" class="chip">
+            <mat-chip *ngIf="!!cl" class="chip-content">{{ cl }}
+              <button mat-icon-button type="button" (click)="deleteSelection('experienceLevel', cl)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+
+
+      <div class="row">
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Status</mat-label>
+          <select matNativeControl formControlName="status" [value]="value">
+              <option *ngFor="let stat of statusList">{{stat}}</option>
+            </select>
+        </mat-form-field>
+        <button mat-icon-button type="button" (click)="pushSelection('status')">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-chip-list class="status-tree" *ngIf="queryTerms">
+          <div *ngFor="let st of queryTerms.status" class="chip">
+            <mat-chip *ngIf="!!st" class="chip-content">{{ st }}
+              <button mat-icon-button type="button" (click)="deleteSelection('status', st)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Rating</mat-label>
+          <input matInput type="text" formControlName="rating">
+        </mat-form-field>
+        <button mat-icon-button type="button" (click)="pushSelection('rating')">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-chip-list class="status-tree" *ngIf="queryTerms">
+          <div *ngFor="let rt of queryTerms.rating" class="chip">
+            <mat-chip *ngIf="!!rt" class="chip-content">{{ rt }}
+              <button mat-icon-button type="button" (click)="deleteSelection('rating', rt)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="legacy" class="input-field">
+          <mat-label>Major</mat-label>
+          <input matInput type="text" formControlName="major">
+        </mat-form-field>
+        <button mat-icon-button type="button" (click)="pushSelection('major')">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <mat-chip-list class="status-tree" *ngIf="queryTerms">
+          <div *ngFor="let mj of queryTerms.major" class="chip">
+            <mat-chip *ngIf="!!mj" class="chip-content">{{ mj }}
+              <button mat-icon-button type="button" (click)="deleteSelection('major', mj)">
+                <mat-icon>remove</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </div>
     </div>
-</form>
+    <div class="btn-row">
+        <button mat-stroked-button type="button" (click)="onSubmit()" class="filter-btn">
+            Filter Results
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-stroked-button type="button" (click)="reset()" class="filter-btn" color="warn">
+                Reset
+            </button>
+    </div>
+  </form>
+</div>

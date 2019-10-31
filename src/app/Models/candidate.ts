@@ -55,12 +55,12 @@ export interface CandidateFilter {
 }
 
 export class ApplicantQueryStructure {
-        ExperienceYears: number[];
+        devexperience: number;
         currentPosition: string[];
         status: string[];
         gpa: number;
         rating: string[];
         major: string[];
-        careerLevel: string[];
+        experienceLevel: string[];
     }
 

@@ -18,20 +18,22 @@ export class ApplicantsInboxComponent {
   private screeningIndex: Candidate [] = [];
   private interviewIndex: Candidate [] = [];
   private candidatesFilteredList: Candidate[] = [];
-  private formGroup = new FormGroup({});
+  private basicFilterForm = new FormGroup({});
   constructor(private candidatesService: CandidatesService, private router: Router, private formBuilder: FormBuilder) {
     this.candidatesService.getCandidates().subscribe((item: Candidate[]) => {
       this.inboxCandidates.next(item);
     });
 
     this.inboxCandidates.subscribe((item) => {
+      this.candidatesFilteredList = item;
       this.screeningIndex = item.filter((appl) => appl.status && appl.status.toLowerCase().includes('screen'));
       this.interviewIndex = item.filter((appl) => appl.status && appl.status.toLowerCase().includes('interview'));
       this.inboxedCandidatesData = item.filter((appl) => appl.status && appl.status.toLowerCase() === 'inbox');
     });
 
-    this.formGroup = this.formBuilder.group({
-      search: ['']
+    this.basicFilterForm = this.formBuilder.group({
+      search: [''],
+      status: ['']
     });
    }
 
@@ -52,8 +54,38 @@ export class ApplicantsInboxComponent {
   }
 
   filterCandidate() {
-    console.log(this.formGroup.get('search').value);
+    const name = this.basicFilterForm.get('search').value;
+    const status = this.basicFilterForm.get('status').value;
+    switch (status) {
+      case 'inbox':
+          this.inboxedCandidatesData = this.candidatesFilteredList.filter((appl) =>
+          (appl.status && appl.status.toLowerCase().includes('inbox')) && (appl.name.toLowerCase().includes(name)));
+          break;
+      case 'screen':
+          this.screeningIndex = this.candidatesFilteredList.filter((appl) =>
+          (appl.status && appl.status.toLowerCase().includes('screen')) && (appl.name.toLowerCase().includes(name)));
+          break;
+      case 'interview':
+          this.interviewIndex = this.candidatesFilteredList.filter((appl) =>
+          (appl.status && appl.status.toLowerCase().includes('interview')) && (appl.name.toLowerCase().includes(name)));
+          break;
+      default:
+          this.screeningIndex = this.candidatesFilteredList.filter((appl) =>
+          appl.status && appl.status.toLowerCase().includes('screen'));
+          this.interviewIndex = this.candidatesFilteredList.filter((appl) =>
+          appl.status && appl.status.toLowerCase().includes('interview'));
+          this.inboxedCandidatesData = this.candidatesFilteredList.filter((appl) =>
+          appl.status && appl.status.toLowerCase() === 'inbox');
+    }
+  }
 
+  filterList(list: any[], name: string, status?: string) {
+    if (!!status) {
+      return list.filter((appl) =>
+      (appl.status && appl.status.toLowerCase().includes(status)) && (appl.name.toLowerCase().includes(name)));
+    } else if (!!name) {
+      return list.filter((appl) => appl.name.toLowerCase().includes(name));
+    }
   }
 
 }

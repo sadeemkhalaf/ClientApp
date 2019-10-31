@@ -71,3 +71,12 @@ body {
 .col-3 {
   width: 33%;
 }
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
