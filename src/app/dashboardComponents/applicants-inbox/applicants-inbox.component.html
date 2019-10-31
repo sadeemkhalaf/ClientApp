@@ -2,10 +2,13 @@
   <div class="searchContainer">
       <form [formGroup]="basicFilterForm" (ngSubmit)="onSubmit()">
               <mat-form-field appearance="legacy" class="input-field">
-                  <mat-label>Find Candidate</mat-label>
+                  <mat-label>Find Name</mat-label>
                   <input matInput type="text" formControlName="search">
                 </mat-form-field>
-
+                <mat-form-field appearance="legacy" class="input-field">
+                  <mat-label>Find Mobile Number</mat-label>
+                  <input matInput type="text" formControlName="number">
+                </mat-form-field>
                 <mat-form-field appearance="legacy" class="col-3">
                     <mat-label>Staus</mat-label>
                     <select matNativeControl formControlName="status" [value]="value">

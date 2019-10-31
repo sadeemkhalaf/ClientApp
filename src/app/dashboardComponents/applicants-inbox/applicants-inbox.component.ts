@@ -33,7 +33,8 @@ export class ApplicantsInboxComponent {
 
     this.basicFilterForm = this.formBuilder.group({
       search: [''],
-      status: ['']
+      status: [''],
+      number: ['']
     });
    }
 
@@ -56,18 +57,23 @@ export class ApplicantsInboxComponent {
   filterCandidate() {
     const name = this.basicFilterForm.get('search').value;
     const status = this.basicFilterForm.get('status').value;
+    const phoneNumber = this.basicFilterForm.get('number').value;
     switch (status) {
       case 'inbox':
           this.inboxedCandidatesData = this.candidatesFilteredList.filter((appl) =>
-          (appl.status && appl.status.toLowerCase().includes('inbox')) && (appl.name.toLowerCase().includes(name)));
+          (appl.status && appl.status.toLowerCase().includes('inbox')) &&
+          (appl.name.toLowerCase().startsWith(name))).filter(app => !!app.phoneNumber && app.phoneNumber.includes(phoneNumber));
+
           break;
       case 'screen':
           this.screeningIndex = this.candidatesFilteredList.filter((appl) =>
-          (appl.status && appl.status.toLowerCase().includes('screen')) && (appl.name.toLowerCase().includes(name)));
+          (appl.status && appl.status.toLowerCase().includes('screen')) &&
+          (appl.name.toLowerCase().startsWith(name))).filter(app => !!app.phoneNumber && app.phoneNumber.includes(phoneNumber));
           break;
       case 'interview':
           this.interviewIndex = this.candidatesFilteredList.filter((appl) =>
-          (appl.status && appl.status.toLowerCase().includes('interview')) && (appl.name.toLowerCase().includes(name)));
+          (appl.status && appl.status.toLowerCase().includes('interview')) &&
+          (appl.name.toLowerCase().startsWith(name))).filter(app => !!app.phoneNumber && app.phoneNumber.includes(phoneNumber));
           break;
       default:
           this.screeningIndex = this.candidatesFilteredList.filter((appl) =>

@@ -37,8 +37,11 @@ form {
     justify-content: flex-end;
 }
 .filter-btn {
-    width: 15%;
+    /* width: 15%; */
     margin: 0 8px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .chip {
