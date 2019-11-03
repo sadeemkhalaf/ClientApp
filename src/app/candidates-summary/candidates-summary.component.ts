@@ -25,13 +25,12 @@ export class CandidatesSummaryComponent implements OnInit {
   public gridDataResult: GridDataResult = {data: [], total: 0};
 
   public columns: any[] = [
-    {field: 'id', title: 'Id', width: 40},
     {field: 'name', title: 'Name', width: 120},
     {field: 'status', title: 'Status', width: 80},
     {field: 'phoneNumber', title: 'Mobile', width: 80},
-    {field: 'major', title: 'Major', width: 80},
+    {field: 'major', title: 'Major', width: 150},
     {field: 'gpA1', title: 'GPA', width: 50},
-    {field: 'university', title: 'University', width: 120},
+    {field: 'university', title: 'University', width: 200},
     {field: 'expectedSalary', title: 'Compensation', width: 90},
     {field: 'devexperience', title: 'Experience', width: 80}
   ];
@@ -111,6 +110,6 @@ export class CandidatesSummaryComponent implements OnInit {
     }
 
     getFiltered(event: Candidate[]) {
-      console.log(event);
+      this.$filteredGridData = event;
     }
 }

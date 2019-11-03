@@ -41,6 +41,11 @@ export class UploadFilesService {
     return firebase.storage().ref().child(`uploads/${id}`);
   }
 
+  public async downloadFile(file: string, id: string) {
+    await firebase.storage().ref().child(`uploads/${id}/${file}`).getDownloadURL().then((url) => {
+      console.log(url);
+    });
+  }
   async deleteBucket(id: string) {
     await this.fireDatabase.object(`uploads/${id}`).remove();
   }
@@ -48,4 +53,5 @@ export class UploadFilesService {
   private saveFileData(upload: Upload) {
     this.fireDatabase.list(`uploads`).push(upload);
   }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Upload } from '../Models/upload';
 import { UploadFilesService } from './../../Services/upload-files.service';
 import * as _ from 'lodash';
+import { HttpClient } from '@angular/common/http';
 
 export interface FireFiles {
   name: string;
@@ -24,7 +25,7 @@ export class UploadFormComponent implements OnInit {
   public filesList: Upload[] = [];
   public uploadedFiles: FireFiles[] = [];
 
-  constructor(private uploadFileService: UploadFilesService) { }
+  constructor(private uploadFileService: UploadFilesService, private _http: HttpClient) { }
 
   ngOnInit() {
       this.uploadFileService.getFilesWithId(this.candidateId).list().then((files) => {
@@ -66,4 +67,13 @@ export class UploadFormComponent implements OnInit {
     await this.uploadFileService.deleteFileByUrl(filePath).then(() =>
     this.uploadedFiles = this.uploadedFiles.filter(f => f.path !== filePath));
   }
+
+  async downloadFileByUrl(event: any, filePath: string) {
+    this.uploadedFiles.find(file => file.path === filePath).url.then((url) => {
+      console.log(url);
+      this._http.get(url);
+      // window.open(url);
+  });
+}
+
 }

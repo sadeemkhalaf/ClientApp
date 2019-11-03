@@ -99,6 +99,7 @@ export class AdvancedFilterComponent implements OnInit {
 
   reset() {
     this.advancedFilterForm.reset();
+    this.onSubmit();
     this.queryTerms = {devexperience: 0, experienceLevel: [], currentPosition: [], gpa: 0, major: [], rating: [], status: []};
   }
 

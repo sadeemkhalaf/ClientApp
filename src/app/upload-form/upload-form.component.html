@@ -7,7 +7,9 @@
     <h3 mat-subheader *ngIf="uploadedFiles.length !== 0">uploaded Files</h3>
     <mat-list-item *ngFor="let file of uploadedFiles">
       <h4 mat-line>
-        <mat-icon>attach_file</mat-icon> {{file.name}}
+        <mat-icon>attach_file</mat-icon> <span class="file-name-link" (click)="downloadFileByUrl($event,file.path)">
+          {{file.name}}
+        </span> 
       </h4>
       <button mat-icon-button color="warn" (click)="deleteFileByUrl(file.path)">
         <mat-icon>cancel</mat-icon>
@@ -19,7 +21,10 @@
     <h3 mat-subheader *ngIf="filesList.length !== 0">new Files</h3>
     <mat-list-item *ngFor="let file of filesList">
       <h4 mat-line>
-        <mat-icon>attach_file</mat-icon> {{file.file.name}} <small> {{file.createdAt | date:'short'}} </small>
+        <mat-icon>attach_file</mat-icon> 
+        <span class="file-name-link" (click)="downloadFileByUrl($event,file.path)">
+          {{file.file.name}}
+        </span> <small> {{file.createdAt | date:'short'}} </small>
       </h4>
       <button mat-icon-button color="warn" (click)="deleteFile($event,file)">
         <mat-icon>cancel</mat-icon>

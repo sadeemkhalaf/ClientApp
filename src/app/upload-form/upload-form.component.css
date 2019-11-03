@@ -49,3 +49,8 @@ mat-progress-bar {
 mat-list {
   width: 50%;
 }
+
+.file-name-link {
+  cursor: pointer;
+  text-underline-position: below;
+}
