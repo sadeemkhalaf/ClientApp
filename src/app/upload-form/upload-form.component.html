@@ -6,29 +6,32 @@
   <mat-list>
     <h3 mat-subheader *ngIf="uploadedFiles.length !== 0">uploaded Files</h3>
     <mat-list-item *ngFor="let file of uploadedFiles">
-      <h4 mat-line>
-        <mat-icon>attach_file</mat-icon> <span class="file-name-link" (click)="downloadFileByUrl($event,file.path)">
-          {{file.name}}
-        </span> 
-      </h4>
+      <div class="file-path">
+        <mat-icon>attach_file</mat-icon>
+        <span class="file-name-link" color="primary">{{file.name}}</span> 
+        <button mat-icon-button (click)="downloadFileByUrl($event,file.path)" class="mat-icon-button">
+          <mat-icon>cloud_download</mat-icon>
+        </button>
       <button mat-icon-button color="warn" (click)="deleteFileByUrl(file.path)">
         <mat-icon>cancel</mat-icon>
       </button>
+    </div>
     </mat-list-item>
   </mat-list>
   <i class="material-icons icon" *ngIf="filesList.length == 0 && uploadedFiles == 0 ">cloud_upload</i>
   <mat-list>
     <h3 mat-subheader *ngIf="filesList.length !== 0">new Files</h3>
     <mat-list-item *ngFor="let file of filesList">
-      <h4 mat-line>
+      <div mat-line  class="file-path">
         <mat-icon>attach_file</mat-icon> 
         <span class="file-name-link" (click)="downloadFileByUrl($event,file.path)">
           {{file.file.name}}
         </span> <small> {{file.createdAt | date:'short'}} </small>
-      </h4>
+      
       <button mat-icon-button color="warn" (click)="deleteFile($event,file)">
         <mat-icon>cancel</mat-icon>
       </button>
+    </div>
     </mat-list-item>
   </mat-list>
 

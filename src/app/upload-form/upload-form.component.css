@@ -54,3 +54,8 @@ mat-list {
   cursor: pointer;
   text-underline-position: below;
 }
+
+.file-path {
+  display: flex;
+  align-items: center;
+}

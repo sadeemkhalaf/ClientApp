@@ -3,6 +3,8 @@ import { Upload } from '../Models/upload';
 import { UploadFilesService } from './../../Services/upload-files.service';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { take } from 'rxjs/operators';
 
 export interface FireFiles {
   name: string;
@@ -24,8 +26,9 @@ export class UploadFormComponent implements OnInit {
   public dropzoneActive = false;
   public filesList: Upload[] = [];
   public uploadedFiles: FireFiles[] = [];
+  private fileUrl;
 
-  constructor(private uploadFileService: UploadFilesService, private _http: HttpClient) { }
+  constructor(private uploadFileService: UploadFilesService, private _http: HttpClient, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
       this.uploadFileService.getFilesWithId(this.candidateId).list().then((files) => {
@@ -68,12 +71,10 @@ export class UploadFormComponent implements OnInit {
     this.uploadedFiles = this.uploadedFiles.filter(f => f.path !== filePath));
   }
 
-  async downloadFileByUrl(event: any, filePath: string) {
-    this.uploadedFiles.find(file => file.path === filePath).url.then((url) => {
-      console.log(url);
-      this._http.get(url);
-      // window.open(url);
-  });
-}
-
+  public downloadFileByUrl(event: any, filePath: string) {
+    this.uploadedFiles.find(file => file.path === filePath).url.then(async (url) => {
+        window.open(url);
+      },
+       (error) => console.log(`Error downloading the file.${error.message}`));
+      }
 }
