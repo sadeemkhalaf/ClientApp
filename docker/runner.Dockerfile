@@ -6,7 +6,7 @@ ADD . .
 RUN npm install
 RUN npm run build:prod
 
-FROM nginx
+FROM nginx:1.23
 WORKDIR /usr/share/nginx/html
 COPY --from=0 /build/dist .
 COPY docker/nginx/*.conf /etc/nginx/conf.d/
